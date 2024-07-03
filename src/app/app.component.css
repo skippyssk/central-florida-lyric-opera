@@ -1,14 +1,161 @@
-/* app.component.css */
 @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  from {
+    opacity: 0;
   }
-  
-  .fade-in {
-    animation: fadeIn 2s ease-in-out; /* Adjust the duration as needed */
+  to {
+    opacity: 1;
   }
-  
+}
+
+.fade-in {
+  animation: fadeIn 2s ease-in-out; /* Adjust the duration as needed */
+}
+
+.slide-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.full-screen-banners {
+  display: flex;
+  flex-direction: column;
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+  height: calc(100vh - 60px); /* Full height minus header */
+  overflow: hidden;
+  position: relative; /* Ensure it stacks correctly */
+}
+
+.banner-container {
+  display: block;
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 60px); /* Full height minus header */
+  background-color: black; /* or any desired background color */
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.buy-tickets-box {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1001;
+  color: white;
+  max-width: 300px;
+  display: none; /* Initially hide */
+}
+
+.buy-tickets-box.visible {
+  display: block; /* Show when visible */
+}
+
+.buy-tickets-content h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.buy-tickets-content p {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+}
+
+.buy-tickets-button {
+  background-color: #b8995f;
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-family: 'Cinzel', serif;
+  margin: 10px 0;
+}
+
+.tickets-section {
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  margin-top: 80px; /* Adjust margin-top to provide space for the buy-tickets-box */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.grid-item {
+  background-color: #000;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-item.large {
+  grid-column: span 1;
+}
+
+.bottom-row {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 20px;
+}
+
+.grid-item.small {
+  flex: 1;
+}
+
+.ticket-image {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+}
+
+.ticket-content {
+  padding: 20px;
+  color: #b8995f;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0; /* Ensure no extra margins */
+  padding: 0; /* Ensure no extra padding */
+}
+
+.buy-tickets-box.hidden {
+  display: none; /* Hide when not visible */
+}

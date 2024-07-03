@@ -19,43 +19,54 @@
   <nav class="menu frosted-glass" [class.open]="isMenuOpen">
     <ul>
       <li><a href="#home">Home</a></li>
-      <li><a href="#about-us">About Us</a></li>
-      <li><a href="#performances">Performances</a></li>
-      <li><a href="#tickets">Tickets</a></li>
+      <li><a href="#resident-artists">Resident Artist Program</a></li>
+      <li><a href="#tickets">Season</a></li>
+      <li><a href="#media">Videos</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
-  <div class="full-screen-banners">
-    <div class="banner-container">
-      <div
-        class="banner"
-        data-title="Tickets on Sale Now"
-        data-text="Secure your tickets now for the upcoming season, featuring top-notch revivals and new productions."
-      >
-        <img src="assets/images/Requiem.png" alt="Requiem" />
-      </div>
-      <div
-        class="banner"
-        data-title="New Performances Announced"
-        data-text="Don't miss our latest performances. Check the calendar for dates and details."
-      >
-        <img src="assets/images/Requiem.png" alt="Requiem" />
-      </div>
+
+  <!-- Buy Tickets Now Section -->
+  <div class="buy-tickets-box" id="floating-box">
+    <div class="buy-tickets-content">
+      <h2 id="box-title">Tickets on Sale Now</h2>
+      <p id="box-text">
+        Secure your tickets now for the upcoming season, featuring top-notch
+        revivals and new productions.
+      </p>
+      <button class="buy-tickets-button" (click)="buyTickets()">
+        Buy Tickets Now
+      </button>
     </div>
   </div>
-  <div class="content-container">
-    <div class="buy-tickets-box" id="floating-box">
-      <div class="buy-tickets-content">
-        <h2 id="box-title">Tickets on Sale Now</h2>
-        <p id="box-text">
-          Secure your tickets now for the upcoming season, featuring top-notch
-          revivals and new productions.
-        </p>
-        <button class="buy-tickets-button" (click)="buyTickets()">
-          Buy Tickets Now
-        </button>
-      </div>
+
+  <!-- Requiem Section -->
+  <div class="banner-container">
+    <div
+      class="banner"
+      data-title="Bill Doherty Requiem"
+      data-text="American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+    >
+      <img src="assets/images/Requiem.png" alt="Requiem" />
     </div>
+  </div>
+
+  <div
+    class="full-screen-banners"
+    data-title="Central Florida Lyric Opera"
+    data-text="Join us for an enchanting performance featuring highlights from our upcoming season."
+  >
+    <video
+      class="slide-video"
+      src="assets/videos/CFLOSlide.mov"
+      autoplay
+      loop
+      muted
+    ></video>
+  </div>
+
+  <!-- Tickets Section -->
+  <div class="content-container">
     <div class="tickets-section" id="tickets-section">
       <div class="grid-container">
         <div class="grid-item large">
@@ -138,47 +149,48 @@
       </div>
     </div>
   </div>
-  <footer>
-    <div class="footer-content">
-      <div class="social-media">
-        <a
-          href="https://www.facebook.com"
-          class="social-icon facebook"
-          aria-label="Facebook"
-          target="_blank"
-          rel="noopener noreferrer"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-        <a
-          href="https://www.twitter.com"
-          class="social-icon twitter"
-          aria-label="Twitter"
-          target="_blank"
-          rel="noopener noreferrer"
-          ><i class="fab fa-twitter"></i
-        ></a>
-        <a
-          href="https://www.youtube.com"
-          class="social-icon youtube"
-          aria-label="YouTube"
-          target="_blank"
-          rel="noopener noreferrer"
-          ><i class="fab fa-youtube"></i
-        ></a>
-      </div>
-      <div class="email-signup">
-        <form>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            aria-label="Email for newsletter"
-          />
-          <button type="submit" class="signup-button">Sign Up</button>
-        </form>
-      </div>
-      <p class="copyright">
-        &copy; 2024 Central Florida Lyric Opera. All rights reserved
-      </p>
-    </div>
-  </footer>
 </div>
+
+<footer>
+  <div class="footer-content">
+    <div class="social-media">
+      <a
+        href="https://www.facebook.com"
+        class="social-icon facebook"
+        aria-label="Facebook"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+      <a
+        href="https://www.twitter.com"
+        class="social-icon twitter"
+        aria-label="Twitter"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><i class="fab fa-twitter"></i
+      ></a>
+      <a
+        href="https://www.youtube.com"
+        class="social-icon youtube"
+        aria-label="YouTube"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><i class="fab fa-youtube"></i
+      ></a>
+    </div>
+    <div class="email-signup">
+      <form>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          aria-label="Email for newsletter"
+        />
+        <button type="submit" class="signup-button">Sign Up</button>
+      </form>
+    </div>
+    <p class="copyright">
+      &copy; 2024 Central Florida Lyric Opera. All rights reserved
+    </p>
+  </div>
+</footer>

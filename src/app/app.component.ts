@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   isMenuOpen = false;
 
   ngOnInit(): void {
-    const boxes = document.querySelectorAll('.banner');
+    const boxes = document.querySelectorAll('.banner, .full-screen-banners');
     const boxTitle = document.getElementById('box-title');
     const boxText = document.getElementById('box-text');
     const floatingBox = document.getElementById('floating-box');
@@ -60,52 +60,32 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.setupScrollFadeEffect();
+    this.setupScrollEffect();
   }
 
-  private setupScrollFadeEffect(): void {
-    const bannerContainer = document.querySelector(
-      '.full-screen-banners'
-    ) as HTMLElement;
-    const secondBanner = document.querySelector(
-      '.banner:nth-child(2)'
-    ) as HTMLElement;
-    const ticketsSection = document.querySelector(
-      '#tickets-section'
+  private setupScrollEffect(): void {
+    const requiemSection = document.getElementById('requiem-section');
+    const videoSection = document.getElementById('video-section');
+    const revealSection = document.querySelector(
+      '.reveal-on-scroll'
     ) as HTMLElement;
 
-    if (!bannerContainer || !secondBanner || !ticketsSection) {
+    if (!requiemSection || !videoSection || !revealSection) {
       console.error('Required elements not found');
       return;
     }
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const secondBannerMiddle =
-        secondBanner.offsetTop + secondBanner.offsetHeight / 2;
-      const ticketsSectionTop = ticketsSection.offsetTop;
+      const viewportHeight = window.innerHeight;
 
-      // Start fading from the middle of the second banner
-      const fadeStartPosition = secondBannerMiddle;
-      // End fading at the top of the tickets section
-      const fadeEndPosition = ticketsSectionTop;
-
-      if (
-        scrollPosition >= fadeStartPosition &&
-        scrollPosition <= fadeEndPosition
-      ) {
-        const fadeDistance = fadeEndPosition - fadeStartPosition;
-        const rawOpacity =
-          1 - (scrollPosition - fadeStartPosition) / fadeDistance;
-
-        // Apply smoothstep function for a more gradual fade
-        const smoothOpacity = this.smoothstep(0, 1, rawOpacity);
-
-        bannerContainer.style.opacity = smoothOpacity.toString();
-      } else if (scrollPosition < fadeStartPosition) {
-        bannerContainer.style.opacity = '1';
+      if (scrollPosition < viewportHeight) {
+        requiemSection.style.top = `-${scrollPosition}px`;
+        videoSection.style.top = `-${scrollPosition}px`;
       } else {
-        bannerContainer.style.opacity = '0';
+        requiemSection.style.top = `-${viewportHeight}px`;
+        videoSection.style.top = `-${viewportHeight}px`;
+        revealSection.style.marginTop = `${viewportHeight * 2}px`; // Ensure the reveal section starts after the stacked sections
       }
     };
 
@@ -113,12 +93,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cleanupFunctions.push(() => {
       window.removeEventListener('scroll', handleScroll);
     });
-  }
-
-  // Smoothstep function for a more gradual transition
-  private smoothstep(min: number, max: number, value: number): number {
-    const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
-    return x * x * (3 - 2 * x);
   }
 
   toggleVisibility() {

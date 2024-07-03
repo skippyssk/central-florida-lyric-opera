@@ -1,1 +1,213 @@
 <p>home works!</p>
+<div class="main-content-wrapper">
+  <div class="frosted-glass"></div>
+  <header class="header">
+    <div class="header-content">
+      <button class="menu-button" (click)="toggleMenu()">☰</button>
+      <div class="logo-section">
+        <img
+          src="assets/images/LogoUpscale.png"
+          alt="Logo"
+          class="logo-image"
+        />
+        <div class="logo-text">Central Florida Lyric Opera</div>
+      </div>
+      <div class="right-section">
+        <a href="#" class="calendar" (click)="showCalendar($event)">CALENDAR</a>
+      </div>
+    </div>
+  </header>
+  <nav class="menu frosted-glass" [class.open]="isMenuOpen">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about-us">About Us</a></li>
+      <li><a href="#performances">Performances</a></li>
+      <li><a href="#tickets">Tickets</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Slideshow Section -->
+  <div class="full-screen-banners">
+    <div class="slideshow-container">
+      <div
+        class="slide"
+        *ngFor="let slide of slides; let i = index"
+        [ngClass]="{ active: i === currentSlideIndex }"
+      >
+        <img
+          *ngIf="slide.type === 'image'"
+          [src]="slide.src"
+          [alt]="slide.alt"
+        />
+        <video
+          *ngIf="slide.type === 'video'"
+          [src]="slide.src"
+          autoplay
+          loop
+          muted
+        ></video>
+      </div>
+    </div>
+    <div class="slideshow-controls">
+      <button (click)="prevSlide()">&lt;</button>
+      <button (click)="nextSlide()">&gt;</button>
+    </div>
+  </div>
+
+  <!-- Requiem Section -->
+  <div class="banner-container">
+    <div
+      class="banner"
+      data-title="Bill Doherty Requiem"
+      data-text="American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+    >
+      <img src="assets/images/Requiem.png" alt="Requiem" />
+    </div>
+  </div>
+
+  <!-- Buy Tickets Now Section -->
+  <div class="content-container">
+    <div class="buy-tickets-box" id="floating-box">
+      <div class="buy-tickets-content">
+        <h2 id="box-title">Tickets on Sale Now</h2>
+        <p id="box-text">
+          Secure your tickets now for the upcoming season, featuring top-notch
+          revivals and new productions.
+        </p>
+        <button class="buy-tickets-button" (click)="buyTickets()">
+          Buy Tickets Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tickets Section -->
+  <div class="content-container">
+    <div class="tickets-section" id="tickets-section">
+      <div class="grid-container">
+        <div class="grid-item large">
+          <img
+            src="assets/images/Requiem.png"
+            alt="Spirit of America"
+            class="ticket-image"
+          />
+          <div class="ticket-content">
+            <h2>Spirit of America</h2>
+            <p>
+              Celebrate America's musical heritage with our special performance.
+            </p>
+            <button class="buy-tickets-button" (click)="buyTickets()">
+              Buy Tickets Now
+            </button>
+          </div>
+        </div>
+        <div class="grid-item large">
+          <img
+            src="assets/images/Requiem.png"
+            alt="La Bohème"
+            class="ticket-image"
+          />
+          <div class="ticket-content">
+            <h2>La Bohème</h2>
+            <p>Experience the romance and tragedy of Puccini's masterpiece.</p>
+            <button class="buy-tickets-button" (click)="buyTickets()">
+              Buy Tickets Now
+            </button>
+          </div>
+        </div>
+        <div class="bottom-row">
+          <div class="grid-item small">
+            <img
+              src="assets/images/Requiem.png"
+              alt="Change the World"
+              class="ticket-image"
+            />
+            <div class="ticket-content">
+              <h2>Change the World</h2>
+              <p>
+                Join us for a night of inspiring performances aimed at making a
+                difference.
+              </p>
+              <button class="buy-tickets-button" (click)="buyTickets()">
+                Buy Tickets Now
+              </button>
+            </div>
+          </div>
+          <div class="grid-item small">
+            <img
+              src="assets/images/Requiem.png"
+              alt="Another Show"
+              class="ticket-image"
+            />
+            <div class="ticket-content">
+              <h2>Another Show</h2>
+              <p>Experience another unforgettable performance.</p>
+              <button class="buy-tickets-button" (click)="buyTickets()">
+                Buy Tickets Now
+              </button>
+            </div>
+          </div>
+          <div class="grid-item small">
+            <img
+              src="assets/images/Requiem.png"
+              alt="Yet Another Show"
+              class="ticket-image"
+            />
+            <div class="ticket-content">
+              <h2>Yet Another Show</h2>
+              <p>Don't miss out on yet another fantastic show.</p>
+              <button class="buy-tickets-button" (click)="buyTickets()">
+                Buy Tickets Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="social-media">
+      <a
+        href="https://www.facebook.com"
+        class="social-icon facebook"
+        aria-label="Facebook"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+      <a
+        href="https://www.twitter.com"
+        class="social-icon twitter"
+        aria-label="Twitter"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><i class="fab fa-twitter"></i
+      ></a>
+      <a
+        href="https://www.youtube.com"
+        class="social-icon youtube"
+        aria-label="YouTube"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><i class="fab fa-youtube"></i
+      ></a>
+    </div>
+    <div class="email-signup">
+      <form>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          aria-label="Email for newsletter"
+        />
+        <button type="submit" class="signup-button">Sign Up</button>
+      </form>
+    </div>
+    <p class="copyright">
+      &copy; 2024 Central Florida Lyric Opera. All rights reserved
+    </p>
+  </div>
+</footer>
