@@ -35,20 +35,20 @@ body {
     flex: 1; /* Allow content to grow */
     margin-top: 60px; /* Ensure content starts below the header */
 }
-
 .header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    height: var(--header-height);
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
-    z-index: 1000;
+    z-index: 2000;
     display: flex;
     align-items: center;
     padding: 10px 20px;
     box-sizing: border-box;
-}
+  }
 
 .header-content {
     width: 100%;
@@ -141,7 +141,7 @@ footer {
     color: #b8995f;
     padding: 2rem 0;
     font-family: 'Cinzel', serif;
-    z-index: 1; /* Ensure footer is above frosted glass */
+    z-index: 1003; /* Ensure footer is above frosted glass */
     position: relative; /* Ensure it stays in flow */
 }
 

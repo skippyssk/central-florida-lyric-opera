@@ -1,5 +1,14 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  Renderer2,
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +23,26 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   isVisible = false;
   isMenuOpen = false;
 
+  constructor(
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.initializeObservers();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupScrollEffect();
+      this.setInitialState();
+      this.setupVideoPlayback();
+    }
+  }
+
+  private initializeObservers(): void {
     const boxes = document.querySelectorAll('.banner, .full-screen-banners');
     const boxTitle = document.getElementById('box-title');
     const boxText = document.getElementById('box-text');
@@ -33,8 +61,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
           const title = entry.target.getAttribute('data-title');
           const text = entry.target.getAttribute('data-text');
           if (boxTitle && boxText) {
-            boxTitle.textContent = title;
-            boxText.textContent = text;
+            this.renderer.setProperty(boxTitle, 'textContent', title);
+            this.renderer.setProperty(boxText, 'textContent', text);
           }
         }
       });
@@ -47,9 +75,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     const ticketObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && floatingBox) {
-          floatingBox.style.display = 'none';
+          this.renderer.setStyle(floatingBox, 'display', 'none');
         } else if (floatingBox) {
-          floatingBox.style.display = 'block';
+          this.renderer.setStyle(floatingBox, 'display', 'block');
         }
       });
     }, observerOptions);
@@ -59,8 +87,58 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit(): void {
-    this.setupScrollEffect();
+  private setInitialState(): void {
+    const boxTitle = document.getElementById('box-title');
+    const boxText = document.getElementById('box-text');
+    const floatingBox = document.getElementById('floating-box');
+
+    if (boxTitle && boxText && floatingBox) {
+      this.renderer.setProperty(
+        boxTitle,
+        'textContent',
+        'Bill Doherty Requiem'
+      );
+      this.renderer.setProperty(
+        boxText,
+        'textContent',
+        "American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+      );
+      this.renderer.setStyle(floatingBox, 'display', 'block');
+    }
+  }
+
+  private setupVideoPlayback(): void {
+    const videoElement = document.querySelector(
+      '.slide-video'
+    ) as HTMLVideoElement;
+    if (videoElement) {
+      this.renderer.setProperty(videoElement, 'muted', true);
+      this.renderer.setProperty(videoElement, 'loop', true);
+
+      const playVideo = () => {
+        videoElement
+          .play()
+          .then(() => {
+            console.log('Video started playing');
+          })
+          .catch((error) => {
+            console.error('Error attempting to play video:', error);
+          });
+      };
+
+      playVideo();
+      this.renderer.listen(document, 'click', playVideo);
+
+      this.renderer.listen(videoElement, 'canplay', () => {
+        console.log('Video can start playing');
+      });
+
+      this.renderer.listen(videoElement, 'playing', () => {
+        console.log('Video is now playing');
+      });
+    } else {
+      console.error('Video element not found');
+    }
   }
 
   private setupScrollEffect(): void {
@@ -69,8 +147,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     const revealSection = document.querySelector(
       '.reveal-on-scroll'
     ) as HTMLElement;
+    const headerHeight = 60;
+    const boxTitle = document.getElementById('box-title');
+    const boxText = document.getElementById('box-text');
+    const floatingBox = document.getElementById('floating-box');
 
-    if (!requiemSection || !videoSection || !revealSection) {
+    if (
+      !requiemSection ||
+      !videoSection ||
+      !revealSection ||
+      !boxTitle ||
+      !boxText ||
+      !floatingBox
+    ) {
       console.error('Required elements not found');
       return;
     }
@@ -78,21 +167,111 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const viewportHeight = window.innerHeight;
+      const fullSectionHeight = viewportHeight - headerHeight;
 
-      if (scrollPosition < viewportHeight) {
-        requiemSection.style.top = `-${scrollPosition}px`;
-        videoSection.style.top = `-${scrollPosition}px`;
+      if (scrollPosition < 50) {
+        this.renderer.setStyle(floatingBox, 'display', 'block');
+        this.renderer.setProperty(
+          boxTitle,
+          'textContent',
+          'Bill Doherty Requiem'
+        );
+        this.renderer.setProperty(
+          boxText,
+          'textContent',
+          "American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+        );
+      }
+
+      if (scrollPosition < fullSectionHeight) {
+        const progress = scrollPosition / fullSectionHeight;
+        this.renderer.setStyle(
+          requiemSection,
+          'transform',
+          `translateY(-${progress * 100}%)`
+        );
+        this.renderer.setStyle(requiemSection, 'opacity', '1');
+
+        if (progress < 0.8) {
+          this.renderer.setProperty(
+            boxTitle,
+            'textContent',
+            'Bill Doherty Requiem'
+          );
+          this.renderer.setProperty(
+            boxText,
+            'textContent',
+            "American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+          );
+          this.renderer.setStyle(floatingBox, 'display', 'block');
+        }
       } else {
-        requiemSection.style.top = `-${viewportHeight}px`;
-        videoSection.style.top = `-${viewportHeight}px`;
-        revealSection.style.marginTop = `${viewportHeight * 2}px`; // Ensure the reveal section starts after the stacked sections
+        this.renderer.setStyle(
+          requiemSection,
+          'transform',
+          'translateY(-100%)'
+        );
+        this.renderer.setStyle(requiemSection, 'opacity', '0');
+      }
+
+      if (
+        scrollPosition >= fullSectionHeight * 0.8 &&
+        scrollPosition < 2 * fullSectionHeight
+      ) {
+        this.renderer.setStyle(videoSection, 'position', 'fixed');
+        this.renderer.setStyle(videoSection, 'top', `${headerHeight}px`);
+        this.renderer.setStyle(videoSection, 'transform', 'translateY(0)');
+        this.renderer.setStyle(videoSection, 'opacity', '1');
+
+        this.renderer.setProperty(
+          boxTitle,
+          'textContent',
+          'Central Florida Lyric Opera'
+        );
+        this.renderer.setProperty(
+          boxText,
+          'textContent',
+          'Experience the magic of opera with our upcoming performances'
+        );
+        this.renderer.setStyle(floatingBox, 'display', 'block');
+      }
+
+      if (scrollPosition >= fullSectionHeight) {
+        const progress = Math.min(
+          (scrollPosition - fullSectionHeight) / fullSectionHeight,
+          1
+        );
+
+        this.renderer.setStyle(
+          videoSection,
+          'opacity',
+          (1 - progress).toString()
+        );
+        this.renderer.setStyle(
+          revealSection,
+          'transform',
+          `translateY(${(1 - progress) * 20}%)`
+        );
+        this.renderer.setStyle(revealSection, 'opacity', progress.toString());
+        this.renderer.setStyle(revealSection, 'visibility', 'visible');
+
+        if (progress > 0.5) {
+          this.renderer.setStyle(floatingBox, 'display', 'none');
+        }
+      } else {
+        this.renderer.setStyle(videoSection, 'opacity', '1');
+        this.renderer.setStyle(revealSection, 'transform', 'translateY(20%)');
+        this.renderer.setStyle(revealSection, 'opacity', '0');
+        this.renderer.setStyle(revealSection, 'visibility', 'hidden');
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    this.renderer.listen(window, 'scroll', handleScroll);
     this.cleanupFunctions.push(() => {
-      window.removeEventListener('scroll', handleScroll);
+      this.renderer.destroy();
     });
+
+    handleScroll();
   }
 
   toggleVisibility() {
@@ -104,13 +283,16 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   buyTickets() {
-    window.location.href = '/buy-tickets'; // Update this URL to the actual tickets page
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = '/buy-tickets';
+    }
   }
 
   showCalendar(event: Event) {
     event.preventDefault();
-    // Navigate to the calendar page or open a calendar modal
-    window.location.href = '/calendar'; // Update this URL to the actual calendar page
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = '/calendar';
+    }
   }
 
   ngOnDestroy(): void {
