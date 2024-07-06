@@ -1,14 +1,363 @@
-/* app.component.css */
 @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 2s ease-in-out; /* Adjust the duration as needed */
+}
+
+
+.slide-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.full-screen-banners {
+  display: flex;
+  flex-direction: column;
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+  height: 100vh; /* Full height */
+  overflow: hidden;
+  position: relative; /* Ensure it stacks correctly */
+}
+
+.banner-container {
+  display: block;
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full height */
+  background-color: black; /* or any desired background color */
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure the sections are stacked on top of each other *//* ... (keep existing styles) ... */
+
+.stack-sections {
+  position: fixed;
+  top: 60px; /* Adjust to match your header height */
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px); /* Adjust to account for header height */
+  overflow: hidden;
+}
+
+#requiem-section {
+  z-index: 2;
+}
+
+#video-section {
+  z-index: 1;
+}
+
+.reveal-on-scroll {
+  position: relative;
+  width: 100%;
+  z-index: 3;
+  margin-top: calc(250vh - 120px); /* Adjust for two full viewport heights minus header */
+  background-color: #000; /* Ensure a solid background */
+}
+
+.slide-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Adjust the banner to take full height */
+.banner {
+  height: 100%;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.watermark-logo {
+  position: fixed;
+  top: 80px; /* Adjust this value to position it below the header */
+  left: 20px;
+  z-index: 100; /* Ensure it's above other content but below the header */
+  opacity: 0.5; /* Adjust opacity as needed */
+  pointer-events: none; /* Allows clicking through the logo */
+  transition: opacity 0.3s ease;
+}
+
+.watermark-logo img {
+  width: 100px; /* Adjust size as needed */
+  height: auto;
+}
+
+/* Hide watermark when ticket section is in view */
+.tickets-section-visible .watermark-logo {
+  opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .watermark-logo {
+    top: 60px; /* Adjust for smaller header on mobile */
   }
   
-  .fade-in {
-    animation: fadeIn 2s ease-in-out; /* Adjust the duration as needed */
+  .watermark-logo img {
+    width: 100px; /* Smaller size for mobile */
   }
-  
+}
+
+
+
+/* Styles for the buy-tickets-box to ensure it's always on top */
+.buy-tickets-box {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1002; /* Ensure it stays above other content */
+  color: white;
+  max-width: 300px;
+  display: none; /* Initially hide */
+}
+
+.buy-tickets-box.visible {
+  display: block; /* Show when visible */
+}
+
+.buy-tickets-content h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.buy-tickets-content p {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+}
+
+.buy-tickets-button {
+  background-color: #b8995f;
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-family: 'Cinzel', serif;
+  margin: 10px 0;
+}
+
+.tickets-section {
+  background-color: rgba(0, 0, 0, 0.3); /* 80% opaque black */
+  position: relative;
+  z-index: 3;
+  padding-top: 0;
+  padding-bottom: 0;
+  backdrop-filter: blur(10px); /* Optional: adds a frosted glass effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+}
+
+/* Optional: Adjust text color for better readability on semi-transparent background */
+.tickets-section h2,
+.tickets-section p {
+  color: #b8995f;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive adjustments for ticket section */
+@media screen and (max-width: 768px) {
+  .tickets-section {
+    padding-top: 10vh;
+    padding-bottom: 5vh;
+  }
+}
+
+/* Optional: If you want to adjust transparency for different screen sizes */
+@media screen and (max-width: 480px) {
+  .tickets-section {
+    background-color: rgba(0, 0, 0, 0.9); /* More opaque on smaller screens for better readability */
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.grid-item {
+  background-color: #000;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-item.large {
+  grid-column: span 1;
+}
+
+.bottom-row {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 20px;
+}
+
+.grid-item.small {
+  flex: 1;
+}
+
+.ticket-image {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+}
+
+.ticket-content {
+  padding: 20px;
+  color: #b8995f;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0; /* Ensure no extra margins */
+  padding: 0; /* Ensure no extra padding */
+}
+
+.buy-tickets-box.hidden {
+  display: none; /* Hide when not visible */
+}
+/* Large Screens (1920px and up) */
+@media screen and (min-width: 1920px) {
+  .banner img, .slide-video {
+    object-position: center 5%; /* Moved up from 10% */
+  }
+  .banner-content h1, .video-content h1 {
+    font-size: 3.5rem;
+  }
+  .banner-content p, .video-content p {
+    font-size: 1.8rem;
+  }
+}
+
+/* Desktop Screens (1280px to 1919px) */
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  .banner img, .slide-video {
+    object-position: center 15%; /* Moved up from 20% */
+  }
+  .banner-content h1, .video-content h1 {
+    font-size: 3rem;
+  }
+  .banner-content p, .video-content p {
+    font-size: 1.5rem;
+  }
+}
+
+/* Small Desktop and Tablet Landscape (1024px to 1279px) */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .banner img, .slide-video {
+    object-position: center 20%; /* Moved up from 25% */
+  }
+  .banner-content h1, .video-content h1 {
+    font-size: 2.5rem;
+  }
+  .banner-content p, .video-content p {
+    font-size: 1.3rem;
+  }
+}
+
+/* Tablet Portrait (768px to 1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .banner img, .slide-video {
+    object-position: center 25%; /* Moved up from 30% */
+  }
+  .banner-content h1, .video-content h1 {
+    font-size: 2rem;
+  }
+  .banner-content p, .video-content p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Large Phones (480px to 767px) */
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  .banner img, .slide-video {
+    object-position: center 30%; /* Moved up from 35% */
+  }
+  .banner-content h1, .video-content h1 {
+    font-size: 1.8rem;
+  }
+  .banner-content p, .video-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Small Phones (up to 479px) */
+@media screen and (max-width: 479px) {
+  .banner img, .slide-video {
+    object-position: center 35%; /* Moved up from 40% */
+  }
+  .banner-content h1, .video-content h1 {
+    font-size: 1.5rem;
+  }
+  .banner-content p, .video-content p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Adjustments for different aspect ratios */
+@media (min-aspect-ratio: 16/9) {
+  .banner img, .slide-video {
+    object-fit: cover;
+    object-position: center 10%; /* Moved up from 15% */
+  }
+}
+
+@media (max-aspect-ratio: 9/16) {
+  .banner img, .slide-video {
+    object-fit: cover;
+    object-position: center 30%; /* Moved up from 35% */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tickets-section {
+    padding-top: 10vh;
+    padding-bottom: 5vh;
+  }
+}

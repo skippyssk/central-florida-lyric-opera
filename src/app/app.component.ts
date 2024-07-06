@@ -1,5 +1,14 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  Renderer2,
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +23,27 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   isVisible = false;
   isMenuOpen = false;
 
+  constructor(
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
   ngOnInit(): void {
-    const boxes = document.querySelectorAll('.banner');
+    if (isPlatformBrowser(this.platformId)) {
+      this.initializeObservers();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupScrollEffect();
+      this.setInitialState();
+      this.setupVideoPlayback();
+    }
+  }
+
+  private initializeObservers(): void {
+    const boxes = document.querySelectorAll('.banner, .full-screen-banners');
     const boxTitle = document.getElementById('box-title');
     const boxText = document.getElementById('box-text');
     const floatingBox = document.getElementById('floating-box');
@@ -33,8 +61,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
           const title = entry.target.getAttribute('data-title');
           const text = entry.target.getAttribute('data-text');
           if (boxTitle && boxText) {
-            boxTitle.textContent = title;
-            boxText.textContent = text;
+            this.renderer.setProperty(boxTitle, 'textContent', title);
+            this.renderer.setProperty(boxText, 'textContent', text);
           }
         }
       });
@@ -47,9 +75,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     const ticketObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && floatingBox) {
-          floatingBox.style.display = 'none';
+          this.renderer.setStyle(floatingBox, 'display', 'none');
         } else if (floatingBox) {
-          floatingBox.style.display = 'block';
+          this.renderer.setStyle(floatingBox, 'display', 'block');
         }
       });
     }, observerOptions);
@@ -59,66 +87,191 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit(): void {
-    this.setupScrollFadeEffect();
+  private setInitialState(): void {
+    const boxTitle = document.getElementById('box-title');
+    const boxText = document.getElementById('box-text');
+    const floatingBox = document.getElementById('floating-box');
+
+    if (boxTitle && boxText && floatingBox) {
+      this.renderer.setProperty(
+        boxTitle,
+        'textContent',
+        'Bill Doherty Requiem'
+      );
+      this.renderer.setProperty(
+        boxText,
+        'textContent',
+        "American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+      );
+      this.renderer.setStyle(floatingBox, 'display', 'block');
+    }
   }
 
-  private setupScrollFadeEffect(): void {
-    const bannerContainer = document.querySelector(
-      '.full-screen-banners'
-    ) as HTMLElement;
-    const secondBanner = document.querySelector(
-      '.banner:nth-child(2)'
-    ) as HTMLElement;
-    const ticketsSection = document.querySelector(
-      '#tickets-section'
-    ) as HTMLElement;
+  private setupVideoPlayback(): void {
+    const videoElement = document.querySelector(
+      '.slide-video'
+    ) as HTMLVideoElement;
+    if (videoElement) {
+      this.renderer.setProperty(videoElement, 'muted', true);
+      this.renderer.setProperty(videoElement, 'loop', true);
 
-    if (!bannerContainer || !secondBanner || !ticketsSection) {
+      const playVideo = () => {
+        videoElement
+          .play()
+          .then(() => {
+            console.log('Video started playing');
+          })
+          .catch((error) => {
+            console.error('Error attempting to play video:', error);
+          });
+      };
+
+      playVideo();
+      this.renderer.listen(document, 'click', playVideo);
+
+      this.renderer.listen(videoElement, 'canplay', () => {
+        console.log('Video can start playing');
+      });
+
+      this.renderer.listen(videoElement, 'playing', () => {
+        console.log('Video is now playing');
+      });
+    } else {
+      console.error('Video element not found');
+    }
+  }
+
+  private setupScrollEffect(): void {
+    const requiemSection = document.getElementById('requiem-section');
+    const videoSection = document.getElementById('video-section');
+    const revealSection = document.querySelector(
+      '.reveal-on-scroll'
+    ) as HTMLElement;
+    const headerHeight = 60;
+    const boxTitle = document.getElementById('box-title');
+    const boxText = document.getElementById('box-text');
+    const floatingBox = document.getElementById('floating-box');
+
+    if (
+      !requiemSection ||
+      !videoSection ||
+      !revealSection ||
+      !boxTitle ||
+      !boxText ||
+      !floatingBox
+    ) {
       console.error('Required elements not found');
       return;
     }
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const secondBannerMiddle =
-        secondBanner.offsetTop + secondBanner.offsetHeight / 2;
-      const ticketsSectionTop = ticketsSection.offsetTop;
+      const viewportHeight = window.innerHeight;
+      const fullSectionHeight = viewportHeight - headerHeight;
 
-      // Start fading from the middle of the second banner
-      const fadeStartPosition = secondBannerMiddle;
-      // End fading at the top of the tickets section
-      const fadeEndPosition = ticketsSectionTop;
+      if (scrollPosition < 50) {
+        this.renderer.setStyle(floatingBox, 'display', 'block');
+        this.renderer.setProperty(
+          boxTitle,
+          'textContent',
+          'The Best of Broadway'
+        );
+        this.renderer.setProperty(
+          boxText,
+          'textContent',
+          'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more.'
+        );
+      }
+
+      if (scrollPosition < fullSectionHeight) {
+        const progress = scrollPosition / fullSectionHeight;
+        this.renderer.setStyle(
+          requiemSection,
+          'transform',
+          `translateY(-${progress * 100}%)`
+        );
+        this.renderer.setStyle(requiemSection, 'opacity', '1');
+
+        if (progress < 0.8) {
+          this.renderer.setProperty(
+            boxTitle,
+            'textContent',
+            'The Best of Broadway'
+          );
+          this.renderer.setProperty(
+            boxText,
+            'textContent',
+            'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more.'
+          );
+          this.renderer.setStyle(floatingBox, 'display', 'block');
+        }
+      } else {
+        this.renderer.setStyle(
+          requiemSection,
+          'transform',
+          'translateY(-100%)'
+        );
+        this.renderer.setStyle(requiemSection, 'opacity', '0');
+      }
 
       if (
-        scrollPosition >= fadeStartPosition &&
-        scrollPosition <= fadeEndPosition
+        scrollPosition >= fullSectionHeight * 0.8 &&
+        scrollPosition < 2 * fullSectionHeight
       ) {
-        const fadeDistance = fadeEndPosition - fadeStartPosition;
-        const rawOpacity =
-          1 - (scrollPosition - fadeStartPosition) / fadeDistance;
+        this.renderer.setStyle(videoSection, 'position', 'fixed');
+        this.renderer.setStyle(videoSection, 'top', `${headerHeight}px`);
+        this.renderer.setStyle(videoSection, 'transform', 'translateY(0)');
+        this.renderer.setStyle(videoSection, 'opacity', '1');
 
-        // Apply smoothstep function for a more gradual fade
-        const smoothOpacity = this.smoothstep(0, 1, rawOpacity);
+        this.renderer.setProperty(
+          boxTitle,
+          'textContent',
+          'Central Florida Lyric Opera'
+        );
+        this.renderer.setProperty(
+          boxText,
+          'textContent',
+          "Join Central Florida Lyric Opera's esteemed Resident Artist Program! Gain invaluable mentorship, top-notch training, and performance opportunities that will launch your career. Be a part of our vibrant artistic community and let your talent shine on stage."
+        );
+        this.renderer.setStyle(floatingBox, 'display', 'block');
+      }
 
-        bannerContainer.style.opacity = smoothOpacity.toString();
-      } else if (scrollPosition < fadeStartPosition) {
-        bannerContainer.style.opacity = '1';
+      if (scrollPosition >= fullSectionHeight) {
+        const progress = Math.min(
+          (scrollPosition - fullSectionHeight) / fullSectionHeight,
+          1
+        );
+
+        this.renderer.setStyle(
+          videoSection,
+          'opacity',
+          (1 - progress).toString()
+        );
+        this.renderer.setStyle(
+          revealSection,
+          'transform',
+          `translateY(${(1 - progress) * 20}%)`
+        );
+        this.renderer.setStyle(revealSection, 'opacity', progress.toString());
+        this.renderer.setStyle(revealSection, 'visibility', 'visible');
+
+        if (progress > 0.5) {
+          this.renderer.setStyle(floatingBox, 'display', 'none');
+        }
       } else {
-        bannerContainer.style.opacity = '0';
+        this.renderer.setStyle(videoSection, 'opacity', '1');
+        this.renderer.setStyle(revealSection, 'transform', 'translateY(20%)');
+        this.renderer.setStyle(revealSection, 'opacity', '0');
+        this.renderer.setStyle(revealSection, 'visibility', 'hidden');
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    this.renderer.listen(window, 'scroll', handleScroll);
     this.cleanupFunctions.push(() => {
-      window.removeEventListener('scroll', handleScroll);
+      this.renderer.destroy();
     });
-  }
 
-  // Smoothstep function for a more gradual transition
-  private smoothstep(min: number, max: number, value: number): number {
-    const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
-    return x * x * (3 - 2 * x);
+    handleScroll();
   }
 
   toggleVisibility() {
@@ -130,13 +283,16 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   buyTickets() {
-    window.location.href = '/buy-tickets'; // Update this URL to the actual tickets page
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = '/buy-tickets';
+    }
   }
 
   showCalendar(event: Event) {
     event.preventDefault();
-    // Navigate to the calendar page or open a calendar modal
-    window.location.href = '/calendar'; // Update this URL to the actual calendar page
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = '/calendar';
+    }
   }
 
   ngOnDestroy(): void {
