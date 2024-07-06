@@ -174,12 +174,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.setProperty(
           boxTitle,
           'textContent',
-          'Bill Doherty Requiem'
+          'The Best of Broadway'
         );
         this.renderer.setProperty(
           boxText,
           'textContent',
-          "American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+          'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more.'
         );
       }
 
@@ -196,12 +196,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
           this.renderer.setProperty(
             boxTitle,
             'textContent',
-            'Bill Doherty Requiem'
+            'The Best of Broadway'
           );
           this.renderer.setProperty(
             boxText,
             'textContent',
-            "American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+            'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more.'
           );
           this.renderer.setStyle(floatingBox, 'display', 'block');
         }
@@ -231,7 +231,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.setProperty(
           boxText,
           'textContent',
-          'Experience the magic of opera with our upcoming performances'
+          "Join Central Florida Lyric Opera's esteemed Resident Artist Program! Gain invaluable mentorship, top-notch training, and performance opportunities that will launch your career. Be a part of our vibrant artistic community and let your talent shine on stage."
         );
         this.renderer.setStyle(floatingBox, 'display', 'block');
       }

@@ -103,6 +103,36 @@
   height: 100%;
   object-fit: cover;
 }
+.watermark-logo {
+  position: fixed;
+  top: 80px; /* Adjust this value to position it below the header */
+  left: 20px;
+  z-index: 100; /* Ensure it's above other content but below the header */
+  opacity: 0.5; /* Adjust opacity as needed */
+  pointer-events: none; /* Allows clicking through the logo */
+  transition: opacity 0.3s ease;
+}
+
+.watermark-logo img {
+  width: 100px; /* Adjust size as needed */
+  height: auto;
+}
+
+/* Hide watermark when ticket section is in view */
+.tickets-section-visible .watermark-logo {
+  opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .watermark-logo {
+    top: 60px; /* Adjust for smaller header on mobile */
+  }
+  
+  .watermark-logo img {
+    width: 100px; /* Smaller size for mobile */
+  }
+}
 
 
 
@@ -232,11 +262,10 @@
 .buy-tickets-box.hidden {
   display: none; /* Hide when not visible */
 }
-
 /* Large Screens (1920px and up) */
 @media screen and (min-width: 1920px) {
   .banner img, .slide-video {
-    object-position: center 10%;
+    object-position: center 5%; /* Moved up from 10% */
   }
   .banner-content h1, .video-content h1 {
     font-size: 3.5rem;
@@ -249,7 +278,7 @@
 /* Desktop Screens (1280px to 1919px) */
 @media screen and (min-width: 1280px) and (max-width: 1919px) {
   .banner img, .slide-video {
-    object-position: center 20%;
+    object-position: center 15%; /* Moved up from 20% */
   }
   .banner-content h1, .video-content h1 {
     font-size: 3rem;
@@ -262,7 +291,7 @@
 /* Small Desktop and Tablet Landscape (1024px to 1279px) */
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
   .banner img, .slide-video {
-    object-position: center 25%;
+    object-position: center 20%; /* Moved up from 25% */
   }
   .banner-content h1, .video-content h1 {
     font-size: 2.5rem;
@@ -275,7 +304,7 @@
 /* Tablet Portrait (768px to 1023px) */
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .banner img, .slide-video {
-    object-position: center 30%;
+    object-position: center 25%; /* Moved up from 30% */
   }
   .banner-content h1, .video-content h1 {
     font-size: 2rem;
@@ -288,7 +317,7 @@
 /* Large Phones (480px to 767px) */
 @media screen and (min-width: 480px) and (max-width: 767px) {
   .banner img, .slide-video {
-    object-position: center 35%;
+    object-position: center 30%; /* Moved up from 35% */
   }
   .banner-content h1, .video-content h1 {
     font-size: 1.8rem;
@@ -301,7 +330,7 @@
 /* Small Phones (up to 479px) */
 @media screen and (max-width: 479px) {
   .banner img, .slide-video {
-    object-position: center 40%;
+    object-position: center 35%; /* Moved up from 40% */
   }
   .banner-content h1, .video-content h1 {
     font-size: 1.5rem;
@@ -315,14 +344,14 @@
 @media (min-aspect-ratio: 16/9) {
   .banner img, .slide-video {
     object-fit: cover;
-    object-position: center 15%;
+    object-position: center 10%; /* Moved up from 15% */
   }
 }
 
 @media (max-aspect-ratio: 9/16) {
   .banner img, .slide-video {
     object-fit: cover;
-    object-position: center 35%;
+    object-position: center 30%; /* Moved up from 35% */
   }
 }
 
