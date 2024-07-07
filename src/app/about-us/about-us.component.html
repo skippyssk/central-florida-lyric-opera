@@ -1,0 +1,27 @@
+<div class="about-us-container">
+  <div class="watermark-logo">
+    <img src="assets/images/Logo.png" alt="CFLO Watermark" />
+  </div>
+
+  <div class="content-container">
+    <h1>About Us</h1>
+
+    <div class="bill-doherty-section">
+      <div class="profile-header">
+        <img
+          [src]="billDoherty.image"
+          [alt]="billDoherty.name"
+          class="profile-image"
+        />
+        <div class="profile-title">
+          <h2>{{ billDoherty.name }}</h2>
+          <h3>{{ billDoherty.title }}</h3>
+        </div>
+      </div>
+
+      <div id="biography-section" class="biography">
+        <p *ngFor="let paragraph of billDoherty.biography">{{ paragraph }}</p>
+      </div>
+    </div>
+  </div>
+</div>

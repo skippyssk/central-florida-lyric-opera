@@ -7,24 +7,20 @@ import {
   PLATFORM_ID,
   Inject,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterModule],
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
-  title = 'Central Florida Lyric Opera';
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private cleanupFunctions: (() => void)[] = [];
-  isVisible = false;
-  isMenuOpen = false;
 
   constructor(
     private renderer: Renderer2,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -97,12 +93,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       this.renderer.setProperty(
         boxTitle,
         'textContent',
-        'Bill Doherty Requiem'
+        'The Best of Broadway'
       );
       this.renderer.setProperty(
         boxText,
         'textContent',
-        "American Premiere Concert, St. Timothy's Catholic Church, The Villages, FL"
+        'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district.'
       );
       this.renderer.setStyle(floatingBox, 'display', 'block');
     }
@@ -180,7 +176,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.setProperty(
           boxText,
           'textContent',
-          'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more.'
+          'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district.'
         );
       }
 
@@ -202,7 +198,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
           this.renderer.setProperty(
             boxText,
             'textContent',
-            'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more.'
+            'Step into the dazzling world of Broadway with a spectacular showcase of the greatest hits from the heart of the theater district.'
           );
           this.renderer.setStyle(floatingBox, 'display', 'block');
         }
@@ -232,7 +228,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.setProperty(
           boxText,
           'textContent',
-          "Join Central Florida Lyric Opera's esteemed Resident Artist Program! Gain invaluable mentorship, top-notch training, and performance opportunities that will launch your career. Be a part of our vibrant artistic community and let your talent shine on stage."
+          "Join Central Florida Lyric Opera's esteemed Resident Artist Program! Gain invaluable mentorship, top-notch training, and performance opportunities that will launch your career."
         );
         this.renderer.setStyle(floatingBox, 'display', 'block');
       }
@@ -290,32 +286,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           });
         },
-        { threshold: 0.1 } // Adjust this value to change when the effect triggers
+        { threshold: 0.1 }
       );
 
       observer.observe(ticketsSection);
     }
   }
 
-  toggleVisibility() {
-    this.isVisible = !this.isVisible;
-  }
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
   buyTickets() {
-    if (isPlatformBrowser(this.platformId)) {
-      window.location.href = '/buy-tickets';
-    }
-  }
-
-  showCalendar(event: Event) {
-    event.preventDefault();
-    if (isPlatformBrowser(this.platformId)) {
-      window.location.href = '/calendar';
-    }
+    this.router.navigate(['/buy-tickets']);
   }
 
   ngOnDestroy(): void {
