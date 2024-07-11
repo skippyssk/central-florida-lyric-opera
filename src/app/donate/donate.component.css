@@ -1,0 +1,122 @@
+.donate-container {
+    background-color: rgba(0, 0, 0, 0.8);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #b8995f;
+  }
+  
+  h1, h2 {
+    font-family: 'Cinzel', serif;
+    color: #b8995f;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .donate-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+  }
+  
+  .donate-text {
+    flex: 1;
+    min-width: 300px;
+    padding-right: 40px;
+  }
+  
+  .donate-text p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .donate-images {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .donate-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin: 10px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .donate-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .donate-button-container {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .donate-button {
+    background-color: #b8995f;
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+  }
+  
+  .donate-button:hover {
+    background-color: #d4b174;
+  }
+  
+  .thank-you-message {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 10px;
+  }
+  
+  .thank-you-message p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    .donate-text, .donate-images {
+      flex: 1 0 100%;
+      padding-right: 0;
+    }
+  
+    .donate-text {
+      margin-bottom: 20px;
+    }
+  
+    .donate-image {
+      width: 150px;
+      height: 150px;
+    }
+  }

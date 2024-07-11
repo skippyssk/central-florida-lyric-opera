@@ -1,168 +1,122 @@
-<div class="main-content-wrapper">
-  <div class="frosted-glass"></div>
-  <div class="watermark-logo">
-    <img src="assets/images/logo.png" alt="CFLO Watermark" />
+<div class="watermark-logo">
+  <img src="assets/images/Logo.png" alt="CFLO Watermark" />
+</div>
+
+<div class="banner-container stack-sections" id="requiem-section">
+  <div
+    class="banner"
+    data-title="The Best of Broadway"
+    data-text="Step into the dazzling world of Broadway with The Best of Broadway, a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more. Relive the magic, the music, and the moments that have captivated audiences for generations."
+  >
+    <img src="assets/images/bestOfBroadwayCrop.png" alt="broadway" />
   </div>
-  <header class="header">
-    <div class="header-content">
-      <button class="menu-button" (click)="toggleMenu()">☰ MENU</button>
-      <div class="logo-section">
-        <div class="logo-text">Central Florida Lyric Opera</div>
+</div>
+
+<div class="full-screen-banners stack-sections" id="video-section">
+  <video
+    class="slide-video"
+    src="assets/videos/CFLO2.mov"
+    autoplay
+    loop
+    muted
+    playsinline
+  ></video>
+</div>
+
+<div class="content-container reveal-on-scroll">
+  <div class="tickets-section" id="tickets-section">
+    <div class="grid-container">
+      <div class="grid-item large">
+        <img
+          src="assets/images/bestOfBroadway.png"
+          alt="The Best of Broadway"
+          class="ticket-image"
+        />
+        <div class="ticket-content">
+          <h2>The Best of Broadway</h2>
+          <p>
+            Step into the dazzling world of Broadway with The Best of Broadway,
+            a spectacular showcase of the greatest hits from the heart of the
+            theater district. Join us for an unforgettable evening featuring
+            show-stopping performances from beloved musicals such as The Phantom
+            of the Opera, Les Misérables, Wicked, and more. Relive the magic,
+            the music, and the moments that have captivated audiences for
+            generations.
+          </p>
+          <button class="buy-tickets-button" (click)="buyTickets()">
+            Buy Tickets Now
+          </button>
+        </div>
       </div>
-      <div class="right-section">
-        <a href="#" class="calendar" (click)="showCalendar($event)">CALENDAR</a>
+      <div class="grid-item large">
+        <img
+          src="assets/images/laBoheme.png"
+          alt="La Bohème"
+          class="ticket-image"
+        />
+        <div class="ticket-content">
+          <h2>La Bohème</h2>
+          <p>
+            Experience the timeless romance and heartbreaking drama of Puccini's
+            "La Bohème." Follow the lives of young bohemians in Paris as they
+            navigate love, passion, and tragedy. With its unforgettable music
+            and compelling story, "La Bohème" is an opera classic that will
+            captivate and move you. Don't miss your chance to witness this
+            masterpiece live on stage. Get your tickets now for an evening of
+            exquisite music and emotional drama!
+          </p>
+          <button class="buy-tickets-button" (click)="buyTickets()">
+            Buy Tickets Now
+          </button>
+        </div>
       </div>
-    </div>
-  </header>
-  <nav class="menu frosted-glass" [class.open]="isMenuOpen">
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a routerLink="/resident-artist">Resident Artist Program</a></li>
-      <li><a href="#choir">St. Timothy's Choir</a></li>
-      <li><a href="#tickets">Tickets / Season</a></li>
-      <li><a href="#media">Videos and Other Media</a></li>
-      <li><a href="#about-us">About Us</a></li>
-      <li><a href="#Donate">Donate To The Arts</a></li>
-      <li><a href="#contact">Contact Us</a></li>
-    </ul>
-  </nav>
-
-  <!-- Buy Tickets Now Section -->
-  <div class="buy-tickets-box" id="floating-box">
-    <div class="buy-tickets-content">
-      <h2 id="box-title">Tickets on Sale Now</h2>
-      <p id="box-text">
-        Secure your tickets now for the upcoming season, featuring top-notch
-        revivals and new productions.
-      </p>
-      <button class="buy-tickets-button" (click)="buyTickets()">
-        Join Us Now
-      </button>
-    </div>
-  </div>
-
-  <!-- Requiem Section -->
-  <div class="banner-container stack-sections" id="requiem-section">
-    <div
-      class="banner"
-      data-title="The Best of Broadway"
-      data-text="Step into the dazzling world of Broadway with The Best of Broadway, a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more. Relive the magic, the music, and the moments that have captivated audiences for generations."
-    >
-      <img src="assets/images/bestOfBroadwayCrop.png" alt="broadway" />
-    </div>
-  </div>
-
-  <div class="full-screen-banners stack-sections" id="video-section">
-    <video
-      class="slide-video"
-      src="assets/videos/CFLO2.mov"
-      autoplay
-      loop
-      muted
-      playsinline
-    ></video>
-  </div>
-
-  <!-- Main Content Section -->
-  <div class="content-container reveal-on-scroll">
-    <!-- Tickets Section -->
-    <div class="tickets-section" id="tickets-section">
-      <div class="grid-container">
-        <div class="grid-item large">
+      <div class="bottom-row">
+        <div class="grid-item small">
           <img
-            src="assets/images/bestOfBroadway.png"
-            alt="The Best of Broadway"
+            src="assets/images/changeTheWorld2.png"
+            alt="Change the World"
             class="ticket-image"
           />
           <div class="ticket-content">
-            <h2>The Best of Broadway</h2>
+            <h2>Change the World</h2>
             <p>
-              Step into the dazzling world of Broadway with The Best of
-              Broadway, a spectacular showcase of the greatest hits from the
-              heart of the theater district. Join us for an unforgettable
-              evening featuring show-stopping performances from beloved musicals
-              such as The Phantom of the Opera, Les Misérables, Wicked, and
-              more. Relive the magic, the music, and the moments that have
-              captivated audiences for generations.
+              Join us for a night of inspiring performances aimed at making a
+              difference.
             </p>
             <button class="buy-tickets-button" (click)="buyTickets()">
               Buy Tickets Now
             </button>
           </div>
         </div>
-        <div class="grid-item large">
+        <div class="grid-item small">
           <img
-            src="assets/images/laBoheme.png"
-            alt="La Bohème"
+            src="assets/images/threeTenors2.png"
+            alt="Another Show"
             class="ticket-image"
           />
           <div class="ticket-content">
-            <h2>La Bohème</h2>
-            <p>
-              Experience the timeless romance and heartbreaking drama of
-              Puccini's "La Bohème." Follow the lives of young bohemians in
-              Paris as they navigate love, passion, and tragedy. With its
-              unforgettable music and compelling story, "La Bohème" is an opera
-              classic that will captivate and move you. Don't miss your chance
-              to witness this masterpiece live on stage. Get your tickets now
-              for an evening of exquisite music and emotional drama!
-            </p>
+            <h2>Another Show</h2>
+            <p>Experience another unforgettable performance.</p>
             <button class="buy-tickets-button" (click)="buyTickets()">
               Buy Tickets Now
             </button>
           </div>
         </div>
-        <div class="bottom-row">
-          <div class="grid-item small">
-            <img
-              src="assets/images/changeTheWorld2.png"
-              alt="Change the World"
-              class="ticket-image"
-            />
-            <div class="ticket-content">
-              <h2>Change the World</h2>
-              <p>
-                Join us for a night of inspiring performances aimed at making a
-                difference.
-              </p>
-              <button class="buy-tickets-button" (click)="buyTickets()">
-                Buy Tickets Now
-              </button>
-            </div>
-          </div>
-          <div class="grid-item small">
-            <img
-              src="assets/images/threeTenors2.png"
-              alt="Another Show"
-              class="ticket-image"
-            />
-            <div class="ticket-content">
-              <h2>Three Tenors Plus One</h2>
-              <p>
-                Experience an unforgettable performance by some of the worlds
-                greatest tenors.
-              </p>
-              <button class="buy-tickets-button" (click)="buyTickets()">
-                Buy Tickets Now
-              </button>
-            </div>
-          </div>
-          <div class="grid-item small">
-            <img
-              src="assets/images/operaClub.png"
-              alt="Yet Another Show"
-              class="ticket-image"
-            />
-            <div class="ticket-content">
-              <h2>Join The Opera Club</h2>
-              <p>
-                Incredible performances every month by Bill Doherty and his
-                incredibly talented singers.
-              </p>
-              <button class="buy-tickets-button" (click)="buyTickets()">
-                Join Now
-              </button>
-            </div>
+        <div class="grid-item small">
+          <img
+            src="assets/images/operaClub.png"
+            alt="Yet Another Show"
+            class="ticket-image"
+          />
+          <div class="ticket-content">
+            <h2>Join The Opera Club</h2>
+            <p>
+              Incredible performances every month by Bill Doherty and his
+              incredibly talented singers.
+            </p>
+            <button class="buy-tickets-button" (click)="buyTickets()">
+              Join Now
+            </button>
           </div>
         </div>
       </div>
@@ -170,46 +124,15 @@
   </div>
 </div>
 
-<footer>
-  <div class="footer-content">
-    <div class="social-media">
-      <a
-        href="https://www.facebook.com"
-        class="social-icon facebook"
-        aria-label="Facebook"
-        target="_blank"
-        rel="noopener noreferrer"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-      <a
-        href="https://www.twitter.com"
-        class="social-icon twitter"
-        aria-label="Twitter"
-        target="_blank"
-        rel="noopener noreferrer"
-        ><i class="fab fa-twitter"></i
-      ></a>
-      <a
-        href="https://www.youtube.com"
-        class="social-icon youtube"
-        aria-label="YouTube"
-        target="_blank"
-        rel="noopener noreferrer"
-        ><i class="fab fa-youtube"></i
-      ></a>
-    </div>
-    <div class="email-signup">
-      <form>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          aria-label="Email for newsletter"
-        />
-        <button type="submit" class="signup-button">Sign Up</button>
-      </form>
-    </div>
-    <p class="copyright">
-      &copy; 2024 Central Florida Lyric Opera. All rights reserved
+<div class="buy-tickets-box" id="floating-box">
+  <div class="buy-tickets-content">
+    <h2 id="box-title">Tickets on Sale Now</h2>
+    <p id="box-text">
+      Secure your tickets now for the upcoming season, featuring top-notch
+      revivals and new productions.
     </p>
+    <button class="buy-tickets-button" (click)="buyTickets()">
+      Join Us Now
+    </button>
   </div>
-</footer>
+</div>

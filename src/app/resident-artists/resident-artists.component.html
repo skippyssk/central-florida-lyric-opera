@@ -1,1 +1,72 @@
-<p>resident-artists works!</p>
+<div class="watermark-logo">
+  <img src="assets/images/Logo.png" alt="CFLO Watermark" />
+</div>
+<div class="resident-artists-container">
+  <h1>Resident Artist Program</h1>
+
+  <section class="video-section">
+    <h2>Learn about our program</h2>
+    <div class="video-container">
+      <iframe
+        [src]="videoUrl"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+
+  <section class="program-info">
+    <h2>About the Program</h2>
+    <p>
+      The Central Florida Lyric Opera Resident Artist Program offers emerging
+      opera singers an unparalleled opportunity to develop their talents and
+      launch their careers. Our comprehensive program includes:
+    </p>
+    <ul>
+      <li>Intensive vocal coaching and dramatic training</li>
+      <li>Performance opportunities in mainstage productions</li>
+      <li>Master classes with renowned artists and industry professionals</li>
+      <li>Career development workshops and networking events</li>
+    </ul>
+    <p>
+      The Resident Artist Training Program is tailored for talented,
+      career-focused singers, seeking advanced training and experience in vocal
+      arts. Participants attend classes in voice, stage presentation, and
+      languages while also participating in all of IOCA's scheduled
+      performances. Additionally, they have the opportunity to attend the annual
+      IOCA Master Classes, led by nationally and internationally renowned
+      teachers, coaches, and singers. Main stage productions are performed in
+      their original languages, fully staged and costumed, with piano or small
+      orchestral accompaniment. Furthermore, singers perform numerous excerpt
+      concerts each semester. Operas are often double or triple-cast, providing
+      ample opportunities for each member to study, learn, and perform full
+      roles, gaining valuable experience.
+    </p>
+  </section>
+
+  <section class="application-info">
+    <h2>Apply to the Program</h2>
+    <p>
+      We are now accepting applications for the upcoming season. To learn more
+      about the application process and to submit your materials, please visit
+      our application page.
+    </p>
+    <a [routerLink]="applicationLink" class="apply-button">Apply Now</a>
+  </section>
+
+  <section class="documents">
+    <h2>Program Documents</h2>
+    <p>
+      Download these documents for more detailed information about our Resident
+      Artist Program:
+    </p>
+    <ul>
+      <li *ngFor="let doc of pdfDocuments">
+        <button (click)="downloadPdf(doc.url)" class="download-button">
+          <i class="fas fa-file-pdf"></i> {{ doc.name }}
+        </button>
+      </li>
+    </ul>
+  </section>
+</div>

@@ -1,1 +1,38 @@
-<p>tickets works!</p>
+<div class="tickets-container">
+  <h1>Tickets & Season</h1>
+
+  <div class="season-description">
+    <p>
+      Experience the magic of live opera and musical theater with Central
+      Florida Lyric Opera's upcoming season. Our carefully curated selection of
+      shows promises to delight, inspire, and move you. From timeless classics
+      to innovative new productions, there's something for every music lover.
+    </p>
+  </div>
+
+  <div class="shows-grid">
+    <div *ngFor="let show of shows" class="show-card">
+      <img [src]="show.image" [alt]="show.title" class="show-image" />
+      <div class="show-details">
+        <h2>{{ show.title }}</h2>
+        <p class="show-date">{{ show.date }}</p>
+        <p class="show-description">{{ show.description }}</p>
+        <button (click)="buyTickets(show.title)" class="buy-tickets-button">
+          Buy Tickets
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-tickets">
+    <h2>Season Tickets</h2>
+    <p>
+      Enjoy all of our fantastic shows and save with a season ticket package.
+      Season ticket holders get priority seating, exclusive events, and
+      significant savings compared to individual ticket purchases.
+    </p>
+    <button (click)="buyTickets('Season Package')" class="buy-tickets-button">
+      Purchase Season Tickets
+    </button>
+  </div>
+</div>

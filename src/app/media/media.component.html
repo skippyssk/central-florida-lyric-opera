@@ -1,1 +1,27 @@
-<p>media works!</p>
+<div class="media-container">
+  <h1>Video & Media Gallery</h1>
+
+  <div class="media-grid">
+    <div
+      *ngFor="let item of mediaItems; let i = index"
+      class="media-item"
+      [ngClass]="{ reverse: i % 2 !== 0 }"
+    >
+      <div class="media-content" *ngIf="item.type === 'video'">
+        <iframe
+          [src]="item.source"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="media-content" *ngIf="item.type === 'image'">
+        <img [src]="item.source" [alt]="item.title" />
+      </div>
+      <div class="media-info">
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
