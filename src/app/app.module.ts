@@ -17,7 +17,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     // Declare non-standalone components here
     HomeComponent,
     TicketsComponent,
-    ResidentArtistsComponent,
+
     MediaComponent,
     ResidentArtistApplicationComponent,
   ],
@@ -27,6 +27,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     // Import standalone components here
     ContactComponent,
     AboutUsComponent,
+    ResidentArtistsComponent,
   ],
   providers: [],
   bootstrap: [], // AppComponent is used as the bootstrap component

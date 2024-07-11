@@ -1,1 +1,51 @@
-<p>donate works!</p>
+<div class="donate-container">
+  <h1>Support Us</h1>
+
+  <div class="donate-content">
+    <div class="donate-text">
+      <p>
+        Your support is the lifeblood of Central Florida Lyric Opera. As a
+        non-profit organization dedicated to bringing the beauty and passion of
+        opera to our community, we rely on the generosity of music lovers like
+        you to continue our mission.
+      </p>
+      <p>
+        By donating to CFLO, you're not just supporting an opera company –
+        you're investing in the cultural fabric of our community. Your
+        contribution helps us nurture young talents, produce world-class
+        performances, and bring the transformative power of music to people of
+        all ages and backgrounds.
+      </p>
+      <p>
+        We are deeply grateful for every donation, no matter the size. Your
+        support enables us to continue inspiring, educating, and entertaining
+        audiences through the timeless art of opera. Together, we can ensure
+        that the magic of live opera continues to thrive in Central Florida for
+        generations to come.
+      </p>
+    </div>
+
+    <div class="donate-images">
+      <img
+        *ngFor="let image of donateImages"
+        [src]="image"
+        alt="Support CFLO"
+        class="donate-image"
+      />
+    </div>
+  </div>
+
+  <div class="donate-button-container">
+    <button (click)="donateViaPaypal()" class="donate-button">
+      Donate via PayPal
+    </button>
+  </div>
+
+  <div class="thank-you-message">
+    <h2>Thank You for Your Support!</h2>
+    <p>
+      Your generosity makes a difference. We look forward to seeing you at our
+      next performance!
+    </p>
+  </div>
+</div>

@@ -1,27 +1,48 @@
 <div class="about-us-container">
-  <div class="watermark-logo">
-    <img src="assets/images/Logo.png" alt="CFLO Watermark" />
-  </div>
+  <h1>About Us</h1>
 
-  <div class="content-container">
-    <h1>About Us</h1>
-
-    <div class="bill-doherty-section">
+  <div *ngFor="let artist of artists" class="artist-section">
+    <div class="artist-card">
       <div class="profile-header">
-        <img
-          [src]="billDoherty.image"
-          [alt]="billDoherty.name"
-          class="profile-image"
-        />
+        <img [src]="artist.image" [alt]="artist.name" class="profile-image" />
         <div class="profile-title">
-          <h2>{{ billDoherty.name }}</h2>
-          <h3>{{ billDoherty.title }}</h3>
+          <h2>{{ artist.name }}</h2>
+          <h3>{{ artist.title }}</h3>
+          <a
+            [href]="artist.facebookUrl"
+            target="_blank"
+            class="facebook-button"
+            *ngIf="artist.facebookUrl"
+          >
+            <i class="fab fa-facebook-f"></i> Facebook
+          </a>
         </div>
       </div>
 
-      <div id="biography-section" class="biography">
-        <p *ngFor="let paragraph of billDoherty.biography">{{ paragraph }}</p>
-      </div>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Read Biography </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="biography">
+            <p
+              *ngFor="
+                let paragraph of getBiographyParagraphs(artist.fullBiography)
+              "
+            >
+              {{ paragraph }}
+            </p>
+            <div class="image-gallery">
+              <img
+                *ngFor="let img of artist.galleryImages"
+                [src]="img"
+                [alt]="artist.name + ' gallery image'"
+                class="gallery-image"
+              />
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
 </div>

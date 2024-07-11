@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common'; // Add this import
 
 @Component({
   selector: 'app-resident-artists',
   templateUrl: './resident-artists.component.html',
   styleUrls: ['./resident-artists.component.css'],
+  standalone: true, // Add this line
+  imports: [CommonModule, RouterModule], // Add this line
 })
 export class ResidentArtistsComponent implements OnInit {
   videoUrl: SafeResourceUrl;
