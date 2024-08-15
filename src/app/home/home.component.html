@@ -1,138 +1,191 @@
-<div class="watermark-logo">
-  <img src="assets/images/Logo.png" alt="CFLO Watermark" />
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Central Florida Lyric Opera</title>
+  </head>
+  <body>
+    <div class="home-container">
+      <div *ngIf="showUnavailableBox" class="message-box unavailable-box">
+        <div class="unavailable-message">
+          {{ unavailableMessage }}
+        </div>
+      </div>
+      <div
+        id="scroll-down-box"
+        class="scroll-down-box"
+        [class.show]="showScrollBox"
+      >
+        <p>Scroll Down</p>
+        <div class="arrow-down"></div>
+      </div>
 
-<div class="banner-container stack-sections" id="requiem-section">
-  <div
-    class="banner"
-    data-title="The Best of Broadway"
-    data-text="Step into the dazzling world of Broadway with The Best of Broadway, a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more. Relive the magic, the music, and the moments that have captivated audiences for generations."
-  >
-    <img src="assets/images/bestOfBroadwayCrop.png" alt="broadway" />
-  </div>
-</div>
-
-<div class="full-screen-banners stack-sections" id="video-section">
-  <video
-    class="slide-video"
-    src="assets/videos/CFLO2.mov"
-    autoplay
-    loop
-    muted
-    playsinline
-  ></video>
-</div>
-
-<div class="content-container reveal-on-scroll">
-  <div class="tickets-section" id="tickets-section">
-    <div class="grid-container">
-      <div class="grid-item large">
-        <img
-          src="assets/images/bestOfBroadway.png"
-          alt="The Best of Broadway"
-          class="ticket-image"
-        />
-        <div class="ticket-content">
-          <h2>The Best of Broadway</h2>
-          <p>
-            Step into the dazzling world of Broadway with The Best of Broadway,
-            a spectacular showcase of the greatest hits from the heart of the
-            theater district. Join us for an unforgettable evening featuring
-            show-stopping performances from beloved musicals such as The Phantom
-            of the Opera, Les Misérables, Wicked, and more. Relive the magic,
-            the music, and the moments that have captivated audiences for
-            generations.
-          </p>
-          <button class="buy-tickets-button" (click)="buyTickets()">
-            Buy Tickets Now
+      <div
+        *ngIf="showClubMembershipBox"
+        class="message-box club-membership-box"
+      >
+        <button (click)="closeClubMembershipBox()" class="close-button">
+          Close
+        </button>
+        <div class="club-membership-message">
+          <p>{{ clubMembershipMessage }}</p>
+          <button (click)="navigateToJoinUs()" class="join-club-button">
+            Join the Opera Club
           </button>
         </div>
       </div>
-      <div class="grid-item large">
-        <img
-          src="assets/images/laBoheme.png"
-          alt="La Bohème"
-          class="ticket-image"
-        />
-        <div class="ticket-content">
-          <h2>La Bohème</h2>
-          <p>
-            Experience the timeless romance and heartbreaking drama of Puccini's
-            "La Bohème." Follow the lives of young bohemians in Paris as they
-            navigate love, passion, and tragedy. With its unforgettable music
-            and compelling story, "La Bohème" is an opera classic that will
-            captivate and move you. Don't miss your chance to witness this
-            masterpiece live on stage. Get your tickets now for an evening of
-            exquisite music and emotional drama!
-          </p>
-          <button class="buy-tickets-button" (click)="buyTickets()">
-            Buy Tickets Now
+
+      <div *ngIf="showTicketOptionsBox" class="message-box ticket-options-box">
+        <button (click)="closeTicketOptionsBox()" class="close-button">
+          Close
+        </button>
+        <div class="ticket-options-message">
+          <p>Enhance your opera experience!</p>
+          <button
+            (click)="joinMaestrosInnerCircle()"
+            class="join-maestros-button"
+          >
+            Join Maestro's Inner Circle
+          </button>
+          <button (click)="proceedToBuyTicket()" class="buy-ticket-button">
+            Get Tickets
           </button>
         </div>
       </div>
-      <div class="bottom-row">
-        <div class="grid-item small">
-          <img
-            src="assets/images/changeTheWorld2.png"
-            alt="Change the World"
-            class="ticket-image"
-          />
-          <div class="ticket-content">
-            <h2>Change the World</h2>
+
+      <div class="frosted-glass"></div>
+
+      <div class="desktop-content">
+        <div class="watermark-logo">
+          <img src="assets/images/Logo.webp" alt="CFLO Watermark" />
+        </div>
+
+        <div id="requiem-section" class="banner-container stack-sections">
+          <div
+            class="banner"
+            data-title="The Best of Broadway"
+            data-text="Step into the dazzling world of Broadway with The Best of Broadway, a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more. Relive the magic, the music, and the moments that have captivated audiences for generations."
+          >
+            <img
+              src="assets/images/bestOfBroadwayCrop.webp"
+              alt="broadway"
+              class="standard-image"
+            />
+            <img
+              src="assets/images/broadwayWide.webp"
+              alt="broadway wide"
+              class="widescreen-image"
+            />
+          </div>
+        </div>
+
+        <div id="video-section" class="full-screen-banners stack-sections">
+          <video class="slide-video" autoplay loop muted playsinline>
+            <source src="assets/videos/cflo2.webm" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="content-container reveal-on-scroll">
+        <div class="mobile-content">
+          <div class="resident-artists-section">
+            <h2>Resident Artist Training Program</h2>
             <p>
-              Join us for a night of inspiring performances aimed at making a
-              difference.
+              Join our esteemed Resident Artist Training Program and launch your
+              opera career with invaluable mentorship and performance
+              opportunities.
             </p>
-            <button class="buy-tickets-button" (click)="buyTickets()">
-              Buy Tickets Now
+            <button class="buy-tickets-button" (click)="applyNowClicked()">
+              Apply Now
             </button>
           </div>
         </div>
-        <div class="grid-item small">
-          <img
-            src="assets/images/threeTenors2.png"
-            alt="Another Show"
-            class="ticket-image"
-          />
-          <div class="ticket-content">
-            <h2>Another Show</h2>
-            <p>Experience another unforgettable performance.</p>
-            <button class="buy-tickets-button" (click)="buyTickets()">
-              Buy Tickets Now
-            </button>
+
+        <div id="tickets-section" class="tickets-section">
+          <div class="grid-container">
+            <div
+              *ngFor="let show of mainShows.slice(0, 3)"
+              class="grid-item large"
+            >
+              <img [src]="show.image" [alt]="show.title" class="ticket-image" />
+              <div class="ticket-content">
+                <h2>{{ show.title }}</h2>
+                <p><strong>Date:</strong> {{ show.date }}</p>
+                <p><strong>Venue:</strong> {{ show.venue }}</p>
+                <p><strong>Time:</strong> {{ show.time || "TBA" }}</p>
+                <p>{{ show.description }}</p>
+                <button
+                  class="buy-tickets-button"
+                  (click)="buyMainShowTicketsClicked(show.ticketKey, $event)"
+                >
+                  {{ show.buttonText }}
+                </button>
+              </div>
+            </div>
+            <div class="bottom-row">
+              <div
+                *ngFor="let show of mainShows.slice(3)"
+                class="grid-item small"
+              >
+                <img
+                  [src]="show.image"
+                  [alt]="show.title"
+                  class="ticket-image"
+                />
+                <div class="ticket-content">
+                  <h2>{{ show.title }}</h2>
+                  <p><strong>Date:</strong> {{ show.date }}</p>
+                  <p><strong>Venue:</strong> {{ show.venue }}</p>
+                  <p><strong>Time:</strong> {{ show.time || "TBA" }}</p>
+                  <p>{{ show.description }}</p>
+                  <button
+                    class="buy-tickets-button"
+                    (click)="buyMainShowTicketsClicked(show.ticketKey, $event)"
+                  >
+                    {{ show.buttonText }}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="grid-item small">
-          <img
-            src="assets/images/operaClub.png"
-            alt="Yet Another Show"
-            class="ticket-image"
-          />
-          <div class="ticket-content">
-            <h2>Join The Opera Club</h2>
-            <p>
-              Incredible performances every month by Bill Doherty and his
-              incredibly talented singers.
-            </p>
-            <button class="buy-tickets-button" (click)="buyTickets()">
-              Join Now
-            </button>
+
+        <div class="additional-performances-section">
+          <h2>Additional Performances</h2>
+          <div class="lesser-shows-grid">
+            <div class="lesser-show-card" *ngFor="let show of lesserShows">
+              <img
+                [src]="show.image"
+                [alt]="show.title"
+                class="lesser-show-image"
+              />
+              <div class="lesser-show-details">
+                <h3 class="lesser-show-title">{{ show.title }}</h3>
+                <p class="lesser-show-date">
+                  <strong>Date:</strong> {{ show.date }}
+                </p>
+                <p class="lesser-show-venue">
+                  <strong>Venue:</strong> {{ show.venue }}
+                </p>
+                <p class="lesser-show-time" *ngIf="show.time">
+                  <strong>Time:</strong> {{ show.time }}
+                </p>
+                <p class="lesser-show-description">{{ show.description }}</p>
+                <button
+                  class="buy-tickets-button"
+                  (click)="
+                    buyAdditionalShowTicketsClicked(show.ticketKey, $event)
+                  "
+                >
+                  {{ show.buttonText }}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="buy-tickets-box" id="floating-box">
-  <div class="buy-tickets-content">
-    <h2 id="box-title">Tickets on Sale Now</h2>
-    <p id="box-text">
-      Secure your tickets now for the upcoming season, featuring top-notch
-      revivals and new productions.
-    </p>
-    <button class="buy-tickets-button" (click)="buyTickets()">
-      Join Us Now
-    </button>
-  </div>
-</div>
+  </body>
+</html>

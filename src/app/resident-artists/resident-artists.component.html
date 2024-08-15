@@ -1,11 +1,8 @@
-<div class="watermark-logo">
-  <img src="assets/images/Logo.png" alt="CFLO Watermark" />
-</div>
 <div class="resident-artists-container">
-  <h1>Resident Artist Program</h1>
+  <h1>Resident Artist Training Program</h1>
 
   <section class="video-section">
-    <h2>Learn about our program</h2>
+    <h2>Learn about our training program</h2>
     <div class="video-container">
       <iframe
         [src]="videoUrl"
@@ -17,7 +14,7 @@
   </section>
 
   <section class="program-info">
-    <h2>About the Program</h2>
+    <h2>About the Training Program</h2>
     <p>
       The Central Florida Lyric Opera Resident Artist Program offers emerging
       opera singers an unparalleled opportunity to develop their talents and
@@ -46,7 +43,7 @@
   </section>
 
   <section class="application-info">
-    <h2>Apply to the Program</h2>
+    <h2>Apply to the Training Program</h2>
     <p>
       We are now accepting applications for the upcoming season. To learn more
       about the application process and to submit your materials, please visit
@@ -56,9 +53,9 @@
   </section>
 
   <section class="documents">
-    <h2>Program Documents</h2>
+    <h2>Training Program Documents</h2>
     <p>
-      Download these documents for more detailed information about our Resident
+      Download this document for more detailed information about our Resident
       Artist Program:
     </p>
     <ul>
@@ -69,4 +66,45 @@
       </li>
     </ul>
   </section>
+</div>
+
+<div class="about-us-container">
+  <h1>About Your Teachers</h1>
+
+  <div *ngFor="let artist of artists" class="artist-section">
+    <div class="artist-card">
+      <div class="profile-header">
+        <img [src]="artist.image" [alt]="artist.name" class="profile-image" />
+        <div class="profile-title">
+          <h2>{{ artist.name }}</h2>
+          <h3>{{ artist.title }}</h3>
+        </div>
+      </div>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Read Biography </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="biography">
+            <p
+              *ngFor="
+                let paragraph of getBiographyParagraphs(artist.fullBiography)
+              "
+            >
+              {{ paragraph }}
+            </p>
+            <div class="image-gallery">
+              <img
+                *ngFor="let img of artist.galleryImages"
+                [src]="img"
+                [alt]="artist.name + ' gallery image'"
+                class="gallery-image"
+              />
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
 </div>

@@ -15,9 +15,7 @@
           allowfullscreen
         ></iframe>
       </div>
-      <div class="media-content" *ngIf="item.type === 'image'">
-        <img [src]="item.source" [alt]="item.title" />
-      </div>
+
       <div class="media-info">
         <h2>{{ item.title }}</h2>
         <p>{{ item.description }}</p>

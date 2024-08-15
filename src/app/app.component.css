@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: url('/assets/images/background.png') no-repeat center center fixed;
+  background: url('/assets/images/background.webp') no-repeat center center fixed;
   background-size: cover;
   position: relative;
 }
@@ -50,7 +50,9 @@ body {
   padding: 10px 20px;
   box-sizing: border-box;
 }
-
+.contact-info {
+  margin-bottom: 10px;
+}
 .header-content {
   width: 100%;
   max-width: 1400px;
@@ -58,6 +60,30 @@ body {
   justify-content: space-between;
   align-items: center;
   position: relative;
+}
+
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav ul li {
+  margin-left: 20px;
+}
+
+.main-nav ul li a {
+  color: #b8995f;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+  color: var(--secondary-blue);
 }
 
 .menu-button {
@@ -83,6 +109,9 @@ body {
   color: #b8995f;
   font-family: 'Cinzel', serif;
   white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  
 }
 
 .watermark-logo {
@@ -188,7 +217,7 @@ footer {
   color: #b8995f;
   padding: 2rem 0;
   font-family: 'Cinzel', serif;
-  z-index: 1003;
+  z-index: 1;
   position: relative;
 }
 
@@ -230,17 +259,18 @@ footer {
 }
 
 .signup-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  display: inline-block;
+  padding: 10px 20px;
   background-color: #b8995f;
-  color: #000;
-  border: none;
-  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
 .signup-button:hover {
-  background-color: #fff;
+  background-color: #a08447;
 }
 
 .copyright {

@@ -51,7 +51,7 @@
   }
   
   .donate-image {
-    width: 200px;
+    width: auto;
     height: 200px;
     object-fit: cover;
     margin: 10px;

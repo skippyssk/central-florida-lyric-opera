@@ -1,1 +1,56 @@
-<p>contact works!</p>
+<div class="contact-container">
+  <h1>Contact Us</h1>
+  <div class="contact-content">
+    <div class="contact-info">
+      <div class="info-item">
+        <i class="fas fa-phone"></i>
+        <p>{{ contactInfo.phone }}</p>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <p>{{ contactInfo.address }}</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-envelope"></i>
+        <p>
+          <a href="mailto:{{ contactInfo.email }}">{{ contactInfo.email }}</a>
+        </p>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h2>Send us a message</h2>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Your Name"
+          required
+        />
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Your Email"
+          required
+        />
+        <textarea
+          formControlName="message"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <button
+          type="submit"
+          class="submit-button"
+          [disabled]="contactForm.invalid"
+        >
+          Send Message
+        </button>
+      </form>
+      <p *ngIf="submitSuccess" class="success-message">
+        Your message has been sent successfully!
+      </p>
+      <p *ngIf="submitError" class="error-message">{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>

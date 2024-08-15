@@ -1,48 +1,374 @@
+<div class="frosted-glass"></div>
 <div class="about-us-container">
   <h1>About Us</h1>
 
-  <div *ngFor="let artist of artists" class="artist-section">
-    <div class="artist-card">
-      <div class="profile-header">
-        <img [src]="artist.image" [alt]="artist.name" class="profile-image" />
-        <div class="profile-title">
-          <h2>{{ artist.name }}</h2>
-          <h3>{{ artist.title }}</h3>
-          <a
-            [href]="artist.facebookUrl"
-            target="_blank"
-            class="facebook-button"
-            *ngIf="artist.facebookUrl"
-          >
-            <i class="fab fa-facebook-f"></i> Facebook
-          </a>
-        </div>
-      </div>
+  <section class="mission-statement">
+    <h2>Mission Statement</h2>
+    <p>The mission of the Central Florida Lyric Opera is two-fold:</p>
+    <ol>
+      <li>
+        To identify, train, nurture and develop young vocal artists and to
+        provide them with performance opportunities so that they may improve
+        their skills and professionalism.
+      </li>
+      <li>
+        To bring affordable quality musical performances featuring young,
+        exceptionally talented performers to audiences throughout the world,
+        thereby enhancing the cultural richness of the communities we serve and
+        thus increasing the understanding and awareness of opera.
+      </li>
+    </ol>
+  </section>
 
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title> Read Biography </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="biography">
-            <p
-              *ngFor="
-                let paragraph of getBiographyParagraphs(artist.fullBiography)
-              "
-            >
-              {{ paragraph }}
-            </p>
-            <div class="image-gallery">
-              <img
-                *ngFor="let img of artist.galleryImages"
-                [src]="img"
-                [alt]="artist.name + ' gallery image'"
-                class="gallery-image"
-              />
-            </div>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+  <div class="expandable-section">
+    <div class="section-header" (click)="toggleSection('history')">
+      <h2>Company History</h2>
+      <i
+        class="fas fa-chevron-down"
+        [class.rotated]="expandedSections.history"
+      ></i>
+    </div>
+    <div
+      class="section-content"
+      [@expandCollapse]="expandedSections.history ? 'expanded' : 'collapsed'"
+    >
+      <p>
+        Founded in <strong>1988</strong> by <strong>Bill Doherty</strong> and a
+        dedicated group of opera lovers in the Central FL area, the
+        <strong>Central Florida Light Opera (CFLO)</strong> was organized. The
+        main focus of the company was to produce Gilbert & Sullivan operettas
+        and other light opera works.
+      </p>
+
+      <p>
+        However, by <strong>1991</strong> the singers had developed an interest
+        and desire to perform grand opera and other musical concerts. This shift
+        in focus allowed Mr. Doherty and the newly named
+        <strong>Central Florida Lyric Opera</strong> a chance to do something
+        more than present light opera productions.
+      </p>
+
+      <p>
+        Knowing how hard it was for singers just starting in their careers to
+        receive opportunities to perform leading roles in opera, he wanted to
+        provide not only a performance outlet for young singers, but also a
+        fertile training ground where they could develop and hone their skills.
+        Thus began the company's
+        <strong>Resident Artist Training Program</strong>.
+      </p>
+
+      <p>
+        Singers in the program performed in the operatic productions and
+        concerts, focusing on training and development through:
+      </p>
+      <ul>
+        <li>Private voice lessons and coachings</li>
+        <li>Group classes in language</li>
+        <li>Stage movement and presentation</li>
+      </ul>
+      <p>
+        The company's productions were cast primarily from members of the
+        Resident Artist Training Program. Professional singers from outside the
+        company were only hired when there was not a member of the Training
+        Program available to perform a certain role.
+      </p>
+
+      <p>
+        As the years progressed so did the caliber of talent involved with the
+        training program. Our Resident Artist Training Program began attracting
+        singers from all over the <strong>United States and Europe</strong>.
+        Many of our Resident Artists gained national and international attention
+        by:
+      </p>
+      <ul>
+        <li>Winning regional, national and international vocal competitions</li>
+        <li>Singing with regional opera companies</li>
+        <li>
+          Performing leading roles both on Broadway and with national tours of
+          Broadway productions
+        </li>
+      </ul>
+      <p>There is a long list of successful graduates.</p>
+
+      <p>
+        With increasing performance and study opportunities overseas, and a
+        desire to offer performances of an operatic and non-operatic nature to
+        its audiences, Maestro Doherty and members of the Board of Directors of
+        Central Florida Lyric Opera decided to expand the company, establishing
+        the <strong>International Opera Center of America</strong> - attracting
+        performers, teachers, coaches and musicians from all over the United
+        States and Europe and bringing its outstanding musical programs to
+        audiences all over the world.
+      </p>
+
+      <p>
+        And we're not finished growing! Our goal is to continue expanding our
+        Resident Artist Training Program to offer more and more performance
+        opportunities for our talented performers both here in the United States
+        and abroad and to expand our audiences both locally and abroad.
+      </p>
+    </div>
+  </div>
+
+  <div class="expandable-section">
+    <div class="section-header" (click)="toggleSection('programs')">
+      <h2>CFLO's Resident Artist Training Programs</h2>
+      <i
+        class="fas fa-chevron-down"
+        [class.rotated]="expandedSections.programs"
+      ></i>
+    </div>
+    <div
+      class="section-content"
+      [@expandCollapse]="expandedSections.programs ? 'expanded' : 'collapsed'"
+    >
+      <ul>
+        <li>
+          <p>
+            The <strong>Resident Artist Training Program</strong> is designed
+            for:
+          </p>
+
+          <ul>
+            <li><strong>Talented, career-oriented singing artists</strong></li>
+            <li>Between the ages of <strong>18 and 35</strong></li>
+            <li>
+              Desiring experience and
+              <strong>advanced training in the vocal arts</strong>
+            </li>
+          </ul>
+
+          <p>Program members attend classes in:</p>
+
+          <ul>
+            <li>Voice</li>
+            <li>Stage presentation</li>
+            <li>Languages</li>
+          </ul>
+
+          <p>
+            They also participate in
+            <strong>all CFLO's regularly scheduled performances</strong>.
+          </p>
+
+          <p>
+            Additionally, they attend the
+            <strong>annual Master Classes</strong>, conducted by:
+          </p>
+
+          <ul>
+            <li>Nationally known teachers, coaches, and singers</li>
+            <li>Internationally known teachers, coaches, and singers</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="expandable-section">
+    <div class="section-header" (click)="toggleSection('policies')">
+      <h2>Policies and Procedures</h2>
+      <i
+        class="fas fa-chevron-down"
+        [class.rotated]="expandedSections.policies"
+      ></i>
+    </div>
+    <div
+      class="section-content"
+      [@expandCollapse]="expandedSections.policies ? 'expanded' : 'collapsed'"
+    >
+      <h3>Responsibilities</h3>
+      <p>
+        When you accept membership in one of the CFLO's Training Programs, your
+        responsibilities include:
+      </p>
+      <ul>
+        <li>
+          Singing roles or in the chorus for the
+          <strong>Mainstage opera productions</strong> as you are cast.
+        </li>
+        <li>
+          Attendance at all
+          <strong>scheduled classes and rehearsals</strong> for which you are
+          called.
+        </li>
+        <li>
+          Attendance at all <strong>concerts and performances</strong> for which
+          you are cast.
+        </li>
+        <li>
+          Being available to support CFLO in various ways including, but not
+          limited to, singing paid and/or unpaid promotional appearances, doing
+          volunteer work in the office, and helping with props, costumes or set
+          construction, etc.
+        </li>
+        <li>
+          Helping to keep the offices and rehearsal/performance spaces tidy.
+        </li>
+        <li>
+          Working your hardest to <strong>develop your own talent</strong>.
+        </li>
+        <li>Supporting your colleagues in their development.</li>
+        <li>Working your hardest to support the efforts of CFLO.</li>
+      </ul>
+
+      <h3>Member Entitlements</h3>
+      <p>Members of the Resident Artist Training program are entitled to:</p>
+      <ul>
+        <li>Attend all CFLO rehearsals, classes, and performances.</li>
+        <li>
+          <strong>First consideration</strong> in casting for CFLO opera
+          productions.
+        </li>
+        <li>
+          Regular private voice lessons and coachings with Artistic
+          Director/Conductor, Bill Doherty and/or with any visiting teachers as
+          well as your regular assigned teacher.
+        </li>
+      </ul>
+
+      <h3>Attendance Policy</h3>
+      <p>
+        Every member of the cast and chorus for every production is required to
+        be available for all rehearsals, classes, and performances. The Central
+        Florida Lyric Opera does not always observe school or religious
+        holidays. Therefore, note carefully the rehearsal schedules as they are
+        given to you. CFLO is an ensemble company and releases from scheduled
+        rehearsals, classes, and performances are infrequently granted for any
+        reason. Please check the schedule and plan accordingly.
+      </p>
+    </div>
+  </div>
+
+  <div class="expandable-section">
+    <div class="section-header" (click)="toggleSection('qualities')">
+      <h2>Qualities for Successful Membership</h2>
+      <i
+        class="fas fa-chevron-down"
+        [class.rotated]="expandedSections.qualities"
+      ></i>
+    </div>
+    <div
+      class="section-content"
+      [@expandCollapse]="expandedSections.qualities ? 'expanded' : 'collapsed'"
+    >
+      <p>
+        You will do very well as a member of CFLO's Training Programs if you:
+      </p>
+      <ul>
+        <li>
+          Realize that singing professionally is a
+          <strong>great discipline</strong>, which requires constant attention
+          to technique and expressive detail.
+        </li>
+        <li>
+          Are willing to learn new ideas and are always striving to grow to
+          reach your potential.
+        </li>
+        <li>
+          Appreciate <strong>constructive criticism</strong> from professionals
+          who are interested in helping you.
+        </li>
+        <li>
+          Have great respect for the fine art of singing and for the many great
+          artists who have made careers singing professionally throughout
+          history.
+        </li>
+        <li>
+          Are interested, excited and honored to meet and work with
+          <strong>legendary singers</strong> who have had wonderful performing
+          careers and wish to obtain invaluable ideas, information, and training
+          from them.
+        </li>
+        <li>
+          Are interested in singing and performing in operas and realize the
+          value of performing smaller roles and singing in the chorus as well as
+          in the leading roles.
+        </li>
+        <li>
+          Are excited to gain a practical working knowledge of other aspects of
+          opera production such as costume design, set construction, and
+          administration.
+        </li>
+        <li>
+          Enjoy being busy and love to work with others who take their art
+          seriously.
+        </li>
+        <li>
+          Enjoy other people and their talents and frequently find things to
+          learn and respect in other singers— even those who you may consider
+          less talented that yourself.
+        </li>
+        <li>Are generally organized.</li>
+        <li>
+          Always conduct yourself professionally even in potentially stressful
+          situations.
+        </li>
+        <li>
+          Are looking for a "home-base" in an enthusiastic and artistically
+          oriented community where there are others who are equally talented and
+          who are supportive of you and your future success as a performing
+          artist.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="expandable-section">
+    <div class="section-header" (click)="toggleSection('classes')">
+      <h2>Classes and Tuition</h2>
+      <i
+        class="fas fa-chevron-down"
+        [class.rotated]="expandedSections.classes"
+      ></i>
+    </div>
+    <div
+      class="section-content"
+      [@expandCollapse]="expandedSections.classes ? 'expanded' : 'collapsed'"
+    >
+      <h3>Classes</h3>
+      <p>
+        Repertoire workshop classes are generally held as noted on the master
+        schedule. During production periods and Master Class workshop periods,
+        private and group classes are sometimes suspended in lieu of
+        rehearsals/workshops etc. Classwork consists of scene and aria
+        preparation with preference given to upcoming production repertoire.
+      </p>
+      <p>
+        Singers should be prepared at each class with a warm-up selection
+        followed by an aria or scene.
+        <strong>All music should be memorized.</strong>
+      </p>
+      <p>
+        When classes have been suspended because of production rehearsals etc,
+        all resident artists are encouraged to attend rehearsals even if you are
+        not called for that rehearsal. A great deal of knowledge can be acquired
+        by watching the rehearsal process.
+      </p>
+
+      <h3>Tuition</h3>
+      <p>
+        The Central Florida Lyric Opera's Training Programs are
+        <strong>tuition-free</strong>.
+      </p>
+      <p>
+        Singers are required to pay for their private lessons and coachings
+        only. For members of the Resident Artist Training Program, lessons and
+        coachings cost approximately <strong>$70-$100 per lesson</strong>.
+      </p>
+      <p>
+        Although the training programs are tuition-free, each member of the
+        training program is responsible for donating
+        <strong>20 hours per season</strong> to help in the office. These
+        service hours may be done in the following ways:
+      </p>
+      <ul>
+        <li>
+          In the administrative office (i.e. answering the phone, helping with
+          mailings, running errands, etc.)
+        </li>
+        <li>Helping with the set, costumes, or props.</li>
+        <li>Other additional tasks as assigned by the staff.</li>
+      </ul>
     </div>
   </div>
 </div>
