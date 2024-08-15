@@ -1,0 +1,107 @@
+.contact-container {
+    background-color: rgba(0, 0, 0, 0.8);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #b8995f;
+  }
+  
+  h1, h2 {
+    font-family: 'Cinzel', serif;
+    color: #b8995f;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .contact-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .contact-info, .contact-form {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+  }
+  
+  .info-item {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .info-item i {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    color: #b8995f;
+    margin-top: 3px;
+  }
+  
+  .info-item p {
+    font-size: 1.1rem;
+  }
+  
+  .info-item a {
+    color: #b8995f;
+    text-decoration: none;
+  }
+  
+  .info-item a:hover {
+    text-decoration: underline;
+  }
+  
+  .map-button, .submit-button {
+    background-color: #b8995f;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    margin-top: 15px;
+    display: inline-block;
+  }
+  
+  .map-button:hover, .submit-button:hover {
+    background-color: #d4b174;
+  }
+  
+  .contact-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-form input, .contact-form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #b8995f;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #b8995f;
+  }
+  
+  .contact-form textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  @media (max-width: 768px) {
+    .contact-content {
+      flex-direction: column;
+    }
+  
+    .contact-info, .contact-form {
+      width: 100%;
+    }
+  }

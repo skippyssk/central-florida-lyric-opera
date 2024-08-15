@@ -13,21 +13,19 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
-  declarations: [
-    // Declare non-standalone components here
-    HomeComponent,
-    TicketsComponent,
-
-    MediaComponent,
-    ResidentArtistApplicationComponent,
-  ],
+  declarations: [ResidentArtistApplicationComponent, AboutUsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     // Import standalone components here
     ContactComponent,
-    AboutUsComponent,
+
     ResidentArtistsComponent,
+    // Declare non-standalone components here
+    HomeComponent,
+    TicketsComponent,
+
+    MediaComponent,
   ],
   providers: [],
   bootstrap: [], // AppComponent is used as the bootstrap component

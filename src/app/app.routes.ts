@@ -8,6 +8,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { MediaComponent } from './media/media.component';
 import { ContactComponent } from './contact/contact.component';
 import { DonateComponent } from './donate/donate.component';
+import { ChoirDashboardComponent } from './choir-dashboard/choir-dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,5 +23,6 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'choir', component: ChoirComponent },
   { path: 'donate', component: DonateComponent },
+  { path: 'choir-dashboard', component: ChoirDashboardComponent },
   { path: '**', redirectTo: '' },
 ];

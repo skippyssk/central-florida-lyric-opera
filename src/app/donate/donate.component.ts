@@ -9,15 +9,11 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./donate.component.css'],
 })
 export class DonateComponent {
-  donateImages = [
-    'assets/images/donate1.jpg',
-    'assets/images/donate2.jpg',
-    'assets/images/donate3.jpg',
-  ];
+  donateImages = ['assets/images/threeTenors.webp', 'assets/images/bill2.webp'];
+
+  paypalDonateUrl = 'https://www.paypal.com/ncp/payment/4KVSTHRDKZGQA';
 
   donateViaPaypal() {
-    // Implement PayPal donation logic here
-    console.log('Donating via PayPal');
-    // You would typically redirect to a PayPal donation page or open a PayPal donation modal
+    window.open(this.paypalDonateUrl, '_blank');
   }
 }

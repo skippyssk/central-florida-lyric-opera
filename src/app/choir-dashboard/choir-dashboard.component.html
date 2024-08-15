@@ -1,0 +1,64 @@
+<div class="dashboard-container">
+  <h2 class="text-center">St. Timothy Choir Dashboard</h2>
+
+  <div class="dress-code text-center">
+    Current Choir Dress Code:<br />
+    White top - Black slacks/skirt
+  </div>
+
+  <div class="dashboard-section text-center">
+    <h3>Resources</h3>
+    <button (click)="downloadPdfReader()">
+      Click HERE to get a trusted, reliable PDF Reader.
+    </button>
+    <button (click)="openGoogleFolder()">
+      Clicking This Button Will Open An Online Google Folder Of Choir Related
+      Sheet Music (PDF), Music Menu, Mass of Wisdom, etc.
+    </button>
+  </div>
+
+  <div class="dashboard-section text-center">
+    <h3>Chant Mass Rehearsal</h3>
+    <ul class="list-unstyled">
+      <li *ngFor="let song of chantMassRehearsalSongs">
+        <a [href]="song.url" target="_blank">{{ song.title }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="dashboard-section text-center">
+    <h3>Soon Ah Will Be Done</h3>
+    <ul class="list-unstyled">
+      <li *ngFor="let part of soonAhWillBeDoneParts">
+        <a [href]="part.url" target="_blank">{{ part.name }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="dashboard-section text-center">
+    <h3>Variety of YouTube recordings:</h3>
+    <ul class="list-unstyled">
+      <li *ngFor="let video of youtubeVideos">
+        <a [href]="video.url" target="_blank">{{ video.title }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="dashboard-section text-center">
+    <h3>Voice Parts</h3>
+    <ul class="list-unstyled">
+      <li *ngFor="let part of voiceParts">
+        <a [href]="part.url" target="_blank">{{ part.name }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="dashboard-section text-center">
+    <h3>SoundCloud Playlists</h3>
+    <ul class="list-unstyled">
+      <li *ngFor="let playlist of spotifyPlaylists">
+        <a [href]="playlist.url" target="_blank">{{ playlist.name }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

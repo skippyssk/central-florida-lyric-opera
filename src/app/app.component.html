@@ -1,14 +1,15 @@
-<div class="main-content-wrapper">
+<div class="main-content-wrapper" [class.mobile]="isMobile">
   <div class="frosted-glass"></div>
+
   <header class="header">
     <div class="header-content">
-      <button class="menu-button" (click)="toggleMenu()">☰ MENU</button>
+      <div class="menu-button" (click)="toggleMenu()">
+        <strong>☰ MENU</strong>
+      </div>
       <div class="logo-section">
-        <div class="logo-text">Central Florida Lyric Opera</div>
+        <div class="logo-text">CENTRAL FLORIDA LYRIC OPERA</div>
       </div>
-      <div class="right-section">
-        <a href="#" class="calendar" (click)="showCalendar($event)">CALENDAR</a>
-      </div>
+      <div class="right-section"></div>
     </div>
   </header>
 
@@ -19,19 +20,16 @@
         <a
           routerLink="/resident-artist"
           (click)="navigateTo('/resident-artist')"
-          >Resident Artist Program</a
+          >Resident Artist Training Program</a
         >
       </li>
-
       <li>
         <a routerLink="/tickets" (click)="navigateTo('/tickets')"
           >Tickets / Season</a
         >
       </li>
       <li>
-        <a routerLink="/media" (click)="navigateTo('/media')"
-          >Videos and Other Media</a
-        >
+        <a routerLink="/media" (click)="navigateTo('/media')">Media</a>
       </li>
       <li>
         <a routerLink="/choir" (click)="navigateTo('/choir')"
@@ -67,7 +65,7 @@
           <i class="fab fa-facebook-f"></i>
         </a>
         <a
-          href="https://www.twitter.com"
+          href="https://x.com/cflopera"
           class="social-icon twitter"
           aria-label="Twitter"
           target="_blank"
@@ -86,14 +84,14 @@
         </a>
       </div>
       <div class="email-signup">
-        <form>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            aria-label="Email for newsletter"
-          />
-          <button type="submit" class="signup-button">Sign Up</button>
-        </form>
+        <a
+          href="https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="signup-button"
+        >
+          Email Signup
+        </a>
       </div>
       <p class="copyright">
         &copy; 2024 Central Florida Lyric Opera. All rights reserved
