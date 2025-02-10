@@ -213,12 +213,16 @@ body {
 
 /* Footer styles */
 footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: #000;
   color: #b8995f;
   padding: 2rem 0;
   font-family: 'Cinzel', serif;
   z-index: 1;
-  position: relative;
+ 
 }
 
 .footer-content {

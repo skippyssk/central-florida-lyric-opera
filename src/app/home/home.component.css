@@ -27,6 +27,8 @@ body {
   pointer-events: none; /* Allows clicks to pass through */
 }
 
+
+
 @supports (backdrop-filter: blur(10px)) {
   .frosted-glass {
     backdrop-filter: blur(10px);
