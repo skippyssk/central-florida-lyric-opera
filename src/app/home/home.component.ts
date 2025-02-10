@@ -58,193 +58,59 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   mainShows: Show[] = [
     {
-      title: 'The Best of Broadway',
-      image: 'assets/images/bestOfBroadway2.webp',
+      title: 'Broadway Stars with Grant Norman',
+      image: 'assets/images/grant.webp',
       description:
-        'Step into the dazzling world of Broadway with The Best of Broadway, a spectacular showcase of the greatest hits from the heart of the theater district.',
-      date: 'October 10, 2024',
-
-      venue: 'Savannah Center',
-      time: '4 PM and 7 PM',
-      ticketKey: 'bestOfBroadway',
+        'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight!  Accompanied on the grand piano by Maestro Bill Doherty.',
+      date: 'March 13, 2025',
+      time: '4pm and 7pm',
+      venue: "St Timothy's Catholic Church",
+      ticketKey: 'broadwayStars',
       buttonText: 'Get Tickets',
-      link: 'https://tickets.thevillages.com/32397',
+      link: 'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn',
       available: true,
     },
 
-    {
-      title: 'La Bohème',
-      image: 'assets/images/laBoheme.webp',
-      description:
-        'Experience the timeless romance and heartbreaking drama of Puccini\'s "La Bohème."',
-      date: 'January 11, 2025',
-      venue: 'The Sharon Performing Arts Center',
-      time: '3 PM and 7 PM',
-      ticketKey: 'laBoheme',
-      buttonText: 'Get Tickets',
-      link: 'https://www.thesharon.com/schedule.php',
-      available: false,
-    },
-    {
-      title: 'Voices OF The Night',
-      image: 'assets/images/night2.webp',
-      description: 'Experience an unforgettable performance',
-      date: 'February 5, 2025',
-      time: '7 PM',
-      venue: 'Manor at Plantation Leesburg, FL',
-      ticketKey: 'voicesOfTheNight',
-      buttonText: 'Get Tickets',
-      link: 'https://www.thesharon.com/schedule.php',
-      available: false,
-    },
-    {
-      title: 'Three Tenors Plus One',
-      image: 'assets/images/threeTenors2.webp',
-      description:
-        'Experience an unforgettable performance by the Three Tenors Plus One.',
-      date: 'February 21, 2025',
-      venue: 'The Sharon Performing Arts Center',
-      time: '3 PM and 7 PM',
-      ticketKey: 'threeTenors',
-      buttonText: 'Get Tickets',
-      link: 'https://thevillagesentertainment.com/event/three-tenors-plus-one/',
-      available: true,
-    },
     {
       title: 'Change the World 2',
-      image: 'assets/images/change-the-world-2.webp',
+      image: 'assets/images/Change2.webp',
       description:
-        'Join us for a night of inspiring performances aimed at making a difference.',
+        'The wait is over—Change The World is back!  Celebrate this uplifting event filled with music and community, featuring two extraordinary performances by the brilliant Maestro Bill Doherty and a host of talented local artists. Together, they’ll deliver songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. This event is more than just a concert—it’s an opportunity to create meaningful change. A portion of the proceeds will support the National Multiple Sclerosis Society, making a positive impact through compassion and generosity. Join us for an unforgettable evening of joy, connection, and purpose. Mark your calendars and secure your tickets today! Together, we can Change The World.',
       date: 'April 4, 2025',
       venue: 'The Sharon Performing Arts Center',
       time: '3 PM and 7 PM',
       ticketKey: 'changeTheWorld',
       buttonText: 'Get Tickets',
-      link: 'https://www.thesharon.com/schedule.php',
-      available: false,
+      link: 'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
+      available: true,
     },
     {
-      title: 'Hooray for Hollywood',
-      image: 'assets/images/hollywood.webp',
+      title: 'Bill Doherty & Fernando Varela - Together Again!',
+      image: 'assets/images/fernando.webp',
       description:
-        'Enjoy a night of classic and contemporary songs from the silver screen.',
-      date: 'January 3rd, 2025',
+        'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—America’s Got Talent finalist with Forte—alongside remarkable local performers.',
+      date: 'April 21, 2025',
+      time: '4pm and 7pm',
       venue: 'Savannah Center',
-      time: '4 PM and 7 PM',
-      ticketKey: 'hurrayHollywood',
+      ticketKey: 'fernando',
       buttonText: 'Get Tickets',
-      link: 'https://tickets.thevillages.com/events',
-      available: false,
-    },
-    {
-      title: 'Join The Opera Club',
-      image: 'assets/images/operaClub.webp',
-      description:
-        'Incredible performances every month by Bill Doherty and his talented singers.',
-      date: 'Ongoing',
-      venue: 'Laurel  Manor',
-      time: '7 PM',
-      ticketKey: 'operaClub',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
+      link: 'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
       available: true,
     },
   ];
 
   lesserShows: LesserShow[] = [
     {
-      title: 'Opening Season Gala',
-      image: 'assets/images/gala.webp',
-      description: 'Join us for a spectacular opening of our new season.',
-      date: 'September 26, 2024',
-      venue: 'Laurel Manor',
-      ticketKey: 'openingGala',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Popular Puccini',
-      image: 'assets/images/puccini.webp',
+      title: 'Three Tenors Plus One',
+      image: 'assets/images/3T1.webp',
       description:
-        'An evening dedicated to the beloved works of Giacomo Puccini.',
-      date: 'October 24, 2024',
-      venue: 'Laurel Manor',
-      ticketKey: 'popularPuccini',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Orlando Flaménco Dancers, Classical Guitarist and Singers',
-      image: 'assets/images/flamenco.webp',
-      description:
-        'Experience the passion and energy of Flamenco music and dance.',
-      date: 'November 21, 2024',
-      venue: 'Hope Lutheran Church',
-      ticketKey: 'flamencoFever',
+        'Experience a spectacular evening of music in support of the Harold S. Schwartz Music Scholarship. ',
+      date: 'February 21, 2025',
+      venue: 'The Sharon Performing Arts Center',
+      time: '3 PM and 7 PM',
+      ticketKey: 'threeTenors',
       buttonText: 'Get Tickets',
-      link: 'https://operaclubofthevillages.com',
-      available: true,
-    },
-    {
-      title: 'Tree Lighting',
-      image: 'assets/images/tree.webp',
-      description:
-        'A magical evening to kick off the holiday season with music and lights.',
-      date: 'November 30, 2024',
-      venue: 'Spanish Springs Town Center',
-      ticketKey: 'treeLighting',
-      buttonText: 'Free Entry',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Christmas Around the World',
-      image: 'assets/images/Christmas-World.webp',
-      description: 'Celebrate the holiday season with popular holiday songs.',
-      date: 'December 8, 2024',
-      venue: 'Laurel Manor',
-      ticketKey: 'christmasWorld',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Christmas Spectacular',
-      image: 'assets/images/christmas.webp',
-      description:
-        'Our annual holiday extravaganza filled with your favorite Christmas tunes.',
-      date: 'December 12, 2024',
-      venue: "St Timothy's Catholic Church",
-      ticketKey: 'christmasSpectacular',
-      buttonText: 'Get Tickets',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Mostly Mozart',
-      image: 'assets/images/mozart.webp',
-      description:
-        'An evening dedicated to the timeless works of Wolfgang Amadeus Mozart.',
-      date: 'January 23, 2025',
-      venue: 'Laurel Manor',
-      ticketKey: 'mostlyMozart',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Broadway Stars with Grant Norman',
-      image: 'assets/images/grant-broadway.webp',
-      description:
-        'Join Broadway star Grant Norman for an unforgettable night of musical theater.',
-      date: 'February 4, 2025',
-      time: '4pm and 7pm',
-      venue: "St Timothy's Catholic Church",
-      ticketKey: 'broadwayStars',
-      buttonText: 'Get Tickets',
-      link: 'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn',
+      link: 'https://thevillagesentertainment.com/event/three-tenors-plus-one/',
       available: true,
     },
     {
@@ -260,9 +126,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       available: false,
     },
     {
-      title: 'Viva Verdi',
-      image: 'assets/images/verdi.webp',
-      description: 'An homage to the great Italian composer Giuseppe Verdi.',
+      title: 'Springtime in Paris',
+      image: 'assets/images/spring4.webp',
+      description:
+        'Celebrate the romance and elegance of the French repertoire in an evening of enchanting art songs and arias!',
       date: 'March 27, 2025',
       venue: 'Laurel Manor',
       ticketKey: 'vivaVerdi',
@@ -281,6 +148,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       buttonText: 'Join Club',
       link: 'https://operaclubofthevillages.com/join-us',
       available: false,
+    },
+    {
+      title: 'Join The Opera Club',
+      image: 'assets/images/operaClub.webp',
+      description:
+        'Incredible performances every month by Maestro Bill Doherty and his talented singers.',
+      date: 'Ongoing',
+      venue: 'Laurel  Manor',
+      time: '7 PM',
+      ticketKey: 'operaClub',
+      buttonText: 'Join Club',
+      link: 'https://operaclubofthevillages.com/join-us',
+      available: true,
     },
   ];
 
@@ -312,7 +192,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('window:scroll')
   onScroll(): void {
-    if (window.scrollY > 200) {
+    if (window.scrollY > 2200) {
       this.showScrollBox = false;
     }
   }

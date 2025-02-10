@@ -115,7 +115,7 @@ In 1990, Grant Norman began his long-standing musical affiliation with Maestro B
 
 Grant moved to New York City in 1991 where he immediately joined the cast of two legendary Broadway shows - Miss Saigon and The Phantom of the Opera. “My time with The Phantom of the Opera on Broadway led to the opportunity to tour the U.S. as the Phantom in the National Touring Company. I then went on to play the Phantom in London at Her Majesty's Theatre.  After I returned to the States, I took some needed time off; and then accepted a contract, working for Disney, touring the U.S. and Canada as the “Beast” in Beauty and the Beast”, (a role for which he was nominated for two National Theatre Awards). “Although I loved touring our beautiful country, I was happy to be home again in New York.”  Once back in New York, he landed a role in the Off-Broadway production of Johnny Guitar where he can be found on the Original Cast Recording.
 
-Most recently, Grant Norman finished a 2 1/2 year run playing the role of Gaston in the Broadway production of Disney's Beauty and the Beast and also appeared in the hit television drama “Law & Order”.
+Most recently, Grant Norman finished a 2 1/2 year run playing the role of Gaston in the Broadway production of Disney's Beauty and the Beast and also appeared in the hit television drama “Law & Order”. At the present time, Grant stars in Disney’s “Finding Nemo: The Big Blue…And Beyond” at Disneyworld’s Animal Kingdon Theme Park.
  
       `,
       galleryImages: [

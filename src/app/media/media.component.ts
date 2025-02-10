@@ -48,13 +48,7 @@ export class MediaComponent implements OnInit {
         "In this captivating video, internationally acclaimed tenor Fernando Varela delivers a powerful performance of the unique composition \"I Believe in You\" during his solo PBS special at the packed Dr. Phillips Center in Orlando. Conducted by the esteemed Maestro Bill Doherty, this piece highlights Varela's extraordinary vocal range and emotional depth, showcasing his distinctive pop crossover technique. The performance is a testament to the synergy between singer and conductor, with Maestro Doherty's masterful direction amplifying the composition's inspiring message.",
       source: 'https://www.youtube.com/embed/5R3obaxehgo',
     },
-    {
-      type: 'video',
-      title: 'Change the World - Maestro Bill Doherty & Angie Rose',
-      description:
-        'In this heartfelt video, Maestro Bill Doherty and Angie Rose come together to perform their original song "Change the World." Written during the challenging days of the COVID pandemic, this powerful composition was created to inspire hope and resilience. Through their poignant lyrics and soulful melodies, Maestro Doherty and Rose convey a message of unity and the possibility of positive change in the face of adversity. This performance is a testament to the strength of the human spirit and the power of music to heal and uplift.',
-      source: 'https://www.youtube.com/embed/LeD--Y_CFpI',
-    },
+
     {
       type: 'video',
       title:
@@ -91,6 +85,13 @@ export class MediaComponent implements OnInit {
       description:
         'In this heartwarming video, the talented Debbie Garrett delivers a beautiful performance of two beloved classics, "Smile" and "Somewhere Over the Rainbow," in the illustrious Villanova d\'Albenga. Accompanied by the masterful piano playing of Maestro Bill Doherty. Garrett\'s soulful voice brings new depth and emotion to these timeless songs, while Maestro Doherty\'s sensitive and expressive piano work perfectly complements her vocals.',
       source: 'https://www.youtube.com/embed/lgMQPijeFKg',
+    },
+    {
+      type: 'video',
+      title: 'Change the World - Maestro Bill Doherty & Angie Rose',
+      description:
+        'In this heartfelt video, Maestro Bill Doherty and Angie Rose come together to perform their original song "Change the World." Written during the challenging days of the COVID pandemic, this powerful composition was created to inspire hope and resilience. Through their poignant lyrics and soulful melodies, Maestro Doherty and Rose convey a message of unity and the possibility of positive change in the face of adversity. This performance is a testament to the strength of the human spirit and the power of music to heal and uplift.',
+      source: 'https://www.youtube.com/embed/LeD--Y_CFpI',
     },
   ];
 
