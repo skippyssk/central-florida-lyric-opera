@@ -269,9 +269,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           const fadeFactor = (3 * vh - scrollY) / (0.4 * vh);
           this.renderer.setStyle(show3, 'opacity', fadeFactor);
           this.renderer.setStyle(overlayBox, 'opacity', fadeFactor);
-          // Lock overlay's bottom to Fernando's image bottom:
-          // Fernando's image bottom relative to viewport = (1 - progress)*vh.
-          this.renderer.setStyle(overlayBox, 'bottom', 1 - progress + 'vh');
+          // Also, adjust the overlay's bottom to follow the Fernando image
+          let newBottom = 20 * fadeFactor;
+          this.renderer.setStyle(overlayBox, 'bottom', newBottom + 'px');
           if (fadeFactor <= 0) {
             this.renderer.setStyle(overlayBox, 'visibility', 'hidden');
           }
@@ -279,7 +279,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           this.renderer.setStyle(show3, 'opacity', 1);
           this.renderer.setStyle(overlayBox, 'opacity', 1);
           this.renderer.setStyle(overlayBox, 'visibility', 'visible');
-          this.renderer.setStyle(overlayBox, 'bottom', '0px');
+          this.renderer.setStyle(overlayBox, 'bottom', '20px');
         }
       } else if (scrollY >= 3 * vh) {
         this.renderer.setStyle(show3, 'transform', 'translateY(-100%)');
@@ -292,7 +292,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       // Update overlay info based on thresholds (60% & 1.6*vh)
-      if (scrollY < 0.5 * vh) {
+      if (scrollY < 0.6 * vh) {
         this.updateOverlay(
           'Broadway Stars with Grant Norman',
           'March 13, 2025',
@@ -326,7 +326,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         );
         this.setActiveNavButton(3);
       }
-      // No sticky logic; the .content-container has a fixed top margin (30vh) so that the tickets section remains a fixed gap away.
+      // (No sticky logic is needed since .content-container now has a fixed top margin.)
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -402,7 +402,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (show.buttonText === 'Join Club') {
       this.showClubMembershipMessage();
     } else if (show.available) {
-      // Set current ticket link and show the modal.
       this.currentTicketLink = show.link;
       this.showTicketOptionsBox = true;
     } else {
@@ -436,7 +435,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   joinMaestrosInnerCircle(): void {
-    // When the overlay button is clicked, grab its current href.
+    // When the overlay button is clicked, get its current href.
     const buyButton = document.getElementById('buyButton');
     if (buyButton) {
       const link = buyButton.getAttribute('href');
