@@ -126,7 +126,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       venue: 'The Sharon Performing Arts Center',
       time: '3 PM and 7 PM',
       ticketKey: 'threeTenors',
-      buttonText: 'Get Tickets',
+      buttonText: 'Buy Tickets Now',
       link: 'https://thevillagesentertainment.com/event/three-tenors-plus-one/',
       available: true,
     },

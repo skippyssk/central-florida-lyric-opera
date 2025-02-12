@@ -71,25 +71,25 @@
       <div class="frosted-glass"></div>
 
       <!-- Fixed Overlay for Concert Info (Desktop Only) -->
-
       <div id="fixedOverlay">
         <div class="overlay-content">
           <div class="overlay-left">
-            <!-- Clicking this triggers the Maestro’s Inner Circle modal -->
             <a
               id="buyButton"
               href="#"
               (click)="joinMaestrosInnerCircle(); $event.preventDefault()"
               class="buy-tickets-button"
-              >Buy Tickets Now</a
             >
+              Buy Tickets Now
+            </a>
             <a
               id="emailButton"
               href="#"
               (click)="openConstantContact($event); $event.preventDefault()"
               class="buy-tickets-button"
-              >Email Us</a
             >
+              Email Us
+            </a>
           </div>
           <div class="overlay-right">
             <h2 id="showTitle">Broadway Stars with Grant Norman</h2>
@@ -140,77 +140,88 @@
 
       <!-- Content Container for Tickets & Additional Information -->
       <div class="content-container">
-        <div class="mobile-content">
-          <div class="resident-artists-section">
-            <h2>Resident Artist Training Program</h2>
-            <p>
-              Join our esteemed Resident Artist Training Program and launch your
-              opera career with invaluable mentorship and performance
-              opportunities.
-            </p>
-            <button class="buy-tickets-button" (click)="applyNowClicked()">
-              Apply Now
-            </button>
+        <!-- Single Semi-Transparent Box Wrapping All Sections -->
+        <div class="semi-transparent-box">
+          <!-- Resident Artist Section -->
+          <div class="mobile-content">
+            <div class="resident-artists-section">
+              <h2>Resident Artist Training Program</h2>
+              <p>
+                Join our esteemed Resident Artist Training Program and launch
+                your opera career with invaluable mentorship and performance
+                opportunities.
+              </p>
+              <button class="buy-tickets-button" (click)="applyNowClicked()">
+                Apply Now
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Tickets Section (Encompassing Box) -->
-        <div id="tickets-section" class="tickets-section">
-          <div class="grid-container">
-            <div *ngFor="let show of mainShows" class="grid-item large">
-              <img [src]="show.image" [alt]="show.title" class="ticket-image" />
-              <div class="ticket-content">
-                <h2>{{ show.title }}</h2>
-                <p><strong>Date:</strong> {{ show.date }}</p>
-                <p><strong>Venue:</strong> {{ show.venue }}</p>
-                <p><strong>Time:</strong> {{ show.time || "TBA" }}</p>
-                <p>{{ show.description }}</p>
-                <button
-                  class="buy-tickets-button"
-                  (click)="buyMainShowTicketsClicked(show.ticketKey, $event)"
-                >
-                  {{ show.buttonText }}
-                </button>
+          <!-- Main Shows Section -->
+          <div id="tickets-section" class="tickets-section">
+            <div class="grid-container">
+              <div *ngFor="let show of mainShows" class="grid-item large">
+                <img
+                  [src]="show.image"
+                  [alt]="show.title"
+                  class="ticket-image"
+                />
+                <div class="ticket-content">
+                  <h2>{{ show.title }}</h2>
+                  <p><strong>Date:</strong> {{ show.date }}</p>
+                  <p><strong>Venue:</strong> {{ show.venue }}</p>
+                  <p><strong>Time:</strong> {{ show.time || "TBA" }}</p>
+                  <p>{{ show.description }}</p>
+                  <button
+                    class="buy-tickets-button"
+                    (click)="buyMainShowTicketsClicked(show.ticketKey, $event)"
+                  >
+                    {{ show.buttonText }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Performances Section -->
+          <div class="additional-performances-section">
+            <h2>Additional Performances</h2>
+            <div class="lesser-shows-grid">
+              <div class="lesser-show-card" *ngFor="let show of lesserShows">
+                <img
+                  [src]="show.image"
+                  [alt]="show.title"
+                  class="lesser-show-image"
+                />
+                <div class="lesser-show-details">
+                  <h3 class="lesser-show-title">{{ show.title }}</h3>
+                  <p class="lesser-show-date">
+                    <strong>Date:</strong> {{ show.date }}
+                  </p>
+                  <p class="lesser-show-venue">
+                    <strong>Venue:</strong> {{ show.venue }}
+                  </p>
+                  <p class="lesser-show-time" *ngIf="show.time">
+                    <strong>Time:</strong> {{ show.time }}
+                  </p>
+                  <p class="lesser-show-description">{{ show.description }}</p>
+                  <button
+                    class="buy-tickets-button"
+                    (click)="
+                      buyAdditionalShowTicketsClicked(show.ticketKey, $event)
+                    "
+                  >
+                    {{ show.buttonText }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Additional Performances Section -->
-        <div class="additional-performances-section">
-          <h2>Additional Performances</h2>
-          <div class="lesser-shows-grid">
-            <div class="lesser-show-card" *ngFor="let show of lesserShows">
-              <img
-                [src]="show.image"
-                [alt]="show.title"
-                class="lesser-show-image"
-              />
-              <div class="lesser-show-details">
-                <h3 class="lesser-show-title">{{ show.title }}</h3>
-                <p class="lesser-show-date">
-                  <strong>Date:</strong> {{ show.date }}
-                </p>
-                <p class="lesser-show-venue">
-                  <strong>Venue:</strong> {{ show.venue }}
-                </p>
-                <p class="lesser-show-time" *ngIf="show.time">
-                  <strong>Time:</strong> {{ show.time }}
-                </p>
-                <p class="lesser-show-description">{{ show.description }}</p>
-                <button
-                  class="buy-tickets-button"
-                  (click)="
-                    buyAdditionalShowTicketsClicked(show.ticketKey, $event)
-                  "
-                >
-                  {{ show.buttonText }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- End Single Semi-Transparent Box -->
       </div>
+      <!-- End Content Container -->
     </div>
+    <!-- End Home Container -->
   </body>
 </html>
