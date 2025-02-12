@@ -37,12 +37,31 @@ body {
   pointer-events: none;
 }
 
+
 /* ============================
    Fixed Overlay for Concert Info (Desktop Only)
 =============================== */
-#fixedOverlay {
+/* ============================
+   Fixed Logo in Top Left
+=============================== */
+.fixed-logo {
   position: fixed;
-  bottom: 0; /* Start at the very bottom */
+  top: 100px;        /* Adjust the vertical position as needed */
+  left: 100px;       /* Adjust the horizontal position as needed */
+  z-index: 1600;    /* Make sure it sits above the frosted glass and other elements */
+  opacity: 0.8;     /* Semi transparency */
+}
+
+.fixed-logo img {
+  height: 200px;     /* Adjust the size as needed */
+  width: auto;
+}
+#fixedOverlay {
+  box-sizing: border-box;
+  position: fixed;
+  /* Initially, set the overlay so it sits flush with the bottom.
+     (Assuming overlay height = 150px) */
+  top: calc(100vh - 150px - 50px);
   left: 20px;
   width: 40vw; /* About 40% of viewport width */
   background-color: rgba(0,0,0,0.8);
@@ -50,8 +69,7 @@ body {
   padding: 15px;
   border-radius: 5px;
   z-index: 1500;
-  /* We use TS to update the bottom value dynamically */
-  transition: bottom 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+  transition: top 0.1s ease, opacity 0.1s ease, visibility 0.1s ease;
 }
 .overlay-content {
   display: flex;
@@ -80,7 +98,7 @@ body {
 .overlay-right p {
   margin: 2px 0;
 }
-/* Vertical nav buttons inside overlay */
+/* Vertical nav buttons inside overlay – stacked on the right */
 .overlay-nav {
   display: flex;
   flex-direction: column;
@@ -243,7 +261,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .curtain-container > div img {
   display: block;
@@ -263,7 +281,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  /* Fixed gap from the curtain container (set to 30vh per your change) */
+  /* Fixed gap from the curtain container (set to 30vh as specified) */
   margin-top: 30vh;
   position: relative;
   z-index: 1;
@@ -272,7 +290,7 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 20px;
   border-radius: 5px;
-  margin: 50px 20px 20px; /* Fixed spacing from the curtain container */
+  margin: 50px 20px 20px;
   position: relative;
   z-index: 3;
   backdrop-filter: blur(10px);
@@ -422,11 +440,14 @@ body {
   .mobile-content {
     display: block;
   }
-  /* On mobile, remove the extra top margin from content container */
   .content-container {
     margin-top: 30vh;
     padding-top: 60px;
   }
+  .fixed-logo {
+    display: none;
+  }
+
 }
 @media screen and (max-width: 900px) {
   .grid-container {

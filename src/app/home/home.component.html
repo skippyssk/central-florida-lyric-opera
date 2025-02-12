@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="home.component.css" />
   </head>
   <body>
+    <!-- Fixed Logo -->
+    <div class="fixed-logo">
+      <img src="assets/images/Logo.webp" alt="Logo" />
+    </div>
     <div class="home-container">
       <!-- Global Message Boxes -->
       <div *ngIf="showUnavailableBox" class="message-box unavailable-box">
@@ -67,6 +71,7 @@
       <div class="frosted-glass"></div>
 
       <!-- Fixed Overlay for Concert Info (Desktop Only) -->
+
       <div id="fixedOverlay">
         <div class="overlay-content">
           <div class="overlay-left">

@@ -185,7 +185,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // Overlay is updated via scroll events.
+    // The overlay updates via scroll events.
   }
 
   @HostListener('window:resize')
@@ -212,13 +212,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 10000);
   }
 
+  // --------------------------------------------------------------------
+  // UPDATED SCROLL EFFECT: Overlay Content Updates at 70% Reveal
+  // --------------------------------------------------------------------
   private setupScrollEffect(): void {
     if (this.isMobile) return;
     const show1 = document.getElementById('show1');
     const show2 = document.getElementById('show2');
     const show3 = document.getElementById('show3');
     const overlayBox = document.getElementById('fixedOverlay');
-    const ticketsSection = document.getElementById('tickets-section');
+    const logo = document.querySelector('.fixed-logo'); // fixed semi‑transparent logo
 
     if (!show1 || !show2 || !show3 || !overlayBox) {
       console.error('One or more required elements were not found.');
@@ -226,29 +229,47 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const vh = window.innerHeight;
+    const overlayHeight = 150; // as in your CSS
+    // Default overlay top when not in Fernando’s section.
+    const defaultTop = vh - overlayHeight - 40;
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
 
-      // Section 1 (Concert 1)
+      // --- Determine Active Section for Overlay Content ---
+      // For section 1 (Grant): if scrollY is less than 0.7×vh, remain in section 1.
+      // Once scrollY reaches 0.7×vh, update to section 2.
+      // (Section 3 remains as before.)
+      let activeSectionIndex: number;
+      if (scrollY < 0.7 * vh) {
+        activeSectionIndex = 1;
+      } else if (scrollY < vh + 0.7 * vh) {
+        activeSectionIndex = 2;
+      } else {
+        activeSectionIndex = 3;
+      }
+
+      // --- Image Sliding Effects ---
+      // Section 1 (Grant)
       if (scrollY < vh) {
-        const progress = scrollY / vh;
+        const progress1 = scrollY / vh;
+        // Using a 150% multiplier so the image slides up faster.
         this.renderer.setStyle(
           show1,
           'transform',
-          `translateY(-${progress * 100}%)`
+          `translateY(-${progress1 * 150}%)`
         );
       } else {
         this.renderer.setStyle(show1, 'transform', 'translateY(-100%)');
       }
 
-      // Section 2 (Concert 2)
+      // Section 2 (Change the World)
       if (scrollY >= vh && scrollY < 2 * vh) {
-        const progress = (scrollY - vh) / vh;
+        const progress2 = (scrollY - vh) / vh;
         this.renderer.setStyle(
           show2,
           'transform',
-          `translateY(-${progress * 100}%)`
+          `translateY(-${progress2 * 100}%)`
         );
       } else if (scrollY >= 2 * vh) {
         this.renderer.setStyle(show2, 'transform', 'translateY(-100%)');
@@ -256,39 +277,77 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.setStyle(show2, 'transform', 'translateY(0)');
       }
 
-      // Section 3 (Concert 3: Fernando) with fade-out at 60%
-      if (scrollY >= 2 * vh && scrollY < 3 * vh) {
-        const progress = (scrollY - 2 * vh) / vh;
+      // Section 3 (Fernando)
+      if (scrollY < 2 * vh) {
+        // BEFORE Fernando’s section:
+        // Ensure the Fernando image is fully visible.
+        this.renderer.setStyle(show3, 'transform', 'translateY(0)');
+        this.renderer.setStyle(show3, 'opacity', 1);
+        // Keep the overlay locked to its default bottom position.
+        this.renderer.setStyle(overlayBox, 'top', defaultTop + 'px');
+        this.renderer.setStyle(overlayBox, 'opacity', 1);
+        this.renderer.setStyle(overlayBox, 'visibility', 'visible');
+        if (logo) {
+          this.renderer.setStyle(logo, 'opacity', 1);
+          this.renderer.setStyle(logo, 'visibility', 'visible');
+        }
+      } else if (scrollY >= 2 * vh && scrollY < 3 * vh) {
+        // DURING Fernando’s section:
+        const progress3 = (scrollY - 2 * vh) / vh;
         this.renderer.setStyle(
           show3,
           'transform',
-          `translateY(-${progress * 100}%)`
+          `translateY(-${progress3 * 100}%)`
         );
-        if (scrollY >= 2.6 * vh) {
-          // Fade out from 2.6vh to 3vh
-          const fadeFactor = (3 * vh - scrollY) / (0.4 * vh);
-          this.renderer.setStyle(show3, 'opacity', fadeFactor);
-          this.renderer.setStyle(overlayBox, 'opacity', fadeFactor);
-          if (fadeFactor <= 0) {
-            this.renderer.setStyle(overlayBox, 'visibility', 'hidden');
+        // Keep the overlay locked to the bottom (do not change its "top")
+        this.renderer.setStyle(overlayBox, 'top', defaultTop + 'px');
+
+        // Fade-out logic: make the overlay fade out faster.
+        // In this example, the fade starts at 20% progress and is complete at 40%.
+        const fadeThreshold = 0.2;
+        const fadeEnd = 0.4;
+        let opacity = 1;
+        if (progress3 >= fadeThreshold) {
+          if (progress3 >= fadeEnd) {
+            opacity = 0;
+          } else {
+            opacity =
+              1 - (progress3 - fadeThreshold) / (fadeEnd - fadeThreshold);
           }
-        } else {
-          this.renderer.setStyle(show3, 'opacity', 1);
-          this.renderer.setStyle(overlayBox, 'opacity', 1);
-          this.renderer.setStyle(overlayBox, 'visibility', 'visible');
         }
-      } else if (scrollY >= 3 * vh) {
+        this.renderer.setStyle(overlayBox, 'opacity', opacity);
+        this.renderer.setStyle(
+          overlayBox,
+          'visibility',
+          opacity === 0 ? 'hidden' : 'visible'
+        );
+        if (logo) {
+          this.renderer.setStyle(logo, 'opacity', opacity);
+          this.renderer.setStyle(
+            logo,
+            'visibility',
+            opacity === 0 ? 'hidden' : 'visible'
+          );
+        }
+        // Optionally, fade out the Fernando image too.
+        this.renderer.setStyle(show3, 'opacity', opacity);
+      } else {
+        // AFTER Fernando’s section:
+        // Lock the image in its final translated state.
         this.renderer.setStyle(show3, 'transform', 'translateY(-100%)');
-        this.renderer.setStyle(show3, 'opacity', 0);
+        // Keep the overlay locked at the bottom and fully faded out.
+        this.renderer.setStyle(overlayBox, 'top', defaultTop + 'px');
         this.renderer.setStyle(overlayBox, 'opacity', 0);
         this.renderer.setStyle(overlayBox, 'visibility', 'hidden');
-      } else {
-        this.renderer.setStyle(show3, 'transform', 'translateY(0)');
-        this.renderer.setStyle(show3, 'opacity', 1);
+        if (logo) {
+          this.renderer.setStyle(logo, 'opacity', 0);
+          this.renderer.setStyle(logo, 'visibility', 'hidden');
+        }
+        this.renderer.setStyle(show3, 'opacity', 0);
       }
 
-      // Update overlay info based on thresholds (60% & 1.6*vh)
-      if (scrollY < 0.6 * vh) {
+      // --- Update the Overlay Content Based on Active Section ---
+      if (activeSectionIndex === 1) {
         this.updateOverlay(
           'Broadway Stars with Grant Norman',
           'March 13, 2025',
@@ -298,8 +357,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           'Buy Tickets Now',
           'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn'
         );
-        this.setActiveNavButton(1);
-      } else if (scrollY >= 0.6 * vh && scrollY < 1.6 * vh) {
+      } else if (activeSectionIndex === 2) {
         this.updateOverlay(
           'Change the World 2',
           'April 4, 2025',
@@ -309,8 +367,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           'Buy Tickets Now',
           'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/'
         );
-        this.setActiveNavButton(2);
-      } else {
+      } else if (activeSectionIndex === 3) {
         this.updateOverlay(
           'Bill Doherty & Fernando Varela - Together Again!',
           'April 21, 2025',
@@ -320,17 +377,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           'Buy Tickets Now',
           'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/'
         );
-        this.setActiveNavButton(3);
       }
-
-      // Since we now fix the gap via a fixed margin on .content-container,
-      // no additional sticky logic is needed.
+      this.setActiveNavButton(activeSectionIndex);
     };
 
     window.addEventListener('scroll', handleScroll);
     this.cleanupFunctions.push(() =>
       window.removeEventListener('scroll', handleScroll)
     );
+    // Initialize on load.
     handleScroll();
   }
 
@@ -400,7 +455,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (show.buttonText === 'Join Club') {
       this.showClubMembershipMessage();
     } else if (show.available) {
-      // Set current ticket link and show the modal.
       this.currentTicketLink = show.link;
       this.showTicketOptionsBox = true;
     } else {
@@ -434,7 +488,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   joinMaestrosInnerCircle(): void {
-    // When the overlay button is clicked, get its current href for the ticket link.
     const buyButton = document.getElementById('buyButton');
     if (buyButton) {
       const link = buyButton.getAttribute('href');
@@ -443,7 +496,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showTicketOptionsBox = true;
   }
 
-  // NEW: Second button action from the modal directing to constant-contact
   joinMaestrosInnerCircleAction(): void {
     const constantContactUrl =
       'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
@@ -504,7 +556,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       sectionIndex = 3;
     }
     window.scrollTo({ top: offset, behavior: 'smooth' });
-    // Force update overlay after a short delay (500ms) so that the new section is ~70% visible
     setTimeout(() => {
       if (sectionIndex === 1) {
         this.updateOverlay(
