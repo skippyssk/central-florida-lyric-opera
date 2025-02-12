@@ -46,41 +46,45 @@ interface LesserShow {
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private cleanupFunctions: (() => void)[] = [];
-  unavailableMessage: string = '';
+
+  // Basic properties
   isMobile: boolean = false;
-  clubMembershipMessage: string = '';
+  showScrollBox: boolean = true;
+
+  // Ticket / membership logic
+  unavailableMessage: string = '';
   showUnavailableBox: boolean = false;
+  clubMembershipMessage: string = '';
   showClubMembershipBox: boolean = false;
   showTicketOptionsBox: boolean = false;
   currentTicketLink: string = '';
   currentYear: number = new Date().getFullYear();
-  showScrollBox = true;
 
+  // Data for main shows (concerts) and lesser shows
   mainShows: Show[] = [
     {
       title: 'Broadway Stars with Grant Norman',
       image: 'assets/images/grant.webp',
       description:
-        'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight!  Accompanied on the grand piano by Maestro Bill Doherty.',
+        'Join Master of Ceremonies Grant Norman, best known for his portrayal of Phantom in Phantom of the Opera on Broadway, as he takes us on a musical journey through classic Broadway hits.',
       date: 'March 13, 2025',
       time: '4pm and 7pm',
       venue: "St Timothy's Catholic Church",
       ticketKey: 'broadwayStars',
-      buttonText: 'Get Tickets',
+      buttonText: 'Buy Tickets Now',
       link: 'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn',
       available: true,
     },
-
     {
       title: 'Change the World 2',
       image: 'assets/images/Change2.webp',
       description:
-        'The wait is over—Change The World is back!  Celebrate this uplifting event filled with music and community, featuring two extraordinary performances by the brilliant Maestro Bill Doherty and a host of talented local artists. Together, they’ll deliver songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. This event is more than just a concert—it’s an opportunity to create meaningful change. A portion of the proceeds will support the National Multiple Sclerosis Society, making a positive impact through compassion and generosity. Join us for an unforgettable evening of joy, connection, and purpose. Mark your calendars and secure your tickets today! Together, we can Change The World.',
+        'The wait is over—Change The World is back! Celebrate this uplifting event with two extraordinary performances that inspire hope and unity.',
       date: 'April 4, 2025',
       venue: 'The Sharon Performing Arts Center',
       time: '3 PM and 7 PM',
       ticketKey: 'changeTheWorld',
-      buttonText: 'Get Tickets',
+      buttonText: 'Buy Tickets Now',
       link: 'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
       available: true,
     },
@@ -88,12 +92,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Bill Doherty & Fernando Varela - Together Again!',
       image: 'assets/images/fernando.webp',
       description:
-        'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—America’s Got Talent finalist with Forte—alongside remarkable local performers.',
+        'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—bridging classic opera with modern appeal—in a performance you won’t forget.',
       date: 'April 21, 2025',
       time: '4pm and 7pm',
       venue: 'Savannah Center',
       ticketKey: 'fernando',
-      buttonText: 'Get Tickets',
+      buttonText: 'Buy Tickets Now',
       link: 'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
       available: true,
     },
@@ -104,7 +108,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Three Tenors Plus One',
       image: 'assets/images/3T1.webp',
       description:
-        'Experience a spectacular evening of music in support of the Harold S. Schwartz Music Scholarship. ',
+        'Experience a spectacular evening of music in support of the Harold S. Schwartz Music Scholarship.',
       date: 'February 21, 2025',
       venue: 'The Sharon Performing Arts Center',
       time: '3 PM and 7 PM',
@@ -117,7 +121,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Love Notes from Broadway',
       image: 'assets/images/broadway.webp',
       description:
-        'Celebrate love with selections from favorite Broadway shows.',
+        'Celebrate love with selections from your favorite Broadway shows.',
       date: 'February 27, 2025',
       venue: 'Laurel Manor',
       ticketKey: 'loveNotes',
@@ -129,7 +133,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Springtime in Paris',
       image: 'assets/images/spring4.webp',
       description:
-        'Celebrate the romance and elegance of the French repertoire in an evening of enchanting art songs and arias!',
+        'Celebrate the romance and elegance of French repertoire in an evening of enchanting art songs and arias.',
       date: 'March 27, 2025',
       venue: 'Laurel Manor',
       ticketKey: 'vivaVerdi',
@@ -141,7 +145,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Golden Days: Music of Operetta',
       image: 'assets/images/operetta.webp',
       description:
-        'Step back in time with the charming melodies of classic operettas.',
+        'Step back in time with the charming melodies of classic operettas in a performance full of nostalgia.',
       date: 'May 22, 2025',
       venue: 'Laurel Manor',
       ticketKey: 'goldenDays',
@@ -153,9 +157,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Join The Opera Club',
       image: 'assets/images/operaClub.webp',
       description:
-        'Incredible performances every month by Maestro Bill Doherty and his talented singers.',
+        'Enjoy incredible performances every month by Maestro Bill Doherty and his talented singers. Become a member to experience it all!',
       date: 'Ongoing',
-      venue: 'Laurel  Manor',
+      venue: 'Laurel Manor',
       time: '7 PM',
       ticketKey: 'operaClub',
       buttonText: 'Join Club',
@@ -174,20 +178,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenSize();
       this.showScrollBoxTimeout();
+      if (!this.isMobile) {
+        this.setupScrollEffect();
+      }
     }
   }
 
   ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId) && !this.isMobile) {
-      this.setupScrollEffect();
-      this.setupVideoPlayback();
-    }
+    // Overlay is updated via scroll events.
   }
 
-  private showScrollBoxTimeout(): void {
-    setTimeout(() => {
-      this.showScrollBox = false;
-    }, 10000);
+  @HostListener('window:resize')
+  onResize(): void {
+    this.checkScreenSize();
   }
 
   @HostListener('window:scroll')
@@ -197,119 +200,184 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    this.checkScreenSize();
-  }
-
   private checkScreenSize(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.isMobile = window.innerWidth <= 768;
-      if (!this.isMobile) {
-        this.setupScrollEffect();
-      }
     }
   }
 
-  private setupVideoPlayback(): void {
-    const videoElement = document.querySelector(
-      '.slide-video'
-    ) as HTMLVideoElement;
-    if (videoElement) {
-      this.renderer.setProperty(videoElement, 'muted', true);
-      this.renderer.setProperty(videoElement, 'loop', true);
-
-      const playVideo = () => {
-        videoElement
-          .play()
-          .then(() => console.log('Video started playing'))
-          .catch((error) =>
-            console.error('Error attempting to play video:', error)
-          );
-      };
-
-      playVideo();
-      this.renderer.listen(document, 'click', playVideo);
-    } else {
-      console.error('Video element not found');
-    }
+  private showScrollBoxTimeout(): void {
+    setTimeout(() => {
+      this.showScrollBox = false;
+    }, 10000);
   }
 
   private setupScrollEffect(): void {
     if (this.isMobile) return;
+    const show1 = document.getElementById('show1');
+    const show2 = document.getElementById('show2');
+    const show3 = document.getElementById('show3');
+    const overlayBox = document.getElementById('fixedOverlay');
+    const ticketsSection = document.getElementById('tickets-section');
 
-    const requiemSection = document.getElementById('requiem-section');
-    const videoSection = document.getElementById('video-section');
-    const revealSection = document.querySelector(
-      '.reveal-on-scroll'
-    ) as HTMLElement;
-    const headerHeight = 60;
-
-    if (!requiemSection || !videoSection || !revealSection) {
-      console.error('Required elements not found');
+    if (!show1 || !show2 || !show3 || !overlayBox) {
+      console.error('One or more required elements were not found.');
       return;
     }
 
-    let lastScrollTop = 0;
+    const vh = window.innerHeight;
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const viewportHeight = window.innerHeight;
-      const fullSectionHeight = viewportHeight - headerHeight;
+      const scrollY = window.scrollY;
 
-      const scrollingDown = scrollPosition > lastScrollTop;
-      lastScrollTop = scrollPosition;
-
-      if (scrollPosition < fullSectionHeight) {
-        const progress = scrollPosition / fullSectionHeight;
+      // Section 1 (Concert 1)
+      if (scrollY < vh) {
+        const progress = scrollY / vh;
         this.renderer.setStyle(
-          requiemSection,
+          show1,
           'transform',
           `translateY(-${progress * 100}%)`
         );
-        this.renderer.setStyle(videoSection, 'opacity', '1');
       } else {
-        this.renderer.setStyle(
-          requiemSection,
-          'transform',
-          'translateY(-100%)'
-        );
-        this.renderer.setStyle(videoSection, 'opacity', '1');
+        this.renderer.setStyle(show1, 'transform', 'translateY(-100%)');
       }
 
-      if (scrollPosition >= fullSectionHeight) {
-        const progress = Math.min(
-          (scrollPosition - fullSectionHeight) / fullSectionHeight,
-          1
-        );
+      // Section 2 (Concert 2)
+      if (scrollY >= vh && scrollY < 2 * vh) {
+        const progress = (scrollY - vh) / vh;
         this.renderer.setStyle(
-          videoSection,
-          'opacity',
-          (1 - progress).toString()
-        );
-        this.renderer.setStyle(
-          revealSection,
+          show2,
           'transform',
-          `translateY(${(1 - progress) * 20}%)`
+          `translateY(-${progress * 100}%)`
         );
-        this.renderer.setStyle(revealSection, 'opacity', progress.toString());
+      } else if (scrollY >= 2 * vh) {
+        this.renderer.setStyle(show2, 'transform', 'translateY(-100%)');
+      } else {
+        this.renderer.setStyle(show2, 'transform', 'translateY(0)');
+      }
 
-        if (progress > 0 && scrollingDown) {
-          this.renderer.setStyle(revealSection, 'visibility', 'visible');
-        } else if (progress === 0 && !scrollingDown) {
-          this.renderer.setStyle(revealSection, 'visibility', 'hidden');
+      // Section 3 (Concert 3: Fernando) with fade-out at 60%
+      if (scrollY >= 2 * vh && scrollY < 3 * vh) {
+        const progress = (scrollY - 2 * vh) / vh;
+        this.renderer.setStyle(
+          show3,
+          'transform',
+          `translateY(-${progress * 100}%)`
+        );
+        if (scrollY >= 2.6 * vh) {
+          // Fade out from 2.6vh to 3vh
+          const fadeFactor = (3 * vh - scrollY) / (0.4 * vh);
+          this.renderer.setStyle(show3, 'opacity', fadeFactor);
+          this.renderer.setStyle(overlayBox, 'opacity', fadeFactor);
+          // Lock overlay's bottom to Fernando's image bottom:
+          // Fernando's image bottom relative to viewport = (1 - progress)*vh.
+          this.renderer.setStyle(overlayBox, 'bottom', 1 - progress + 'vh');
+          if (fadeFactor <= 0) {
+            this.renderer.setStyle(overlayBox, 'visibility', 'hidden');
+          }
+        } else {
+          this.renderer.setStyle(show3, 'opacity', 1);
+          this.renderer.setStyle(overlayBox, 'opacity', 1);
+          this.renderer.setStyle(overlayBox, 'visibility', 'visible');
+          this.renderer.setStyle(overlayBox, 'bottom', '0px');
         }
+      } else if (scrollY >= 3 * vh) {
+        this.renderer.setStyle(show3, 'transform', 'translateY(-100%)');
+        this.renderer.setStyle(show3, 'opacity', 0);
+        this.renderer.setStyle(overlayBox, 'opacity', 0);
+        this.renderer.setStyle(overlayBox, 'visibility', 'hidden');
       } else {
-        this.renderer.setStyle(revealSection, 'visibility', 'hidden');
+        this.renderer.setStyle(show3, 'transform', 'translateY(0)');
+        this.renderer.setStyle(show3, 'opacity', 1);
       }
+
+      // Update overlay info based on thresholds (60% & 1.6*vh)
+      if (scrollY < 0.5 * vh) {
+        this.updateOverlay(
+          'Broadway Stars with Grant Norman',
+          'March 13, 2025',
+          '4pm and 7pm',
+          "St Timothy's Catholic Church",
+          'Join Master of Ceremonies Grant Norman, best known for his portrayal of Phantom in Phantom of the Opera on Broadway, as he takes us on a musical journey through classic Broadway hits.',
+          'Buy Tickets Now',
+          'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn'
+        );
+        this.setActiveNavButton(1);
+      } else if (scrollY >= 0.6 * vh && scrollY < 1.6 * vh) {
+        this.updateOverlay(
+          'Change the World 2',
+          'April 4, 2025',
+          '3 PM and 7 PM',
+          'The Sharon Performing Arts Center',
+          'The wait is over—Change The World is back! Celebrate this uplifting event with two extraordinary performances that inspire hope and unity.',
+          'Buy Tickets Now',
+          'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/'
+        );
+        this.setActiveNavButton(2);
+      } else {
+        this.updateOverlay(
+          'Bill Doherty & Fernando Varela - Together Again!',
+          'April 21, 2025',
+          '4pm and 7pm',
+          'Savannah Center',
+          'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—bridging classic opera with modern appeal—in a performance you won’t forget.',
+          'Buy Tickets Now',
+          'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/'
+        );
+        this.setActiveNavButton(3);
+      }
+      // No sticky logic; the .content-container has a fixed top margin (30vh) so that the tickets section remains a fixed gap away.
     };
 
     window.addEventListener('scroll', handleScroll);
     this.cleanupFunctions.push(() =>
       window.removeEventListener('scroll', handleScroll)
     );
-
     handleScroll();
+  }
+
+  private updateOverlay(
+    title: string,
+    date: string,
+    time: string,
+    venue: string,
+    description: string,
+    buttonText: string,
+    link: string
+  ): void {
+    const titleEl = document.getElementById('showTitle');
+    const dateEl = document.getElementById('showDate');
+    const timeEl = document.getElementById('showTime');
+    const venueEl = document.getElementById('showVenue');
+    const descEl = document.getElementById('showDescription');
+    const buttonEl = document.getElementById('buyButton');
+
+    if (titleEl) titleEl.textContent = title;
+    if (dateEl) dateEl.textContent = date;
+    if (timeEl) timeEl.textContent = time;
+    if (venueEl) venueEl.textContent = venue;
+    if (descEl) descEl.textContent = description;
+    if (buttonEl) {
+      buttonEl.textContent = buttonText;
+      buttonEl.setAttribute('href', link);
+    }
+  }
+
+  private setActiveNavButton(index: number): void {
+    const navButtons = [
+      document.getElementById('nav1'),
+      document.getElementById('nav2'),
+      document.getElementById('nav3'),
+    ];
+    navButtons.forEach((btn, idx) => {
+      if (btn) {
+        if (idx === index - 1) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      }
+    });
   }
 
   navigateToResidentArtists(): void {
@@ -323,39 +391,42 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.navigateToResidentArtists();
   }
 
-  buyMainShowTicketsClicked(event: string, clickEvent: MouseEvent): void {
+  buyMainShowTicketsClicked(ticketKey: string, clickEvent: MouseEvent): void {
     clickEvent.preventDefault();
     clickEvent.stopPropagation();
-    const show = this.mainShows.find((s) => s.ticketKey === event);
-
-    if (show) {
-      if (show.buttonText === 'Join Club') {
-        this.showClubMembershipMessage();
-      } else if (show.available) {
-        this.showTicketOptions(show.link);
-      } else {
-        this.showUnavailableMessage();
-      }
+    const show = this.mainShows.find((s) => s.ticketKey === ticketKey);
+    if (!show) {
+      console.error(`Show not found for ${ticketKey}`);
+      return;
+    }
+    if (show.buttonText === 'Join Club') {
+      this.showClubMembershipMessage();
+    } else if (show.available) {
+      // Set current ticket link and show the modal.
+      this.currentTicketLink = show.link;
+      this.showTicketOptionsBox = true;
     } else {
-      console.error(`Show not found for ${event}`);
+      this.showUnavailableMessage();
     }
   }
 
-  buyAdditionalShowTicketsClicked(event: string, clickEvent: MouseEvent): void {
+  buyAdditionalShowTicketsClicked(
+    ticketKey: string,
+    clickEvent: MouseEvent
+  ): void {
     clickEvent.preventDefault();
     clickEvent.stopPropagation();
-    const show = this.lesserShows.find((s) => s.ticketKey === event);
-
-    if (show) {
-      if (show.buttonText === 'Join Club') {
-        this.showClubMembershipMessage();
-      } else if (show.available) {
-        window.open(show.link, '_blank');
-      } else {
-        this.showUnavailableMessage();
-      }
+    const show = this.lesserShows.find((s) => s.ticketKey === ticketKey);
+    if (!show) {
+      console.error(`Show not found for ${ticketKey}`);
+      return;
+    }
+    if (show.buttonText === 'Join Club') {
+      this.showClubMembershipMessage();
+    } else if (show.available) {
+      window.open(show.link, '_blank');
     } else {
-      console.error(`Show not found for ${event}`);
+      this.showUnavailableMessage();
     }
   }
 
@@ -365,10 +436,20 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   joinMaestrosInnerCircle(): void {
+    // When the overlay button is clicked, grab its current href.
+    const buyButton = document.getElementById('buyButton');
+    if (buyButton) {
+      const link = buyButton.getAttribute('href');
+      this.currentTicketLink = link ? link : '';
+    }
+    this.showTicketOptionsBox = true;
+  }
+
+  // Second button action: open constant-contact link.
+  joinMaestrosInnerCircleAction(): void {
     const constantContactUrl =
       'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
     window.open(constantContactUrl, '_blank');
-    this.closeTicketOptionsBox();
   }
 
   proceedToBuyTicket(): void {
@@ -408,6 +489,58 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     const joinClubUrl = 'https://operaclubofthevillages.com/join-us';
     window.open(joinClubUrl, '_blank');
     this.closeClubMembershipBox();
+  }
+
+  scrollToSection(sectionId: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    let offset = 0;
+    let sectionIndex = 1;
+    if (sectionId === 'show1') {
+      offset = 0;
+      sectionIndex = 1;
+    } else if (sectionId === 'show2') {
+      offset = window.innerHeight;
+      sectionIndex = 2;
+    } else if (sectionId === 'show3') {
+      offset = window.innerHeight * 2;
+      sectionIndex = 3;
+    }
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+    // Force update overlay after 500ms so that the new section is ~70% visible
+    setTimeout(() => {
+      if (sectionIndex === 1) {
+        this.updateOverlay(
+          'Broadway Stars with Grant Norman',
+          'March 13, 2025',
+          '4pm and 7pm',
+          "St Timothy's Catholic Church",
+          'Join Master of Ceremonies Grant Norman, best known for his portrayal of Phantom in Phantom of the Opera on Broadway, as he takes us on a musical journey through classic Broadway hits.',
+          'Buy Tickets Now',
+          'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn'
+        );
+      } else if (sectionIndex === 2) {
+        this.updateOverlay(
+          'Change the World 2',
+          'April 4, 2025',
+          '3 PM and 7 PM',
+          'The Sharon Performing Arts Center',
+          'The wait is over—Change The World is back! Celebrate this uplifting event with two extraordinary performances that inspire hope and unity.',
+          'Buy Tickets Now',
+          'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/'
+        );
+      } else {
+        this.updateOverlay(
+          'Bill Doherty & Fernando Varela - Together Again!',
+          'April 21, 2025',
+          '4pm and 7pm',
+          'Savannah Center',
+          'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—bridging classic opera with modern appeal—in a performance you won’t forget.',
+          'Buy Tickets Now',
+          'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/'
+        );
+      }
+      this.setActiveNavButton(sectionIndex);
+    }, 500);
   }
 
   ngOnDestroy(): void {

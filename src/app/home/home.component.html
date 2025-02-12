@@ -4,14 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Central Florida Lyric Opera</title>
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="home.component.css" />
   </head>
   <body>
     <div class="home-container">
+      <!-- Global Message Boxes -->
       <div *ngIf="showUnavailableBox" class="message-box unavailable-box">
         <div class="unavailable-message">
           {{ unavailableMessage }}
         </div>
       </div>
+
+      <!-- Scroll Down Box (hidden on mobile via CSS) -->
       <div
         id="scroll-down-box"
         class="scroll-down-box"
@@ -21,74 +26,108 @@
         <div class="arrow-down"></div>
       </div>
 
-      <div
-        *ngIf="showClubMembershipBox"
-        class="message-box club-membership-box"
-      >
+      <!-- Club Membership Modal (Join The Opera Club) -->
+      <div *ngIf="showClubMembershipBox" class="club-membership-box">
         <button (click)="closeClubMembershipBox()" class="close-button">
-          Close
+          &times;
         </button>
-        <div class="club-membership-message">
+        <div class="club-membership-content">
+          <h2>Join The Opera Club</h2>
           <p>{{ clubMembershipMessage }}</p>
           <button (click)="navigateToJoinUs()" class="join-club-button">
-            Join the Opera Club
+            Join Now
           </button>
         </div>
       </div>
 
-      <div *ngIf="showTicketOptionsBox" class="message-box ticket-options-box">
+      <!-- Ticket Options Modal (Maestro's Inner Circle) -->
+      <div *ngIf="showTicketOptionsBox" class="ticket-options-box">
         <button (click)="closeTicketOptionsBox()" class="close-button">
-          Close
+          &times;
         </button>
-        <div class="ticket-options-message">
-          <p>Enhance your opera experience!</p>
-          <button
-            (click)="joinMaestrosInnerCircle()"
-            class="join-maestros-button"
-          >
-            Join Maestro's Inner Circle
-          </button>
+        <div class="ticket-options-content">
+          <h2>Maestro's Inner Circle</h2>
+          <p>
+            Join our exclusive inner circle to get special ticket access,
+            behind‐the‐scenes content, and more!
+          </p>
           <button (click)="proceedToBuyTicket()" class="buy-ticket-button">
             Get Tickets
           </button>
+          <button
+            (click)="joinMaestrosInnerCircleAction()"
+            class="join-ticket-button"
+          >
+            Join Maestro's Inner Circle
+          </button>
         </div>
       </div>
 
+      <!-- Frosted Glass Background -->
       <div class="frosted-glass"></div>
 
-      <div class="desktop-content">
-        <div class="watermark-logo">
-          <img src="assets/images/Logo.webp" alt="CFLO Watermark" />
-        </div>
-
-        <div id="requiem-section" class="banner-container stack-sections">
-          <div
-            class="banner"
-            data-title="The Best of Broadway"
-            data-text="Step into the dazzling world of Broadway with The Best of Broadway, a spectacular showcase of the greatest hits from the heart of the theater district. Join us for an unforgettable evening featuring show-stopping performances from beloved musicals such as The Phantom of the Opera, Les Misérables, Wicked, and more. Relive the magic, the music, and the moments that have captivated audiences for generations."
-          >
-            <img
-              src="assets/images/broadwayWide.webp"
-              alt="broadway"
-              class="standard-image"
-            />
-            <img
-              src="assets/images/broadwayWide.webp"
-              alt="broadway wide"
-              class="widescreen-image"
-            />
+      <!-- Fixed Overlay for Concert Info (Desktop Only) -->
+      <div id="fixedOverlay">
+        <div class="overlay-content">
+          <div class="overlay-left">
+            <!-- Clicking this triggers the Maestro’s Inner Circle modal -->
+            <a
+              id="buyButton"
+              href="#"
+              (click)="joinMaestrosInnerCircle(); $event.preventDefault()"
+              class="buy-tickets-button"
+              >Buy Tickets Now</a
+            >
           </div>
-        </div>
-
-        <div id="video-section" class="full-screen-banners stack-sections">
-          <video class="slide-video" autoplay loop muted playsinline>
-            <source src="assets/videos/cflo2.webm" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <div class="overlay-right">
+            <h2 id="showTitle">Broadway Stars with Grant Norman</h2>
+            <p id="showDate">March 13, 2025</p>
+            <p id="showTime">4pm and 7pm</p>
+            <p id="showVenue">St Timothy's Catholic Church</p>
+            <p id="showDescription">
+              Join Master of Ceremonies Grant Norman, best known for his
+              portrayal of Phantom in Phantom of the Opera on Broadway, as he
+              takes us on a musical journey through classic Broadway hits.
+            </p>
+          </div>
+          <div class="overlay-nav">
+            <button
+              id="nav1"
+              class="concert-nav-btn"
+              (click)="scrollToSection('show1')"
+            ></button>
+            <button
+              id="nav2"
+              class="concert-nav-btn"
+              (click)="scrollToSection('show2')"
+            ></button>
+            <button
+              id="nav3"
+              class="concert-nav-btn"
+              (click)="scrollToSection('show3')"
+            ></button>
+          </div>
         </div>
       </div>
 
-      <div class="content-container reveal-on-scroll">
+      <!-- Curtain Container: Three Full-Screen Concert Sections (Desktop Only) -->
+      <div class="curtain-container">
+        <!-- Section 1: Grant Norman -->
+        <div id="show1">
+          <img src="assets/images/grant.webp" alt="Concert 1" />
+        </div>
+        <!-- Section 2: Change the World 2 -->
+        <div id="show2">
+          <img src="assets/images/Change2.webp" alt="Concert 2" />
+        </div>
+        <!-- Section 3: Fernando -->
+        <div id="show3">
+          <img src="assets/images/fernando.webp" alt="Concert 3" />
+        </div>
+      </div>
+
+      <!-- Content Container for Tickets & Additional Information -->
+      <div class="content-container">
         <div class="mobile-content">
           <div class="resident-artists-section">
             <h2>Resident Artist Training Program</h2>
@@ -103,6 +142,7 @@
           </div>
         </div>
 
+        <!-- Tickets Section (Encompassing Box) -->
         <div id="tickets-section" class="tickets-section">
           <div class="grid-container">
             <div
@@ -152,6 +192,7 @@
           </div>
         </div>
 
+        <!-- Additional Performances Section -->
         <div class="additional-performances-section">
           <h2>Additional Performances</h2>
           <div class="lesser-shows-grid">
