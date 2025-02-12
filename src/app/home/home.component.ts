@@ -269,9 +269,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           const fadeFactor = (3 * vh - scrollY) / (0.4 * vh);
           this.renderer.setStyle(show3, 'opacity', fadeFactor);
           this.renderer.setStyle(overlayBox, 'opacity', fadeFactor);
-          // Also, adjust the overlay's bottom to follow the Fernando image
-          let newBottom = 20 * fadeFactor;
-          this.renderer.setStyle(overlayBox, 'bottom', newBottom + 'px');
           if (fadeFactor <= 0) {
             this.renderer.setStyle(overlayBox, 'visibility', 'hidden');
           }
@@ -279,7 +276,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           this.renderer.setStyle(show3, 'opacity', 1);
           this.renderer.setStyle(overlayBox, 'opacity', 1);
           this.renderer.setStyle(overlayBox, 'visibility', 'visible');
-          this.renderer.setStyle(overlayBox, 'bottom', '20px');
         }
       } else if (scrollY >= 3 * vh) {
         this.renderer.setStyle(show3, 'transform', 'translateY(-100%)');
@@ -326,7 +322,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         );
         this.setActiveNavButton(3);
       }
-      // (No sticky logic is needed since .content-container now has a fixed top margin.)
+
+      // Since we now fix the gap via a fixed margin on .content-container,
+      // no additional sticky logic is needed.
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -402,6 +400,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (show.buttonText === 'Join Club') {
       this.showClubMembershipMessage();
     } else if (show.available) {
+      // Set current ticket link and show the modal.
       this.currentTicketLink = show.link;
       this.showTicketOptionsBox = true;
     } else {
@@ -435,7 +434,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   joinMaestrosInnerCircle(): void {
-    // When the overlay button is clicked, get its current href.
+    // When the overlay button is clicked, get its current href for the ticket link.
     const buyButton = document.getElementById('buyButton');
     if (buyButton) {
       const link = buyButton.getAttribute('href');
@@ -444,7 +443,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showTicketOptionsBox = true;
   }
 
-  // Second button action: open constant-contact link.
+  // NEW: Second button action from the modal directing to constant-contact
   joinMaestrosInnerCircleAction(): void {
     const constantContactUrl =
       'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
@@ -505,7 +504,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       sectionIndex = 3;
     }
     window.scrollTo({ top: offset, behavior: 'smooth' });
-    // Force update overlay after 500ms so that the new section is ~70% visible
+    // Force update overlay after a short delay (500ms) so that the new section is ~70% visible
     setTimeout(() => {
       if (sectionIndex === 1) {
         this.updateOverlay(
