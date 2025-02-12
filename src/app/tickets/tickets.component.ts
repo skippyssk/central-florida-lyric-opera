@@ -65,6 +65,7 @@ export class TicketsComponent {
     goldenDays: 'https://operaclubofthevillages.com/join-us',
     fernando:
       'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
+    GalaSharon: 'https://smartseat.thevillages.com/?itemnumber=33264#/',
     // Add more ticket links as needed
   };
 
@@ -104,6 +105,18 @@ export class TicketsComponent {
       ticketKey: 'fernando',
       buttonText: 'Get Tickets',
 
+      available: true,
+    },
+    {
+      title: 'The Sharon: Inaugural Gala',
+      image: 'assets/images/sharon.jpg',
+      description:
+        'This spring, join Significant Productions as we Celebrate a Decade on Stage at our inaugural fundraising gala! Hosted by founders Jason Goedken and Whitney Morse at The Sharon L. Morse Performing Arts Center, the evening honors ten extraordinary years of artists, community, and impact. Enjoy a mesmerizing live performance featuring Heather Ard and Alec Speers, beautifully accompanied by Maestro Bill Doherty on piano. Every bid, donation, and contribution made during the event will directly empower the future of live performances and artist-driven storytelling at The Sharon and The Studio Theatre. Don’t miss this chance to be a part of a transformative celebration that champions the vibrant spirit of the arts! ',
+      date: 'April 26, 2025',
+      time: '5:30pm',
+      venue: 'The Sharon L. Morse Performing Arts Center',
+      ticketKey: 'GalaSharon',
+      buttonText: 'Buy Tickets Now',
       available: true,
     },
   ];

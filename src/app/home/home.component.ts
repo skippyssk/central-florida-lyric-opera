@@ -63,10 +63,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   // Data for main shows (concerts) and lesser shows
   mainShows: Show[] = [
     {
-      title: 'Broadway Stars with Grant Norman',
+      title: 'Grant Norman and Other Broadway Stars',
       image: 'assets/images/grant.webp',
       description:
-        'Join Master of Ceremonies Grant Norman, best known for his portrayal of Phantom in Phantom of the Opera on Broadway, as he takes us on a musical journey through classic Broadway hits.',
+        'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight! Accompanied on the grand piano by Maestro Bill Doherty.',
       date: 'March 13, 2025',
       time: '4pm and 7pm',
       venue: "St Timothy's Catholic Church",
@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Change the World 2',
       image: 'assets/images/Change2.webp',
       description:
-        'The wait is over—Change The World is back! Celebrate this uplifting event with two extraordinary performances that inspire hope and unity.',
+        'The wait is over—Change The World is back! Celebrate this uplifting event filled with music and community, featuring two extraordinary performances by the brilliant Maestro Bill Doherty and a host of talented local artists. Together, they’ll deliver songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. This event is more than just a concert—it’s an opportunity to create meaningful change. A portion of the proceeds will support the National Multiple Sclerosis Society, making a positive impact through compassion and generosity. Join us for an unforgettable evening of joy, connection, and purpose. Mark your calendars and secure your tickets today! Together, we can Change The World.',
       date: 'April 4, 2025',
       venue: 'The Sharon Performing Arts Center',
       time: '3 PM and 7 PM',
@@ -99,6 +99,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       ticketKey: 'fernando',
       buttonText: 'Buy Tickets Now',
       link: 'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
+      available: true,
+    },
+    {
+      title: 'The Sharon: Inaugural Gala',
+      image: 'assets/images/sharon.jpg',
+      description:
+        'This spring, join Significant Productions as we Celebrate a Decade on Stage at our inaugural fundraising gala! Hosted by founders Jason Goedken and Whitney Morse at The Sharon L. Morse Performing Arts Center, the evening honors ten extraordinary years of artists, community, and impact. Enjoy a mesmerizing live performance featuring Heather Ard and Alec Speers, beautifully accompanied by Maestro Bill Doherty on piano. Every bid, donation, and contribution made during the event will directly empower the future of live performances and artist-driven storytelling at The Sharon and The Studio Theatre. Don’t miss this chance to be a part of a transformative celebration that champions the vibrant spirit of the arts! ',
+      date: 'April 26, 2025',
+      time: '5:30pm',
+      venue: 'The Sharon L. Morse Performing Arts Center',
+      ticketKey: 'GalaSharon',
+      buttonText: 'Buy Tickets Now',
+      link: 'https://smartseat.thevillages.com/?itemnumber=33264#/',
       available: true,
     },
   ];
@@ -155,7 +168,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     },
     {
       title: 'Join The Opera Club',
-      image: 'assets/images/operaClub.webp',
+      image: 'assets/images/operaClubI.webp',
       description:
         'Enjoy incredible performances every month by Maestro Bill Doherty and his talented singers. Become a member to experience it all!',
       date: 'Ongoing',
@@ -280,11 +293,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       // Section 3 (Fernando)
       if (scrollY < 2 * vh) {
         // BEFORE Fernando’s section:
-        // Ensure the Fernando image is fully visible.
         this.renderer.setStyle(show3, 'transform', 'translateY(0)');
         this.renderer.setStyle(show3, 'opacity', 1);
-        // Keep the overlay locked to its default bottom position.
-        this.renderer.setStyle(overlayBox, 'top', defaultTop + 'px');
+        // Do NOT update the overlay’s vertical position here.
         this.renderer.setStyle(overlayBox, 'opacity', 1);
         this.renderer.setStyle(overlayBox, 'visibility', 'visible');
         if (logo) {
@@ -299,11 +310,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           'transform',
           `translateY(-${progress3 * 100}%)`
         );
-        // Keep the overlay locked to the bottom (do not change its "top")
-        this.renderer.setStyle(overlayBox, 'top', defaultTop + 'px');
-
-        // Fade-out logic: make the overlay fade out faster.
-        // In this example, the fade starts at 20% progress and is complete at 40%.
+        // DO NOT set a new 'top' value for overlayBox here.
+        // Only adjust opacity (fade out) if needed.
         const fadeThreshold = 0.2;
         const fadeEnd = 0.4;
         let opacity = 1;
@@ -329,14 +337,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             opacity === 0 ? 'hidden' : 'visible'
           );
         }
-        // Optionally, fade out the Fernando image too.
         this.renderer.setStyle(show3, 'opacity', opacity);
       } else {
         // AFTER Fernando’s section:
-        // Lock the image in its final translated state.
         this.renderer.setStyle(show3, 'transform', 'translateY(-100%)');
-        // Keep the overlay locked at the bottom and fully faded out.
-        this.renderer.setStyle(overlayBox, 'top', defaultTop + 'px');
         this.renderer.setStyle(overlayBox, 'opacity', 0);
         this.renderer.setStyle(overlayBox, 'visibility', 'hidden');
         if (logo) {
@@ -349,11 +353,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       // --- Update the Overlay Content Based on Active Section ---
       if (activeSectionIndex === 1) {
         this.updateOverlay(
-          'Broadway Stars with Grant Norman',
+          'Grant Norman and Other Broadway Stars',
           'March 13, 2025',
           '4pm and 7pm',
           "St Timothy's Catholic Church",
-          'Join Master of Ceremonies Grant Norman, best known for his portrayal of Phantom in Phantom of the Opera on Broadway, as he takes us on a musical journey through classic Broadway hits.',
+          'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight! Accompanied on the grand piano by Maestro Bill Doherty.',
           'Buy Tickets Now',
           'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn'
         );
@@ -363,7 +367,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           'April 4, 2025',
           '3 PM and 7 PM',
           'The Sharon Performing Arts Center',
-          'The wait is over—Change The World is back! Celebrate this uplifting event with two extraordinary performances that inspire hope and unity.',
+          'The wait is over—Change The World is back! Celebrate this uplifting event filled with music and community, featuring two extraordinary performances by the brilliant Maestro Bill Doherty and a host of talented local artists. Together, they’ll deliver songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. This event is more than just a concert—it’s an opportunity to create meaningful change. A portion of the proceeds will support the National Multiple Sclerosis Society, making a positive impact through compassion and generosity. Join us for an unforgettable evening of joy, connection, and purpose. Mark your calendars and secure your tickets today! Together, we can Change The World.',
           'Buy Tickets Now',
           'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/'
         );
@@ -387,6 +391,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     // Initialize on load.
     handleScroll();
+  }
+  openConstantContact(event: Event): void {
+    event.preventDefault();
+    const constantContactUrl =
+      'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
+    window.open(constantContactUrl, '_blank');
   }
 
   private updateOverlay(

@@ -155,9 +155,27 @@ body {
   padding: 5px 10px;
 }
 
+.close-x {
+  font-size: 2.2rem;  /* Make the X bigger */
+  font-weight: 300;   /* Use a thinner font weight for the X */
+  letter-spacing: 0.1em;
+}
+
+.close-text {
+  /* Bring the text "CLOSE" up slightly */
+  position: relative;
+  top: -0.3em; /* Adjust this value as needed */
+}
+
+
 .show-date {
   background-color: #b8995f !important;
   border-radius: 100%;
+}
+.logo-link {
+  color: inherit;         /* Inherit text color from .logo-text */
+  text-decoration: none;   /* Remove the default underline */
+  font-family: inherit;    /* Inherit font family */
 }
 
 /* Navigation menu styles */
@@ -170,7 +188,7 @@ body {
   width: 100%;
   height: calc(100% - 60px);
   background-color: rgba(0, 0, 0, 0.9);
-  z-index: 999;
+  z-index: 9999;
   justify-content: center;
   align-items: center;
 }

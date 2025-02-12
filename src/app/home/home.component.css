@@ -56,48 +56,81 @@ body {
   height: 200px;     /* Adjust the size as needed */
   width: auto;
 }
+/* ============================
+   Overlay for Concert Info (Desktop Only)
+=============================== */
 #fixedOverlay {
   box-sizing: border-box;
   position: fixed;
-  /* Initially, set the overlay so it sits flush with the bottom.
-     (Assuming overlay height = 150px) */
-  top: calc(100vh - 150px - 50px);
-  left: 20px;
-  width: 40vw; /* About 40% of viewport width */
+  /* Anchor the overlay so its bottom stays 50px above the viewport’s bottom */
+  bottom: 5px;
+  left: 70px;
+  width: 40vw;          /* About 40% of viewport width */
   background-color: rgba(0,0,0,0.8);
   color: #fff;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 1px;
+  max-width: 1000px;
   z-index: 1500;
-  transition: top 0.1s ease, opacity 0.1s ease, visibility 0.1s ease;
+  transition: bottom 0.1s ease, opacity 0.1s ease, visibility 0.1s ease;
+  /* Remove any fixed height or max-height so the box can grow */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+
+#fixedOverlay .buy-tickets-button {
+  background-color: #fff;   /* White background */
+  color: #000;              /* Black text */
+  text-decoration: none;    /* No underline */
+  border: none;
+  margin-top: 25%;
+  
+}
+
+#fixedOverlay .buy-tickets-button:hover {
+  background-color: #dddddd; /* A slightly lighter shade on hover */
+}
+
+
+
+/* The overlay content layout remains unchanged */
 .overlay-content {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
 }
+
 .overlay-left {
   flex: 0 0 auto;
   margin-right: 10px;
+  display: flex;           /* Make it a flex container */
+  align-items: center;     /* Center its contents vertically */
+  justify-content: flex-start; /* Keep the content aligned to the left */
 }
+
+/* Reduced size for the Buy Tickets Now button */
 .overlay-left a.buy-tickets-button {
-  font-size: 1.3rem;
-  padding: 10px 20px;
+  font-size: 1rem;         /* Reduced from 1.3rem */
+  padding: 8px 16px;        /* Reduced padding */
   cursor: pointer;
 }
+
 .overlay-right {
   flex: 1;
   font-size: 1rem;
   line-height: 1.2;
 }
+
 .overlay-right h2 {
   margin: 0 0 4px;
   font-size: 1.2rem;
 }
+
 .overlay-right p {
   margin: 2px 0;
 }
+
 /* Vertical nav buttons inside overlay – stacked on the right */
 .overlay-nav {
   display: flex;
@@ -105,6 +138,7 @@ body {
   justify-content: flex-start;
   margin-left: 10px;
 }
+
 .overlay-nav .concert-nav-btn {
   width: 30px;
   height: 30px;
@@ -115,11 +149,34 @@ body {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
+
 .overlay-nav .concert-nav-btn:hover,
 .overlay-nav .concert-nav-btn.active {
   background-color: #fff;
   box-shadow: 0 0 8px rgba(255,255,255,0.8);
 }
+
+/* New styling for the Email Us button */
+#fixedOverlay a#emailButton {
+  background-color: #ff0000 !important; /* Red background */
+  color: #ffffff !important;            /* White text */
+  text-decoration: none !important;     /* No underline */
+  font-size: 0.9rem;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute; /* Position relative to the overlay */
+  bottom: 0px;
+  left: -20px;
+  transition: background-color 0.3s ease;
+}
+
+#fixedOverlay a#emailButton:hover {
+  background-color: #cc0000 !important; /* Darker red on hover */
+}
+
+
 
 /* ============================
    Ticket Options Modal (Maestro's Inner Circle)
@@ -138,6 +195,7 @@ body {
   z-index: 2000;
   box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
+
 .ticket-options-box .close-button {
   position: absolute;
   top: 10px;
@@ -148,18 +206,22 @@ body {
   color: #fff;
   cursor: pointer;
 }
+
 .ticket-options-box .ticket-options-content {
   text-align: center;
   margin-top: 20px;
 }
+
 .ticket-options-box .ticket-options-content h2 {
   margin-bottom: 10px;
   font-size: 1.4rem;
 }
+
 .ticket-options-box .ticket-options-content p {
   margin-bottom: 15px;
   font-size: 1rem;
 }
+
 .ticket-options-box .buy-ticket-button,
 .ticket-options-box .join-ticket-button {
   background-color: #b8995f;
@@ -172,6 +234,7 @@ body {
   transition: background-color 0.3s ease;
   margin: 5px;
 }
+
 .ticket-options-box .buy-ticket-button:hover,
 .ticket-options-box .join-ticket-button:hover {
   background-color: #d4b174;
@@ -427,6 +490,28 @@ body {
 /* ============================
    Responsive Styles
 =============================== */
+@media screen and (max-width: 1023px) {
+  /* For viewports 1030px wide or smaller, switch to the mobile layout */
+  .curtain-container,
+  #fixedOverlay,
+  .scroll-down-box {
+    display: none !important;
+  }
+  .desktop-content {
+    display: none;
+  }
+  .mobile-content {
+    display: block;
+  }
+  .content-container {
+    margin-top: 30vh;
+    padding-top: 60px;
+  }
+  .fixed-logo {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 768px) {
   /* Remove the curtain container and overlay on mobile */
   .curtain-container,
