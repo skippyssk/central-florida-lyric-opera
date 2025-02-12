@@ -467,6 +467,9 @@ body {
   max-height: 80px;
   overflow: hidden;
 }
+.lesser-show-details .buy-tickets-button {
+  margin-top: auto;
+}
 
 /* ============================
    Button Styles
