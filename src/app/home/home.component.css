@@ -542,7 +542,7 @@ body {
     grid-template-columns: 1fr;
   }
   .bottom-row {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* Instead of repeat(2, 1fr) */
   }
 }
 @media screen and (max-width: 1023px) {
