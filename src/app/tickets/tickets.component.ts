@@ -71,18 +71,6 @@ export class TicketsComponent {
 
   mainShows: Show[] = [
     {
-      title: 'Broadway Stars with Grant Norman',
-      image: 'assets/images/grant.webp',
-      description:
-        'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight!  Accompanied on the grand piano by Maestro Bill Doherty.',
-      date: 'March 13, 2025',
-      time: '4pm and 7pm',
-      venue: "St Timothy's Catholic Church",
-      ticketKey: 'broadwayStars',
-      buttonText: 'Get Tickets',
-      available: true,
-    },
-    {
       title: 'Change the World 2',
       image: 'assets/images/Change2.webp',
       description:
@@ -122,40 +110,6 @@ export class TicketsComponent {
   ];
 
   lesserShows: LesserShow[] = [
-    {
-      title: 'Three Tenors Plus One',
-      image: 'assets/images/3T1.webp',
-      description:
-        'Experience a spectacular evening of music in support of the Harold S. Schwartz Music Scholarship.',
-      date: 'February 21, 2025',
-      venue: 'The Sharon Performing Arts Center',
-      time: '3 PM and 7 PM',
-      ticketKey: 'threeTenors',
-      buttonText: 'Get Tickets',
-      available: true,
-    },
-    {
-      title: 'Love Notes from Broadway',
-      image: 'assets/images/broadway.webp',
-      description:
-        'Celebrate love with selections from favorite Broadway shows.',
-      date: 'February 27, 2025',
-      venue: 'Laurel Manor',
-      ticketKey: 'loveNotes',
-      buttonText: 'Join Club',
-      available: false,
-    },
-    {
-      title: 'Springtime in Paris',
-      image: 'assets/images/spring4.webp',
-      description:
-        'Celebrate the romance and elegance of the French repertoire in an evening of enchanting art songs and arias!',
-      date: 'March 27, 2025',
-      venue: 'Laurel Manor',
-      ticketKey: 'vivaVerdi',
-      buttonText: 'Join Club',
-      available: false,
-    },
     {
       title: 'Golden Days: Music of Operetta',
       image: 'assets/images/operetta.webp',

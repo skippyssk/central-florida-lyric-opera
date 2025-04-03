@@ -4,224 +4,201 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Central Florida Lyric Opera</title>
-    <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="home.component.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <!-- Fixed Logo -->
-    <div class="fixed-logo">
-      <img src="assets/images/Logo.webp" alt="Logo" />
-    </div>
     <div class="home-container">
-      <!-- Global Message Boxes -->
-      <div *ngIf="showUnavailableBox" class="message-box unavailable-box">
-        <div class="unavailable-message">
-          {{ unavailableMessage }}
-        </div>
+      <div class="global-page-overlay"></div>
+
+      <div class="fixed-logo">
+        <img
+          src="assets/images/Logo.webp"
+          alt="Central Florida Lyric Opera Logo"
+        />
       </div>
 
-      <!-- Scroll Down Box (hidden on mobile via CSS) -->
-      <div
-        id="scroll-down-box"
-        class="scroll-down-box"
-        [class.show]="showScrollBox"
+      <button
+        class="fixed-email-button pulse-animation"
+        (click)="showEmailSignup()"
       >
-        <p>Scroll Down</p>
-        <div class="arrow-down"></div>
-      </div>
+        Join Email List
+      </button>
 
-      <!-- Club Membership Modal (Join The Opera Club) -->
-      <div *ngIf="showClubMembershipBox" class="club-membership-box">
-        <button (click)="closeClubMembershipBox()" class="close-button">
-          &times;
-        </button>
-        <div class="club-membership-content">
-          <h2>Join The Opera Club</h2>
-          <p>{{ clubMembershipMessage }}</p>
-          <button (click)="navigateToJoinUs()" class="join-club-button">
-            Join Now
-          </button>
-        </div>
-      </div>
-
-      <!-- Ticket Options Modal (Maestro's Inner Circle) -->
-      <div *ngIf="showTicketOptionsBox" class="ticket-options-box">
-        <button (click)="closeTicketOptionsBox()" class="close-button">
-          &times;
-        </button>
-        <div class="ticket-options-content">
-          <h2>Maestro's Inner Circle</h2>
-          <p>
-            Join our exclusive inner circle to get special ticket access,
-            behind‐the‐scenes content, and more!
-          </p>
-          <button (click)="proceedToBuyTicket()" class="buy-ticket-button">
-            Get Tickets
-          </button>
-          <button
-            (click)="joinMaestrosInnerCircleAction()"
-            class="join-ticket-button"
+      <div class="desktop-view" *ngIf="!isMobile">
+        <div
+          class="banner-scroll-container"
+          [style.height.vh]="bannerContainerHeightVh"
+        >
+          <div
+            *ngFor="let show of mainShows; let i = index"
+            class="banner-section"
+            [id]="'banner-show-' + i"
+            [attr.aria-label]="'Banner section for ' + show.title"
+            role="region"
           >
-            Join Maestro's Inner Circle
-          </button>
-        </div>
-      </div>
-
-      <!-- Frosted Glass Background -->
-      <div class="frosted-glass"></div>
-
-      <!-- Fixed Overlay for Concert Info (Desktop Only) -->
-      <div id="fixedOverlay">
-        <div class="overlay-content">
-          <div class="overlay-left">
-            <a
-              id="buyButton"
-              href="#"
-              (click)="joinMaestrosInnerCircle(); $event.preventDefault()"
-              class="buy-tickets-button"
-            >
-              Buy Tickets Now
-            </a>
-            <a
-              id="emailButton"
-              href="#"
-              (click)="openConstantContact($event); $event.preventDefault()"
-              class="buy-tickets-button"
-            >
-              Email Us
-            </a>
-          </div>
-          <div class="overlay-right">
-            <h2 id="showTitle">Broadway Stars with Grant Norman</h2>
-            <p id="showDate">March 13, 2025</p>
-            <p id="showTime">4pm and 7pm</p>
-            <p id="showVenue">St Timothy's Catholic Church</p>
-            <p id="showDescription">
-              Join Master of Ceremonies Grant Norman, best known for his
-              portrayal of Phantom in Phantom of the Opera on Broadway, as he
-              takes us on a musical journey through classic Broadway hits.
-            </p>
-          </div>
-          <div class="overlay-nav">
-            <button
-              id="nav1"
-              class="concert-nav-btn"
-              (click)="scrollToSection('show1')"
-            ></button>
-            <button
-              id="nav2"
-              class="concert-nav-btn"
-              (click)="scrollToSection('show2')"
-            ></button>
-            <button
-              id="nav3"
-              class="concert-nav-btn"
-              (click)="scrollToSection('show3')"
-            ></button>
+            <div
+              class="banner-image-content"
+              [style.backgroundImage]="'url(' + show.image + ')'"
+            ></div>
           </div>
         </div>
-      </div>
 
-      <!-- Curtain Container: Three Full-Screen Concert Sections (Desktop Only) -->
-      <div class="curtain-container">
-        <!-- Section 1: Grant Norman -->
-        <div id="show1">
-          <img src="assets/images/grant.jpg" alt="Concert 1" />
-        </div>
-        <!-- Section 2: Change the World 2 -->
-        <div id="show2">
-          <img src="assets/images/Change2.webp" alt="Concert 2" />
-        </div>
-        <!-- Section 3: Fernando -->
-        <div id="show3">
-          <img src="assets/images/fernando.webp" alt="Concert 3" />
-        </div>
-      </div>
-
-      <!-- Content Container for Tickets & Additional Information -->
-      <div class="content-container">
-        <!-- Single Semi-Transparent Box Wrapping All Sections -->
-        <div class="semi-transparent-box">
-          <!-- Resident Artist Section -->
-          <div class="mobile-content">
-            <div class="resident-artists-section">
-              <h2>Resident Artist Training Program</h2>
-              <p>
-                Join our esteemed Resident Artist Training Program and launch
-                your opera career with invaluable mentorship and performance
-                opportunities.
+        <div
+          id="desktopOverlay"
+          class="show-overlay"
+          [style.opacity]="overlayOpacity"
+          [style.transform]="overlayTransform"
+        >
+          <div
+            class="overlay-content-wrapper"
+            *ngIf="currentShow && overlayContentVisible"
+            @contentFade
+            aria-live="polite"
+          >
+            <div class="overlay-content">
+              <h2 id="overlayTitle">{{ currentShow.title }}</h2>
+              <p id="overlayDateVenue">
+                {{ currentShow.date }}
+                {{ currentShow.time ? " - " + currentShow.time : "" }} |
+                {{ currentShow.venue }}
               </p>
-              <button class="buy-tickets-button" (click)="applyNowClicked()">
-                Apply Now
+              <p id="overlayDescription" class="long-description">
+                {{ currentShow.description }}
+              </p>
+              <button
+                id="overlayButton"
+                class="overlay-ticket-button"
+                (click)="handleTicketButtonClick(currentShow)"
+              >
+                {{
+                  currentShow.buttonText ??
+                    (currentShow.available ? "Buy Tickets" : "Unavailable")
+                }}
               </button>
             </div>
           </div>
-
-          <!-- Main Shows Section -->
-          <div id="tickets-section" class="tickets-section">
-            <div class="grid-container">
-              <div *ngFor="let show of mainShows" class="grid-item large">
-                <img
-                  [src]="show.image"
-                  [alt]="show.title"
-                  class="ticket-image"
-                />
-                <div class="ticket-content">
-                  <h2>{{ show.title }}</h2>
-                  <p><strong>Date:</strong> {{ show.date }}</p>
-                  <p><strong>Venue:</strong> {{ show.venue }}</p>
-                  <p><strong>Time:</strong> {{ show.time || "TBA" }}</p>
-                  <p>{{ show.description }}</p>
-                  <button
-                    class="buy-tickets-button"
-                    (click)="buyMainShowTicketsClicked(show.ticketKey, $event)"
-                  >
-                    {{ show.buttonText }}
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div class="overlay-nav-dots vertical-right">
+            <button
+              *ngFor="let show of mainShows; let i = index"
+              class="nav-dot"
+              [class.active]="i === currentShowIndex"
+              (click)="scrollToShow(i)"
+              [attr.aria-label]="'Go to ' + show.title + ' section'"
+            ></button>
           </div>
+        </div>
 
-          <!-- Additional Performances Section -->
-          <div class="additional-performances-section">
-            <h2>Additional Performances</h2>
-            <div class="lesser-shows-grid">
-              <div class="lesser-show-card" *ngFor="let show of lesserShows">
-                <img
-                  [src]="show.image"
-                  [alt]="show.title"
-                  class="lesser-show-image"
-                />
-                <div class="lesser-show-details">
-                  <h3 class="lesser-show-title">{{ show.title }}</h3>
-                  <p class="lesser-show-date">
-                    <strong>Date:</strong> {{ show.date }}
-                  </p>
-                  <p class="lesser-show-venue">
-                    <strong>Venue:</strong> {{ show.venue }}
-                  </p>
-                  <p class="lesser-show-time" *ngIf="show.time">
-                    <strong>Time:</strong> {{ show.time }}
-                  </p>
-                  <p class="lesser-show-description">{{ show.description }}</p>
-                  <button
-                    class="buy-tickets-button"
-                    (click)="
-                      buyAdditionalShowTicketsClicked(show.ticketKey, $event)
-                    "
-                  >
-                    {{ show.buttonText }}
-                  </button>
-                </div>
+        <div class="lesser-shows-section">
+          <h2>More Events</h2>
+          <div class="lesser-shows-grid">
+            <div *ngFor="let show of lesserShows" class="lesser-show-card">
+              <img [src]="show.image" [alt]="show.title + ' image'" />
+              <div class="lesser-show-info">
+                <h3>{{ show.title }}</h3>
+                <p>{{ show.date }} | {{ show.venue }}</p>
+                <button
+                  (click)="handleTicketButtonClick(show)"
+                  [disabled]="!show.available && !show.joinLink"
+                >
+                  {{
+                    show.buttonText ??
+                      (show.available ? "Learn More" : "Unavailable")
+                  }}
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <!-- End Single Semi-Transparent Box -->
       </div>
-      <!-- End Content Container -->
+      <div class="mobile-view" *ngIf="isMobile">
+        <h2>Upcoming Performances</h2>
+        <div *ngFor="let show of mainShows" class="mobile-show-card">
+          <img [src]="show.image" [alt]="show.title + ' image'" />
+          <div class="mobile-show-info">
+            <h3>{{ show.title }}</h3>
+            <p>
+              <strong
+                >{{ show.date }}
+                {{ show.time ? " - " + show.time : "" }}</strong
+              >
+            </p>
+            <p>{{ show.venue }}</p>
+            <p class="mobile-description">{{ show.description }}</p>
+            <button
+              (click)="handleTicketButtonClick(show)"
+              [disabled]="!show.available && !show.joinLink"
+            >
+              {{
+                show.buttonText ??
+                  (show.available ? "Buy Tickets" : "Unavailable")
+              }}
+            </button>
+          </div>
+        </div>
+        <h2>More Events</h2>
+        <div *ngFor="let show of lesserShows" class="mobile-show-card">
+          <img [src]="show.image" [alt]="show.title + ' image'" />
+          <div class="mobile-show-info">
+            <h3>{{ show.title }}</h3>
+            <p>
+              <strong>{{ show.date }}</strong>
+            </p>
+            <p>{{ show.venue }}</p>
+            <p class="mobile-description">{{ show.description }}</p>
+            <button
+              (click)="handleTicketButtonClick(show)"
+              [disabled]="!show.available && !show.joinLink"
+            >
+              {{
+                show.buttonText ??
+                  (show.available ? "Learn More" : "Unavailable")
+              }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showMessageBox" class="message-box-container fade-in">
+        <div class="message-box-content">
+          <p>{{ messageBoxText }}</p>
+          <button
+            (click)="closeMessageBox()"
+            class="close-message-button"
+            aria-label="Close message"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="showInnerCircleModal" class="modal-container fade-in">
+        <div class="inner-circle-modal modal-content">
+          <button
+            (click)="closeInnerCircleModal()"
+            class="close-modal-button"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+          <h2>Maestro's Inner Circle</h2>
+          <p>
+            Gain exclusive access and benefits by joining the Maestro's Inner
+            Circle, or proceed with your current selection.
+          </p>
+          <div class="modal-buttons">
+            <button class="modal-button primary" (click)="proceedWithAction()">
+              Proceed
+            </button>
+            <button class="modal-button secondary" (click)="joinInnerCircle()">
+              Join Maestro's Inner Circle
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- End Home Container -->
   </body>
 </html>

@@ -1,608 +1,438 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
   OnDestroy,
-  Renderer2,
-  PLATFORM_ID,
-  Inject,
   HostListener,
+  Inject,
+  PLATFORM_ID,
+  Renderer2,
+  ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
+// --- Interfaces ---
 interface Show {
+  id: string;
   title: string;
   image: string;
   description: string;
   date: string;
   venue: string;
   time?: string;
-  ticketKey: string;
-  buttonText: string;
-  link: string;
+  ticketLink: string;
   available: boolean;
-}
-
-interface LesserShow {
-  title: string;
-  image: string;
-  description: string;
-  date: string;
-  venue: string;
-  time?: string;
-  ticketKey: string;
-  buttonText: string;
-  link: string;
-  available: boolean;
+  buttonText?: string;
+  joinLink?: string;
 }
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
   standalone: true,
   imports: [CommonModule],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+  animations: [
+    trigger('contentFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(10px)' }),
+        animate(
+          '300ms 100ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '200ms ease-in',
+          style({ opacity: 0, transform: 'translateY(-10px)' })
+        ),
+      ]),
+    ]),
+  ],
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  private cleanupFunctions: (() => void)[] = [];
-
-  // Basic properties
+export class HomeComponent implements OnInit, OnDestroy {
+  // --- Component Properties ---
   isMobile: boolean = false;
-  showScrollBox: boolean = true;
+  isBrowser: boolean = false;
+  private resizeTimeout: any;
+  private scrollTimeout: any;
+  private lastScrollY: number = 0;
+  private readonly INNER_CIRCLE_JOIN_URL =
+    'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
 
-  // Ticket / membership logic
-  unavailableMessage: string = '';
-  showUnavailableBox: boolean = false;
-  clubMembershipMessage: string = '';
-  showClubMembershipBox: boolean = false;
-  showTicketOptionsBox: boolean = false;
-  currentTicketLink: string = '';
-  currentYear: number = new Date().getFullYear();
-
-  // Data for main shows (concerts) and lesser shows
+  // --- Show Data (Unchanged) ---
   mainShows: Show[] = [
     {
-      title: 'Grant Norman and Other Broadway Stars',
-      image: 'assets/images/grant.webp',
-      description:
-        'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight! Accompanied on the grand piano by Maestro Bill Doherty.',
-      date: 'March 13, 2025',
-      time: '4pm and 7pm',
-      venue: "St Timothy's Catholic Church",
-      ticketKey: 'broadwayStars',
-      buttonText: 'Buy Tickets Now',
-      link: 'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn',
-      available: true,
-    },
-    {
+      id: 'change-the-world-2',
       title: 'Change the World 2',
       image: 'assets/images/Change2.webp',
       description:
-        'The wait is over—Change The World is back! Celebrate this uplifting event filled with music and community, featuring two extraordinary performances by the brilliant Maestro Bill Doherty and a host of talented local artists. Together, they’ll deliver songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. This event is more than just a concert—it’s an opportunity to create meaningful change. A portion of the proceeds will support the National Multiple Sclerosis Society, making a positive impact through compassion and generosity. Join us for an unforgettable evening of joy, connection, and purpose. Mark your calendars and secure your tickets today! Together, we can Change The World.',
+        'An uplifting event filled with music and community, featuring Maestro Bill Doherty and talented local artists delivering songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. A portion of proceeds supports the National Multiple Sclerosis Society.',
       date: 'April 4, 2025',
-      venue: 'The Sharon Performing Arts Center',
-      time: '3 PM and 7 PM',
-      ticketKey: 'changeTheWorld',
-      buttonText: 'Buy Tickets Now',
-      link: 'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
+      venue: 'The Sharon PAC',
+      time: '3 PM & 7 PM',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
       available: true,
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
     {
-      title: 'Bill Doherty & Fernando Varela - Together Again!',
+      id: 'doherty-varela',
+      title: 'Bill Doherty & Fernando Varela',
       image: 'assets/images/fernando.webp',
       description:
-        'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—bridging classic opera with modern appeal—in a performance you won’t forget.',
+        'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—bridging classic opera with modern appeal—in a performance you won’t forget. Two shows only!',
       date: 'April 21, 2025',
-      time: '4pm and 7pm',
       venue: 'Savannah Center',
-      ticketKey: 'fernando',
-      buttonText: 'Buy Tickets Now',
-      link: 'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
+      time: '4 PM & 7 PM',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
       available: true,
-    },
-    {
-      title: 'The Sharon: Inaugural Gala',
-      image: 'assets/images/sharon.jpg',
-      description:
-        'This spring, join Significant Productions as we Celebrate a Decade on Stage at our inaugural fundraising gala! Hosted by founders Jason Goedken and Whitney Morse at The Sharon L. Morse Performing Arts Center, the evening honors ten extraordinary years of artists, community, and impact. Enjoy a mesmerizing live performance featuring Heather Ard and Alec Speers, beautifully accompanied by Maestro Bill Doherty on piano. Every bid, donation, and contribution made during the event will directly empower the future of live performances and artist-driven storytelling at The Sharon and The Studio Theatre. Don’t miss this chance to be a part of a transformative celebration that champions the vibrant spirit of the arts! ',
-      date: 'April 26, 2025',
-      time: '5:30pm',
-      venue: 'The Sharon L. Morse Performing Arts Center',
-      ticketKey: 'GalaSharon',
-      buttonText: 'Buy Tickets Now',
-      link: 'https://smartseat.thevillages.com/?itemnumber=33264#/',
-      available: true,
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
   ];
-
-  lesserShows: LesserShow[] = [
+  lesserShows: Show[] = [
     {
-      title: 'Three Tenors Plus One',
-      image: 'assets/images/3T1.webp',
-      description:
-        'Experience a spectacular evening of music in support of the Harold S. Schwartz Music Scholarship.',
-      date: 'February 21, 2025',
-      venue: 'The Sharon Performing Arts Center',
-      time: '3 PM and 7 PM',
-      ticketKey: 'threeTenors',
-      buttonText: 'Buy Tickets Now',
-      link: 'https://thevillagesentertainment.com/event/three-tenors-plus-one/',
-      available: true,
-    },
-    {
-      title: 'Love Notes from Broadway',
-      image: 'assets/images/broadway.webp',
-      description:
-        'Celebrate love with selections from your favorite Broadway shows.',
-      date: 'February 27, 2025',
-      venue: 'Laurel Manor',
-      ticketKey: 'loveNotes',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Springtime in Paris',
-      image: 'assets/images/spring4.webp',
-      description:
-        'Celebrate the romance and elegance of French repertoire in an evening of enchanting art songs and arias.',
-      date: 'March 27, 2025',
-      venue: 'Laurel Manor',
-      ticketKey: 'vivaVerdi',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
+      id: 'golden-days',
       title: 'Golden Days: Music of Operetta',
       image: 'assets/images/operetta.webp',
       description:
-        'Step back in time with the charming melodies of classic operettas in a performance full of nostalgia.',
+        'Step back in time with the charming melodies of classic operettas in a performance full of nostalgia and beautiful music presented by The Opera Club.',
       date: 'May 22, 2025',
       venue: 'Laurel Manor',
-      ticketKey: 'goldenDays',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
+      buttonText: 'Club Members Only',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
+      id: 'gala',
+      title: 'The Sharon: Inaugural Gala',
+      image: 'assets/images/sharon.jpg',
+      description:
+        'A spectacular night celebrating the grand opening of The Sharon Performing Arts Center with star-studded performances and unforgettable moments.',
+      date: 'October 10, 2025',
+      venue: 'The Sharon PAC',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/sharon-inaugural-gala/',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'opera-club',
       title: 'Join The Opera Club',
       image: 'assets/images/operaClubI.webp',
       description:
         'Enjoy incredible performances every month by Maestro Bill Doherty and his talented singers. Become a member to experience it all!',
       date: 'Ongoing',
       venue: 'Laurel Manor',
-      time: '7 PM',
-      ticketKey: 'operaClub',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: true,
+      buttonText: 'Join Club',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
     },
   ];
 
+  // --- State Properties (Unchanged) ---
+  currentShow: Show | null = null;
+  currentShowIndex: number = 0;
+  showOverlay: boolean = false;
+  overlayTransform: string = 'translateY(0)';
+  overlayOpacity: number = 1;
+  bannerContainerHeightVh: number = 100;
+  overlayContentVisible: boolean = true;
+  showMessageBox: boolean = false;
+  messageBoxText: string = '';
+  showInnerCircleModal: boolean = false;
+  currentTicketLink: string | null = null;
+  currentJoinLink: string | null = null;
+
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private renderer: Renderer2,
+    private el: ElementRef,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+    private cdRef: ChangeDetectorRef
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
+  // ngOnInit, ngOnDestroy, Event Listeners, checkScreenSize, updateBannerContainerHeight, setupInitialBannerState
+  // remain the same as v6
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.checkScreenSize();
-      this.showScrollBoxTimeout();
-      if (!this.isMobile) {
-        this.setupScrollEffect();
+      this.updateBannerContainerHeight();
+      if (!this.isMobile && this.mainShows.length > 0) {
+        this.setupInitialBannerState();
+        requestAnimationFrame(() => this.handleScroll());
       }
+      this.lastScrollY = window.scrollY;
     }
   }
-
-  ngAfterViewInit(): void {
-    // The overlay updates via scroll events.
+  ngOnDestroy(): void {
+    clearTimeout(this.resizeTimeout);
+    clearTimeout(this.scrollTimeout);
   }
-
-  @HostListener('window:resize')
-  onResize(): void {
-    this.checkScreenSize();
-  }
-
-  @HostListener('window:scroll')
-  onScroll(): void {
-    if (window.scrollY > 2200) {
-      this.showScrollBox = false;
-    }
-  }
-
-  private checkScreenSize(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isMobile = window.innerWidth <= 768;
-    }
-  }
-
-  private showScrollBoxTimeout(): void {
-    setTimeout(() => {
-      this.showScrollBox = false;
-    }, 10000);
-  }
-
-  // --------------------------------------------------------------------
-  // UPDATED SCROLL EFFECT: Overlay Content Updates at 70% Reveal
-  // --------------------------------------------------------------------
-  private setupScrollEffect(): void {
-    if (this.isMobile) return;
-    const show1 = document.getElementById('show1');
-    const show2 = document.getElementById('show2');
-    const show3 = document.getElementById('show3');
-    const overlayBox = document.getElementById('fixedOverlay');
-    const logo = document.querySelector('.fixed-logo'); // fixed semi‑transparent logo
-
-    if (!show1 || !show2 || !show3 || !overlayBox) {
-      console.error('One or more required elements were not found.');
-      return;
-    }
-
-    const vh = window.innerHeight;
-    const overlayHeight = 150; // as in your CSS
-    // Default overlay top when not in Fernando’s section.
-    const defaultTop = vh - overlayHeight - 40;
-
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-
-      // --- Determine Active Section for Overlay Content ---
-      // For section 1 (Grant): if scrollY is less than 0.7×vh, remain in section 1.
-      // Once scrollY reaches 0.7×vh, update to section 2.
-      // (Section 3 remains as before.)
-      let activeSectionIndex: number;
-      if (scrollY < 0.7 * vh) {
-        activeSectionIndex = 1;
-      } else if (scrollY < vh + 0.7 * vh) {
-        activeSectionIndex = 2;
-      } else {
-        activeSectionIndex = 3;
-      }
-
-      // --- Image Sliding Effects ---
-      // Section 1 (Grant)
-      if (scrollY < vh) {
-        const progress1 = scrollY / vh;
-        // Using a 150% multiplier so the image slides up faster.
-        this.renderer.setStyle(
-          show1,
-          'transform',
-          `translateY(-${progress1 * 150}%)`
-        );
-      } else {
-        this.renderer.setStyle(show1, 'transform', 'translateY(-100%)');
-      }
-
-      // Section 2 (Change the World)
-      if (scrollY >= vh && scrollY < 2 * vh) {
-        const progress2 = (scrollY - vh) / vh;
-        this.renderer.setStyle(
-          show2,
-          'transform',
-          `translateY(-${progress2 * 100}%)`
-        );
-      } else if (scrollY >= 2 * vh) {
-        this.renderer.setStyle(show2, 'transform', 'translateY(-100%)');
-      } else {
-        this.renderer.setStyle(show2, 'transform', 'translateY(0)');
-      }
-
-      // Section 3 (Fernando)
-      if (scrollY < 2 * vh) {
-        // BEFORE Fernando’s section:
-        this.renderer.setStyle(show3, 'transform', 'translateY(0)');
-        this.renderer.setStyle(show3, 'opacity', 1);
-        // Do NOT update the overlay’s vertical position here.
-        this.renderer.setStyle(overlayBox, 'opacity', 1);
-        this.renderer.setStyle(overlayBox, 'visibility', 'visible');
-        if (logo) {
-          this.renderer.setStyle(logo, 'opacity', 1);
-          this.renderer.setStyle(logo, 'visibility', 'visible');
-        }
-      } else if (scrollY >= 2 * vh && scrollY < 3 * vh) {
-        // DURING Fernando’s section:
-        const progress3 = (scrollY - 2 * vh) / vh;
-        this.renderer.setStyle(
-          show3,
-          'transform',
-          `translateY(-${progress3 * 100}%)`
-        );
-        // DO NOT set a new 'top' value for overlayBox here.
-        // Only adjust opacity (fade out) if needed.
-        const fadeThreshold = 0.2;
-        const fadeEnd = 0.4;
-        let opacity = 1;
-        if (progress3 >= fadeThreshold) {
-          if (progress3 >= fadeEnd) {
-            opacity = 0;
-          } else {
-            opacity =
-              1 - (progress3 - fadeThreshold) / (fadeEnd - fadeThreshold);
-          }
-        }
-        this.renderer.setStyle(overlayBox, 'opacity', opacity);
-        this.renderer.setStyle(
-          overlayBox,
-          'visibility',
-          opacity === 0 ? 'hidden' : 'visible'
-        );
-        if (logo) {
-          this.renderer.setStyle(logo, 'opacity', opacity);
-          this.renderer.setStyle(
-            logo,
-            'visibility',
-            opacity === 0 ? 'hidden' : 'visible'
-          );
-        }
-        this.renderer.setStyle(show3, 'opacity', opacity);
-      } else {
-        // AFTER Fernando’s section:
-        this.renderer.setStyle(show3, 'transform', 'translateY(-100%)');
-        this.renderer.setStyle(overlayBox, 'opacity', 0);
-        this.renderer.setStyle(overlayBox, 'visibility', 'hidden');
-        if (logo) {
-          this.renderer.setStyle(logo, 'opacity', 0);
-          this.renderer.setStyle(logo, 'visibility', 'hidden');
-        }
-        this.renderer.setStyle(show3, 'opacity', 0);
-      }
-
-      // --- Update the Overlay Content Based on Active Section ---
-      if (activeSectionIndex === 1) {
-        this.updateOverlay(
-          'Grant Norman and Other Broadway Stars',
-          'March 13, 2025',
-          '4pm and 7pm',
-          "St Timothy's Catholic Church",
-          'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight! Accompanied on the grand piano by Maestro Bill Doherty.',
-          'Buy Tickets Now',
-          'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn'
-        );
-      } else if (activeSectionIndex === 2) {
-        this.updateOverlay(
-          'Change the World 2',
-          'April 4, 2025',
-          '3 PM and 7 PM',
-          'The Sharon Performing Arts Center',
-          'The wait is over—Change The World is back! Celebrate this uplifting event filled with music and community, featuring two extraordinary performances by the brilliant Maestro Bill Doherty and a host of talented local artists. Together, they’ll deliver songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. This event is more than just a concert—it’s an opportunity to create meaningful change. A portion of the proceeds will support the National Multiple Sclerosis Society, making a positive impact through compassion and generosity. Join us for an unforgettable evening of joy, connection, and purpose. Mark your calendars and secure your tickets today! Together, we can Change The World.',
-          'Buy Tickets Now',
-          'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/'
-        );
-      } else if (activeSectionIndex === 3) {
-        this.updateOverlay(
-          'Bill Doherty & Fernando Varela - Together Again!',
-          'April 21, 2025',
-          '4pm and 7pm',
-          'Savannah Center',
-          'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—bridging classic opera with modern appeal—in a performance you won’t forget.',
-          'Buy Tickets Now',
-          'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/'
-        );
-      }
-      this.setActiveNavButton(activeSectionIndex);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    this.cleanupFunctions.push(() =>
-      window.removeEventListener('scroll', handleScroll)
-    );
-    // Initialize on load.
-    handleScroll();
-  }
-  openConstantContact(event: Event): void {
-    event.preventDefault();
-    const constantContactUrl =
-      'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
-    window.open(constantContactUrl, '_blank');
-  }
-
-  private updateOverlay(
-    title: string,
-    date: string,
-    time: string,
-    venue: string,
-    description: string,
-    buttonText: string,
-    link: string
+  @HostListener('window:scroll', ['$event']) onWindowScroll(
+    event: Event
   ): void {
-    const titleEl = document.getElementById('showTitle');
-    const dateEl = document.getElementById('showDate');
-    const timeEl = document.getElementById('showTime');
-    const venueEl = document.getElementById('showVenue');
-    const descEl = document.getElementById('showDescription');
-    const buttonEl = document.getElementById('buyButton');
-
-    if (titleEl) titleEl.textContent = title;
-    if (dateEl) dateEl.textContent = date;
-    if (timeEl) timeEl.textContent = time;
-    if (venueEl) venueEl.textContent = venue;
-    if (descEl) descEl.textContent = description;
-    if (buttonEl) {
-      buttonEl.textContent = buttonText;
-      buttonEl.setAttribute('href', link);
+    if (!this.isBrowser || this.isMobile) return;
+    clearTimeout(this.scrollTimeout);
+    this.scrollTimeout = setTimeout(() => {
+      requestAnimationFrame(() => this.handleScroll());
+    }, 0);
+  }
+  @HostListener('window:resize', ['$event']) onWindowResize(
+    event: Event
+  ): void {
+    if (!this.isBrowser) return;
+    clearTimeout(this.resizeTimeout);
+    this.resizeTimeout = setTimeout(() => {
+      const wasMobile = this.isMobile;
+      this.checkScreenSize();
+      this.updateBannerContainerHeight();
+      if (wasMobile !== this.isMobile) {
+        if (!this.isMobile) {
+          this.setupInitialBannerState();
+          requestAnimationFrame(() => this.handleScroll());
+        } else {
+          this.showOverlay = false;
+        }
+      } else if (!this.isMobile) {
+        requestAnimationFrame(() => this.handleScroll());
+      }
+    }, 200);
+  }
+  private checkScreenSize(): void {
+    if (this.isBrowser) {
+      this.isMobile = window.innerWidth <= 992;
     }
   }
+  private updateBannerContainerHeight(): void {
+    if (this.isBrowser && !this.isMobile) {
+      this.bannerContainerHeightVh = this.mainShows.length * 100;
+    } else {
+      this.bannerContainerHeightVh = 100;
+    }
+  }
+  private setupInitialBannerState(): void {
+    if (!this.isBrowser || this.isMobile || this.mainShows.length === 0) return;
+    const bannerSections =
+      this.el.nativeElement.querySelectorAll('.banner-section');
+    bannerSections.forEach((section: HTMLElement, index: number) => {
+      const initialOpacity = index === 0 ? '1' : '0';
+      this.renderer.setStyle(section, 'opacity', initialOpacity);
+      this.renderer.setStyle(section, 'transform', 'translateY(0)');
+      this.renderer.setStyle(
+        section,
+        'zIndex',
+        `${this.mainShows.length - index}`
+      );
+    });
+    this.currentShow = this.mainShows[0];
+    this.currentShowIndex = 0;
+    this.showOverlay = true;
+    this.overlayContentVisible = true;
+    this.overlayOpacity = 1;
+    this.overlayTransform = 'translateY(0)';
+    this.cdRef.detectChanges();
+  }
 
-  private setActiveNavButton(index: number): void {
-    const navButtons = [
-      document.getElementById('nav1'),
-      document.getElementById('nav2'),
-      document.getElementById('nav3'),
-    ];
-    navButtons.forEach((btn, idx) => {
-      if (btn) {
-        if (idx === index - 1) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
+  private handleScroll(): void {
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    const numShows = this.mainShows.length;
+    if (numShows === 0 || this.isMobile) return;
+
+    const totalBannerScrollHeight = vh * numShows; // Total scrollable height for banner area
+
+    let activeIndex = Math.floor(scrollY / vh);
+    activeIndex = Math.max(0, Math.min(numShows - 1, activeIndex));
+
+    // --- Update Banner Sections ---
+    // Logic remains the same as v6 - ensures section below is visible
+    const bannerSections =
+      this.el.nativeElement.querySelectorAll('.banner-section');
+    bannerSections.forEach((section: HTMLElement, index: number) => {
+      let translateY = 0;
+      let zIndex = numShows - index;
+      let opacity = 0;
+      const scrollStartForSection = index * vh;
+      const progress = Math.max(
+        0,
+        Math.min(1, (scrollY - scrollStartForSection) / vh)
+      );
+      if (index < activeIndex) {
+        translateY = -vh;
+        opacity = 0;
+      } else if (index === activeIndex) {
+        translateY = -progress * vh;
+        opacity = 1;
+        zIndex = numShows + 1;
+      } else {
+        translateY = 0;
+        opacity = 1;
+      } // Keep sections below visible
+
+      this.renderer.setStyle(
+        section,
+        'transform',
+        `translateY(${translateY}px)`
+      );
+      this.renderer.setStyle(section, 'zIndex', `${zIndex}`);
+      // Opacity for last section handled in fade logic below
+      if (index !== numShows - 1) {
+        this.renderer.setStyle(section, 'opacity', `${opacity}`);
       }
     });
-  }
 
-  navigateToResidentArtists(): void {
-    this.router.navigate(['/resident-artist']).then(
-      (success) => console.log('Navigation result:', success),
-      (error) => console.error('Navigation error:', error)
-    );
-  }
-
-  applyNowClicked(): void {
-    this.navigateToResidentArtists();
-  }
-
-  buyMainShowTicketsClicked(ticketKey: string, clickEvent: MouseEvent): void {
-    clickEvent.preventDefault();
-    clickEvent.stopPropagation();
-    const show = this.mainShows.find((s) => s.ticketKey === ticketKey);
-    if (!show) {
-      console.error(`Show not found for ${ticketKey}`);
-      return;
+    // --- Update Overlay Content ---
+    // Unchanged
+    if (activeIndex !== this.currentShowIndex && !this.isMobile) {
+      this.overlayContentVisible = false;
+      this.cdRef.detectChanges();
+      this.currentShowIndex = activeIndex;
+      this.currentShow = this.mainShows[this.currentShowIndex];
+      setTimeout(() => {
+        this.overlayContentVisible = true;
+        this.cdRef.detectChanges();
+      }, 150);
     }
-    if (show.buttonText === 'Join Club') {
-      this.showClubMembershipMessage();
-    } else if (show.available) {
-      this.currentTicketLink = show.link;
-      this.showTicketOptionsBox = true;
+
+    // --- Handle Overlay Position and Fade ---
+    const endOfBannerScroll = (numShows - 1) * vh;
+    // *** Adjusted end fade threshold slightly earlier ***
+    const startOverlayFadeScroll = endOfBannerScroll + vh * 0.5; // Start fade halfway
+    const endOverlayFadeScroll = endOfBannerScroll + vh * 0.9; // End fade when 10% left
+
+    let currentOverlayTransformY = 0;
+    let currentOverlayOpacity = 1;
+    let lastBannerOpacity =
+      activeIndex === numShows - 1 || activeIndex === numShows - 2 ? 1 : 0;
+    this.showOverlay = true; // Assume true, override below
+
+    // Calculate fade out first based on range
+    if (scrollY >= startOverlayFadeScroll) {
+      const fadeProgress = Math.max(
+        0,
+        Math.min(
+          1,
+          (scrollY - startOverlayFadeScroll) /
+            (endOverlayFadeScroll - startOverlayFadeScroll)
+        )
+      );
+      currentOverlayOpacity = 1 - fadeProgress;
+      lastBannerOpacity = 1 - fadeProgress;
+    }
+
+    // Calculate overlay transform only when in last section
+    if (scrollY >= endOfBannerScroll) {
+      const scrollPastEndOfBanner = scrollY - endOfBannerScroll;
+      currentOverlayTransformY = -scrollPastEndOfBanner;
     } else {
-      this.showUnavailableMessage();
-    }
-  }
-
-  buyAdditionalShowTicketsClicked(
-    ticketKey: string,
-    clickEvent: MouseEvent
-  ): void {
-    clickEvent.preventDefault();
-    clickEvent.stopPropagation();
-    const show = this.lesserShows.find((s) => s.ticketKey === ticketKey);
-    if (!show) {
-      console.error(`Show not found for ${ticketKey}`);
-      return;
-    }
-    if (show.buttonText === 'Join Club') {
-      this.showClubMembershipMessage();
-    } else if (show.available) {
-      window.open(show.link, '_blank');
-    } else {
-      this.showUnavailableMessage();
-    }
-  }
-
-  private showTicketOptions(ticketLink: string): void {
-    this.currentTicketLink = ticketLink;
-    this.showTicketOptionsBox = true;
-  }
-
-  joinMaestrosInnerCircle(): void {
-    const buyButton = document.getElementById('buyButton');
-    if (buyButton) {
-      const link = buyButton.getAttribute('href');
-      this.currentTicketLink = link ? link : '';
-    }
-    this.showTicketOptionsBox = true;
-  }
-
-  joinMaestrosInnerCircleAction(): void {
-    const constantContactUrl =
-      'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
-    window.open(constantContactUrl, '_blank');
-  }
-
-  proceedToBuyTicket(): void {
-    if (this.currentTicketLink) {
-      window.open(this.currentTicketLink, '_blank');
-    }
-    this.closeTicketOptionsBox();
-  }
-
-  closeTicketOptionsBox(): void {
-    this.showTicketOptionsBox = false;
-    this.currentTicketLink = '';
-  }
-
-  private showUnavailableMessage(): void {
-    this.unavailableMessage =
-      'We apologize, tickets are not yet available for this performance.';
-    this.showUnavailableBox = true;
-    setTimeout(() => {
-      this.unavailableMessage = '';
-      this.showUnavailableBox = false;
-    }, 3000);
-  }
-
-  private showClubMembershipMessage(): void {
-    this.clubMembershipMessage =
-      'This is a Private Exclusive Show Free to Members of the Opera Club of the Villages. Click below to become a member.';
-    this.showClubMembershipBox = true;
-  }
-
-  closeClubMembershipBox(): void {
-    this.clubMembershipMessage = '';
-    this.showClubMembershipBox = false;
-  }
-
-  navigateToJoinUs(): void {
-    const joinClubUrl = 'https://operaclubofthevillages.com/join-us';
-    window.open(joinClubUrl, '_blank');
-    this.closeClubMembershipBox();
-  }
-
-  scrollToSection(sectionId: string): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    let offset = 0;
-    let sectionIndex = 1;
-    if (sectionId === 'show1') {
-      offset = 0;
-      sectionIndex = 1;
-    } else if (sectionId === 'show2') {
-      offset = window.innerHeight;
-      sectionIndex = 2;
-    } else if (sectionId === 'show3') {
-      offset = window.innerHeight * 2;
-      sectionIndex = 3;
-    }
-    window.scrollTo({ top: offset, behavior: 'smooth' });
-    setTimeout(() => {
-      if (sectionIndex === 1) {
-        this.updateOverlay(
-          'Broadway Stars with Grant Norman',
-          'March 13, 2025',
-          '4pm and 7pm',
-          "St Timothy's Catholic Church",
-          'Join Master of Ceremonies Grant Norman, best known for his portrayal of Phantom in Phantom of the Opera on Broadway, as he takes us on a musical journey through classic Broadway hits.',
-          'Buy Tickets Now',
-          'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn'
-        );
-      } else if (sectionIndex === 2) {
-        this.updateOverlay(
-          'Change the World 2',
-          'April 4, 2025',
-          '3 PM and 7 PM',
-          'The Sharon Performing Arts Center',
-          'The wait is over—Change The World is back! Celebrate this uplifting event with two extraordinary performances that inspire hope and unity.',
-          'Buy Tickets Now',
-          'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/'
-        );
-      } else {
-        this.updateOverlay(
-          'Bill Doherty & Fernando Varela - Together Again!',
-          'April 21, 2025',
-          '4pm and 7pm',
-          'Savannah Center',
-          'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—bridging classic opera with modern appeal—in a performance you won’t forget.',
-          'Buy Tickets Now',
-          'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/'
-        );
+      currentOverlayTransformY = 0;
+      // Ensure opacity is 1 before fade starts
+      currentOverlayOpacity = 1;
+      if (activeIndex === numShows - 1) {
+        // If last section is active before fade starts
+        lastBannerOpacity = 1;
       }
-      this.setActiveNavButton(sectionIndex);
-    }, 500);
+    }
+
+    // *** Force hide if scrolled completely past the banner container ***
+    // This overrides the fade calculation if scrollY is beyond the banner area
+    if (scrollY >= totalBannerScrollHeight - 10) {
+      // Use a small buffer
+      currentOverlayOpacity = 0;
+      lastBannerOpacity = 0;
+    }
+
+    // Determine final overlay visibility
+    this.showOverlay = currentOverlayOpacity > 0.01; // Hide if effectively transparent
+
+    // Apply overlay styles
+    this.overlayTransform = `translateY(${currentOverlayTransformY}px)`;
+    this.overlayOpacity = currentOverlayOpacity;
+
+    // Apply final opacity to the last banner section
+    const lastBannerSection = bannerSections[numShows - 1];
+    if (lastBannerSection) {
+      this.renderer.setStyle(
+        lastBannerSection,
+        'opacity',
+        `${lastBannerOpacity}`
+      );
+    }
+
+    this.lastScrollY = scrollY;
   }
 
-  ngOnDestroy(): void {
-    this.cleanupFunctions.forEach((cleanup) => cleanup());
+  // --- Action Handlers ---
+  // Unchanged from v6
+  scrollToShow(index: number): void {
+    if (!this.isBrowser || index < 0 || index >= this.mainShows.length) return;
+    const targetScrollY = index * window.innerHeight;
+    window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+  }
+  handleTicketButtonClick(show: Show | null): void {
+    if (!show) return;
+    const isTicketPurchase = show.available && show.buttonText !== 'Join Club';
+    const isJoinClubAction = show.buttonText === 'Join Club' && !!show.joinLink;
+    if (isTicketPurchase || isJoinClubAction) {
+      this.currentTicketLink = show.ticketLink;
+      this.currentJoinLink = show.joinLink || this.INNER_CIRCLE_JOIN_URL;
+      this.showInnerCircleModal = true;
+      this.closeMessageBox();
+    } else if (show.buttonText === 'Club Members Only' && show.joinLink) {
+      this.messageBoxText = `Tickets for "${show.title}" are available exclusively to Opera Club members.`;
+      this.showMessageBox = true;
+      this.closeInnerCircleModal();
+    } else {
+      this.messageBoxText = `Sorry, the requested action for "${show.title}" is not currently available.`;
+      if (show.buttonText === 'Coming Soon') {
+        this.messageBoxText = `"${show.title}" is coming soon! Please check back later or join our email list for updates.`;
+      }
+      this.showMessageBox = true;
+      this.closeInnerCircleModal();
+    }
+  }
+  closeInnerCircleModal(): void {
+    this.showInnerCircleModal = false;
+    this.currentTicketLink = null;
+    this.currentJoinLink = null;
+  }
+  proceedWithAction(): void {
+    const targetLink = this.currentTicketLink || this.currentJoinLink;
+    if (this.isBrowser && targetLink) {
+      window.open(targetLink, '_blank');
+    }
+    this.closeInnerCircleModal();
+  }
+  joinInnerCircle(): void {
+    if (this.isBrowser) {
+      window.open(this.INNER_CIRCLE_JOIN_URL, '_blank');
+    }
+    this.closeInnerCircleModal();
+  }
+  closeMessageBox(): void {
+    this.showMessageBox = false;
+  }
+  showEmailSignup(): void {
+    if (this.isBrowser) {
+      window.open(
+        'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I',
+        '_blank'
+      );
+    }
   }
 }
