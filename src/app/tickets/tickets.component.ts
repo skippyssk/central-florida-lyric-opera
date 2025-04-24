@@ -95,6 +95,18 @@ export class TicketsComponent {
       buttonText: 'Buy Tickets Now',
       available: true,
     },
+    {
+      title: 'Celebrate America',
+      image: 'assets/images/vets.png',
+      description:
+        '**Celebrate America** is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating. ',
+      date: 'May 22, 2025',
+      time: '3pm-7pm',
+      venue: 'The Sharon L. Morse Performing Arts Center',
+      ticketKey: 'GalaSharon',
+      buttonText: 'Unavailable',
+      available: false,
+    },
   ];
 
   lesserShows: LesserShow[] = [

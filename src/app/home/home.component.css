@@ -112,7 +112,7 @@ html, body {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: var(--banner-max-width);
+    
     height: 100vh;
     background-size: cover;
     background-position: center center;

@@ -71,31 +71,45 @@ export class HomeComponent implements OnInit, OnDestroy {
   // --- Show Data (Unchanged) ---
   mainShows: Show[] = [
     {
-      id: 'doherty-varela',
-      title: 'Bill Doherty & Fernando Varela',
-      image: 'assets/images/fernando.webp',
-      description:
-        'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—bridging classic opera with modern appeal—in a performance you won’t forget. Two shows only!',
-      date: 'April 21, 2025',
-      venue: 'Savannah Center',
-      time: '7 PM',
-      ticketLink:
-        'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
-      available: true,
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
-    },
-    {
-      id: 'change-the-world-2',
+      id: 'America',
       title: 'Celebrate America',
-      image: 'assets/images/Change2.webp',
+      image: 'assets/images/vets.png',
       description:
-        'An uplifting event filled with music and community, featuring Maestro Bill Doherty and talented local artists delivering songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. A portion of proceeds supports the National Multiple Sclerosis Society.',
-      date: 'April 4, 2025',
-      venue: 'The Sharon PAC',
+        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
+      date: 'May 22, 2025',
+      venue: 'St. Timothys Catholic Church',
       time: '3 PM & 7 PM',
       ticketLink:
         'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
-      available: true,
+      available: false,
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'America',
+      title: 'Celebrate America',
+      image: 'assets/images/vets.png',
+      description:
+        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
+      date: 'April 4, 2025',
+      venue: 'St. Timothys Catholic Church',
+      time: '3 PM & 7 PM',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
+      available: false,
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'America',
+      title: 'Celebrate America',
+      image: 'assets/images/vets.png',
+      description:
+        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
+      date: 'April 4, 2025',
+      venue: 'St. Timothys Catholic Church',
+      time: '3 PM & 7 PM',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
+      available: false,
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
   ];
@@ -121,10 +135,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         'A spectacular night celebrating the grand opening of The Sharon Performing Arts Center with star-studded performances and unforgettable moments.',
       date: 'October 10, 2025',
       venue: 'The Sharon PAC',
-      ticketLink:
-        'https://www.thevillagesentertainment.com/buy-tickets/sharon-inaugural-gala/',
-      available: false,
-      buttonText: 'Coming Soon',
+      ticketLink: 'https://significantproductions.org/gala/',
+      available: true,
+      buttonText: 'Buy Now',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
     {
