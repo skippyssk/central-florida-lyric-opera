@@ -120,7 +120,8 @@ html, body {
   -webkit-backdrop-filter: blur(8px);
 }
 .fixed-email-button:hover {
-  background-color: var(--color-gold-light);
+  background-color: #d4b174;
+  color: #000;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
   animation-play-state: paused;
