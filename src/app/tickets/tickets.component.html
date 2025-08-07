@@ -1,6 +1,5 @@
 <div class="tickets-container">
   <h1>Tickets & Season</h1>
-
   <div class="season-description">
     <p>
       Experience the magic of live opera and musical theater with Central
@@ -9,53 +8,18 @@
       to innovative new productions, there's something for every music lover.
     </p>
   </div>
-
-  <div class="shows-grid">
-    <div class="show-card" *ngFor="let show of mainShows">
-      <img [src]="show.image" [alt]="show.title" class="show-image" />
-      <div class="show-details">
-        <h3 class="show-title" [innerHTML]="show.title"></h3>
-        <p class="show-date">{{ show.date }}</p>
-        <p class="show-venue">{{ show.venue }}</p>
-        <p class="show-time" *ngIf="show.time">{{ show.time }}</p>
-        <p class="show-description">{{ show.description }}</p>
-        <button class="buy-tickets-button" (click)="buyTickets(show.ticketKey)">
-          {{ show.buttonText }}
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Lesser Shows Section -->
+  <h2>Upcoming Performances</h2>
+  <app-show-list [shows]="mainShows" mode="tickets-main" [mobile]="false" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
   <div class="additional-performances-section">
     <h2>Additional Performances</h2>
-    <div class="lesser-shows-grid">
-      <div class="lesser-show-card" *ngFor="let show of lesserShows">
-        <img [src]="show.image" [alt]="show.title" class="lesser-show-image" />
-        <div class="lesser-show-details">
-          <h3 class="lesser-show-title">{{ show.title }}</h3>
-          <p class="lesser-show-date">{{ show.date }}</p>
-          <p class="lesser-show-venue">{{ show.venue }}</p>
-          <p class="lesser-show-time" *ngIf="show.time">{{ show.time }}</p>
-          <p class="lesser-show-description">{{ show.description }}</p>
-          <button
-            class="buy-tickets-button"
-            (click)="buyTickets(show.ticketKey)"
-          >
-            {{ show.buttonText }}
-          </button>
-        </div>
-      </div>
-    </div>
+    <app-show-list [shows]="lesserShows" mode="lesser" [mobile]="false" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
   </div>
-
   <!-- Message Boxes -->
   <div *ngIf="showUnavailableBox" class="message-box unavailable-box">
     <div class="unavailable-message">
       {{ unavailableMessage }}
     </div>
   </div>
-
   <div *ngIf="showClubMembershipBox" class="message-box club-membership-box">
     <button (click)="closeClubMembershipBox()" class="close-button">
       Close
@@ -67,24 +31,25 @@
       </button>
     </div>
   </div>
-
   <div *ngIf="showTicketOptionsBox" class="message-box ticket-options-box">
     <button (click)="closeTicketOptionsBox()" class="close-button">
       Close
     </button>
     <div class="ticket-options-message">
-      <p>Enhance your opera experience!</p>
-      <!-- Only show this button for main shows -->
-      <button
-        *ngIf="showMaestrosInnerCircleButton"
-        (click)="joinMaestrosInnerCircle()"
-        class="join-maestros-button"
-      >
-        Join Maestro's Inner Circle
-      </button>
-      <button (click)="proceedToBuyTicket()" class="buy-ticket-button">
-        Get Tickets
-      </button>
+      <h2>Maestro's Inner Circle</h2>
+      <p *ngIf="!currentTicketLink">{{ unavailableMessage }}</p>
+      <p *ngIf="currentTicketLink">Gain exclusive access and benefits by joining the Maestro's Inner Circle, or proceed with your current selection.</p>
+      <div class="modal-buttons">
+        <button *ngIf="currentTicketLink" (click)="proceedToBuyTicket()" class="modal-button primary">
+          Proceed
+        </button>
+        <button
+          (click)="joinMaestrosInnerCircle()"
+          class="modal-button secondary"
+        >
+          Join Maestro's Inner Circle
+        </button>
+      </div>
     </div>
   </div>
 </div>

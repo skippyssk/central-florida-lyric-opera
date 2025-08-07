@@ -1,12 +1,12 @@
 <div class="main-content-wrapper" [class.mobile]="isMobile">
   <div class="frosted-glass"></div>
 
-  <header class="header">
+  <header class="header" (click)="toggleMenu()">
     <div class="header-content">
-      <div class="menu-button" (click)="toggleMenu()">
+      <div class="menu-button">
         <strong>
           <ng-container *ngIf="isMenuOpen; else menuText">
-            <span class="close-x">X</span> <span class="close-text">CLOSE</span>
+            <span class="close-x">☰</span> <span class="close-text">MENU</span>
           </ng-container>
           <ng-template #menuText>☰ MENU</ng-template>
         </strong>
@@ -23,6 +23,9 @@
   </header>
 
   <nav class="menu frosted-glass" [class.open]="isMenuOpen">
+    <div class="menu-close-button" (click)="closeMenu()">
+      <span class="close-icon">✕</span>
+    </div>
     <ul>
       <li><a routerLink="/" (click)="navigateTo('/')">Home</a></li>
       <li>

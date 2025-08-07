@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ShowListComponent, ShowListShow } from '../show-list.component';
 
 interface Show {
   title: string;
@@ -28,7 +29,7 @@ interface LesserShow {
 @Component({
   selector: 'app-tickets',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ShowListComponent],
   templateUrl: './tickets.component.html',
   styleUrls: ['./tickets.component.css'],
 })
@@ -43,7 +44,7 @@ export class TicketsComponent {
     bestOfBroadway: 'https://tickets.thevillages.com/32397',
     laBoheme: 'https://www.thevillagesentertainment.com/buy-tickets/la-boheme/',
     changeTheWorld:
-      'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
+      'https://www.thesharon.com/event.php?id=1133&title=Change-The-World',
     VoicesOfTheNight: 'https://www.thesharon.com/schedule.php',
     threeTenors:
       'https://thevillagesentertainment.com/event/three-tenors-plus-one/',
@@ -63,31 +64,35 @@ export class TicketsComponent {
     hurrayHollywood:
       'https://www.thevillagesentertainment.com/buy-tickets/hooray-for-hollywood/',
     goldenDays: 'https://operaclubofthevillages.com/join-us',
+    broadwayBlockbusters:
+      'https://www.thevillagesentertainment.com/buy-tickets/broadway-blockbusters/',
     fernando:
       'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
     GalaSharon: 'https://smartseat.thevillages.com/?itemnumber=33264#/',
+    webber:
+      'https://www.thevillagesentertainment.com/buy-tickets/an-intimate-evening-of-andrew-lloyd-webber/',
     // Add more ticket links as needed
   };
 
   mainShows: Show[] = [
     {
-      title: 'Movie Magic',
-      image: 'assets/images/MM.png',
+      title: 'Broadway Blockbusters',
+      image: 'assets/images/BBR.png',
       description:
-        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
-      date: 'May 22, 2025',
+        'Feel the thrill of the Great White Way! Broadway Blockbusters features show-stopping hits from the most beloved musicals of all time—soaring ballads, toe-tapping numbers, and unforgettable melodies that have lit up the stage for decades. A night of pure theatrical magic!',
+      date: 'Oct 29, 2025',
       venue: 'The Savannah Center',
-      time: '3 PM & 7 PM',
-      ticketKey: 'goldenDays',
-      buttonText: 'Coming Soon',
-      available: false,
+      time: '4 PM & 7 PM',
+      ticketKey: 'broadwayBlockbusters',
+      buttonText: 'Buy Tickets',
+      available: true,
     },
     {
       title: 'Catch a Rising Star (Prodigies: Stars of Tomorrow) ',
       image: 'assets/images/CRSProd.png',
       description:
-        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
-      date: 'April 4, 2025',
+        'Experience tomorrow’s legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music in an unforgettable evening of artistry. Your attendance helps shape the future of music.',
+      date: 'Oct 30, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '3 PM & 7 PM',
       ticketKey: 'goldenDays',
@@ -98,8 +103,8 @@ export class TicketsComponent {
       title: 'Christmas Spectacular',
       image: 'assets/images/CSWide.png',
       description:
-        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
-      date: 'April 4, 2025',
+        'Celebrate the joy of the season with our Christmas Spectacular! Join us for an enchanting evening of classic holiday favorites, from cherished carols to festive showstoppers—featuring the beautiful voices of the Saint Timothy’s Choir and featured soloists. A heartwarming start to your Christmas celebrations!',
+      date: 'Dec 18, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '3 PM & 7 PM',
       ticketKey: 'goldenDays',
@@ -112,17 +117,17 @@ export class TicketsComponent {
     {
       title: 'An Intimate Evening of Andrew LLoyd Webber',
       image: 'assets/images/AWRRRR1Square.png',
-      description: 'TBD.',
+      description: '',
       date: 'Jan 09, 2026',
       venue: 'The Savaannah Center',
-      ticketKey: 'goldenDays',
-      buttonText: 'Coming Soon',
-      available: false,
+      ticketKey: 'webber',
+      buttonText: 'Buy Tickets',
+      available: true,
     },
     {
       title: 'Broadway Stars with Grant Norman',
       image: 'assets/images/grantPhantomSquare.png',
-      description: 'TBD.',
+      description: '',
       date: 'Jan 20, 2026',
       venue: 'St. Timothys Catholic Church',
       ticketKey: 'goldenDays',
@@ -133,7 +138,7 @@ export class TicketsComponent {
     {
       title: "Bizet's Carmen",
       image: 'assets/images/Carmen ArtworkSquare.png',
-      description: 'TBD.',
+      description: '',
       date: 'Jan 30, 2026',
       venue: 'The Sharon Performing Arts Center',
       ticketKey: 'goldenDays',
@@ -144,18 +149,18 @@ export class TicketsComponent {
     {
       title: 'Change The World',
       image: 'assets/images/CW3 Square.png',
-      description: 'TBD.',
+      description: '',
       date: 'Jan 22, 2026',
       venue: 'The Sharon Performing Arts Center',
-      ticketKey: 'goldenDays',
-      buttonText: 'Coming Soon',
-      available: false,
+      ticketKey: 'changeTheWorld',
+      buttonText: 'Buy Tickets',
+      available: true,
     },
 
     {
       title: 'Together Again',
       image: 'assets/images/fernando.webp',
-      description: 'TBD.',
+      description: '',
       date: 'April 25, 2026',
       venue: 'Savannah Center',
       ticketKey: 'goldenDays',
@@ -165,7 +170,7 @@ export class TicketsComponent {
     {
       title: 'Celebrate America',
       image: 'assets/images/CA1Square.png',
-      description: 'TBD.',
+      description: '',
       date: 'May 21, 2026',
       venue: 'St. Timothys Catholic Church',
       ticketKey: 'goldenDays',
@@ -205,9 +210,9 @@ export class TicketsComponent {
     if (show.buttonText === 'Join Club') {
       this.showClubMembershipMessage();
     } else if (show.available) {
-      window.open(
+      this.showTicketOptions(
         this.ticketLinks[show.ticketKey as keyof typeof this.ticketLinks],
-        '_blank'
+        false // false for lesser shows
       );
     } else {
       this.showUnavailableMessage();
@@ -232,12 +237,11 @@ export class TicketsComponent {
   }
   private showUnavailableMessage(): void {
     this.unavailableMessage =
-      'We apologize, tickets are not yet available for this performance.';
-    this.showUnavailableBox = true;
-    setTimeout(() => {
-      this.unavailableMessage = '';
-      this.showUnavailableBox = false;
-    }, 3000);
+      "Tickets are coming soon, join Maestro's inner circle for deals and info about upcoming shows.";
+    // Show the Maestro's Inner Circle modal instead of just a message
+    this.showTicketOptionsBox = true;
+    this.showMaestrosInnerCircleButton = true;
+    this.currentTicketLink = ''; // No direct ticket link for unavailable shows
   }
 
   showMaestrosInnerCircleButton: boolean = false;
@@ -245,7 +249,7 @@ export class TicketsComponent {
   private showTicketOptions(ticketLink: string, isMainShow: boolean): void {
     this.currentTicketLink = ticketLink;
     this.showTicketOptionsBox = true;
-    this.showMaestrosInnerCircleButton = isMainShow;
+    this.showMaestrosInnerCircleButton = true; // Always show the button
   }
 
   joinMaestrosInnerCircle(): void {
@@ -258,12 +262,27 @@ export class TicketsComponent {
   proceedToBuyTicket(): void {
     if (this.currentTicketLink) {
       window.open(this.currentTicketLink, '_blank');
+    } else {
+      // For unavailable shows, just close the modal
+      console.log('No ticket link available for this show');
     }
     this.closeTicketOptionsBox();
   }
 
   closeTicketOptionsBox(): void {
     this.showTicketOptionsBox = false;
+    this.showUnavailableBox = false; // Also close the unavailable message box
     this.currentTicketLink = '';
+  }
+
+  onShowButtonClick(show: ShowListShow) {
+    // Try to match by title (or id if you add it)
+    const mainShow = this.mainShows.find((s) => s.title === show.title);
+    const lesserShow = this.lesserShows.find((s) => s.title === show.title);
+    if (mainShow) {
+      this.handleMainShow(mainShow);
+    } else if (lesserShow) {
+      this.handleLesserShow(lesserShow);
+    }
   }
 }

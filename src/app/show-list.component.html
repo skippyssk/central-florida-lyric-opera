@@ -1,0 +1,19 @@
+<div [ngClass]="{
+  'show-list-grid': !mobile && mode !== 'main' && mode !== 'oc' && mode !== 'tickets-main',
+  'show-list-oc': !mobile && mode === 'oc',
+  'show-list-tickets-main': !mobile && mode === 'tickets-main',
+  'show-list-main': !mobile && mode === 'main',
+  'show-list-mobile': mobile
+}">
+  <div *ngFor="let show of shows" class="show-list-card" [ngClass]="{'oc-card': mode === 'oc'}">
+    <img [src]="show.image" [alt]="show.title + ' image'" />
+    <div class="show-list-info" [ngClass]="{'oc-info': mode === 'oc'}">
+      <h3>{{ show.title }}</h3>
+      <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
+      <p class="show-list-description">{{ show.description }}</p>
+      <button (click)="onButtonClick(show)" [disabled]="!show.available && !show.buttonText">
+        {{ show.buttonText ?? (show.available ? (mode === 'main' ? 'Buy Tickets' : 'Learn More') : 'Unavailable') }}
+      </button>
+    </div>
+  </div>
+</div>

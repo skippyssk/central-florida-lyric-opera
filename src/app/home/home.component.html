@@ -1,229 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Central Florida Lyric Opera</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap"
-      rel="stylesheet"
+<div class="home-container">
+  <div class="global-page-overlay"></div>
+
+  <div class="fixed-logo">
+    <img
+      src="assets/images/Logo.webp"
+      alt="Central Florida Lyric Opera Logo"
     />
-  </head>
-  <body>
-    <div class="home-container">
-      <div class="global-page-overlay"></div>
+  </div>
 
-      <div class="fixed-logo">
-        <img
-          src="assets/images/Logo.webp"
-          alt="Central Florida Lyric Opera Logo"
-        />
-      </div>
+  <button
+    class="fixed-email-button pulse-animation"
+    (click)="showEmailSignup()"
+  >
+    Join Email List
+  </button>
 
-      <button
-        class="fixed-email-button pulse-animation"
-        (click)="showEmailSignup()"
+  <div class="desktop-view" *ngIf="!isMobile">
+    <div
+      class="banner-scroll-container"
+      [style.height.vh]="bannerContainerHeightVh"
+    >
+      <div
+        *ngFor="let show of mainShows; let i = index"
+        class="banner-section"
+        [id]="'banner-show-' + i"
+        [attr.aria-label]="'Banner section for ' + show.title"
+        role="region"
       >
-        Join Email List
-      </button>
-
-      <div class="desktop-view" *ngIf="!isMobile">
         <div
-          class="banner-scroll-container"
-          [style.height.vh]="bannerContainerHeightVh"
-        >
-          <div
-            *ngFor="let show of mainShows; let i = index"
-            class="banner-section"
-            [id]="'banner-show-' + i"
-            [attr.aria-label]="'Banner section for ' + show.title"
-            role="region"
-          >
-            <div
-              class="banner-image-content"
-              [style.backgroundImage]="'url(' + show.image + ')'"
-            ></div>
-          </div>
-        </div>
-
-        <div
-          id="desktopOverlay"
-          class="show-overlay"
-          [style.opacity]="overlayOpacity"
-          [style.transform]="overlayTransform"
-        >
-          <div
-            class="overlay-content-wrapper"
-            *ngIf="currentShow && overlayContentVisible"
-            @contentFade
-            aria-live="polite"
-          >
-            <div class="overlay-content">
-              <h2 id="overlayTitle">{{ currentShow.title }}</h2>
-              <p id="overlayDateVenue">
-                {{ currentShow.date }}
-                {{ currentShow.time ? " - " + currentShow.time : "" }} |
-                {{ currentShow.venue }}
-              </p>
-              <p id="overlayDescription" class="long-description">
-                {{ currentShow.description }}
-              </p>
-              <button
-                id="overlayButton"
-                class="overlay-ticket-button"
-                (click)="handleTicketButtonClick(currentShow)"
-              >
-                {{
-                  currentShow.buttonText ??
-                    (currentShow.available ? "Buy Tickets" : "Unavailable")
-                }}
-              </button>
-            </div>
-          </div>
-          <div class="overlay-nav-dots vertical-right">
-            <button
-              *ngFor="let show of mainShows; let i = index"
-              class="nav-dot"
-              [class.active]="i === currentShowIndex"
-              (click)="scrollToShow(i)"
-              [attr.aria-label]="'Go to ' + show.title + ' section'"
-            ></button>
-          </div>
-        </div>
-
-        <div class="lesser-shows-section">
-          <h2>More Events</h2>
-          <div class="lesser-shows-grid">
-            <div *ngFor="let show of lesserShows" class="lesser-show-card">
-              <img [src]="show.image" [alt]="show.title + ' image'" />
-              <div class="lesser-show-info">
-                <h3>{{ show.title }}</h3>
-                <p>{{ show.date }} | {{ show.venue }}</p>
-                <button
-                  (click)="handleTicketButtonClick(show)"
-                  [disabled]="!show.available && !show.joinLink"
-                >
-                  {{
-                    show.buttonText ??
-                      (show.available ? "Learn More" : "Unavailable")
-                  }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="OCShows-section">
-        <h2>OC Shows</h2>
-
-        <div class="OCShows-grid">
-          <div *ngFor="let show of OCShows" class="OCshow-card">
-            <img [src]="show.image" [alt]="show.title + ' poster'" />
-
-            <div class="OCshow-info">
-              <h3>{{ show.title }}</h3>
-              <p>{{ show.date }} | {{ show.venue }}</p>
-
-              <button
-                (click)="handleTicketButtonClick(show)"
-                [disabled]="!show.available && !show.joinLink"
-              >
-                {{
-                  show.buttonText ??
-                    (show.available ? "Learn More" : "Unavailable")
-                }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mobile-view" *ngIf="isMobile">
-        <h2>Upcoming Performances</h2>
-        <div *ngFor="let show of mainShows" class="mobile-show-card">
-          <img [src]="show.image" [alt]="show.title + ' image'" />
-          <div class="mobile-show-info">
-            <h3>{{ show.title }}</h3>
-            <p>
-              <strong
-                >{{ show.date }}
-                {{ show.time ? " - " + show.time : "" }}</strong
-              >
-            </p>
-            <p>{{ show.venue }}</p>
-            <p class="mobile-description">{{ show.description }}</p>
-            <button
-              (click)="handleTicketButtonClick(show)"
-              [disabled]="!show.available && !show.joinLink"
-            >
-              {{
-                show.buttonText ??
-                  (show.available ? "Buy Tickets" : "Unavailable")
-              }}
-            </button>
-          </div>
-        </div>
-        <h2>More Events</h2>
-        <div *ngFor="let show of lesserShows" class="mobile-show-card">
-          <img [src]="show.image" [alt]="show.title + ' image'" />
-          <div class="mobile-show-info">
-            <h3>{{ show.title }}</h3>
-            <p>
-              <strong>{{ show.date }}</strong>
-            </p>
-            <p>{{ show.venue }}</p>
-            <p class="mobile-description">{{ show.description }}</p>
-            <button
-              (click)="handleTicketButtonClick(show)"
-              [disabled]="!show.available && !show.joinLink"
-            >
-              {{
-                show.buttonText ??
-                  (show.available ? "Learn More" : "Unavailable")
-              }}
-            </button>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="showMessageBox" class="message-box-container fade-in">
-        <div class="message-box-content">
-          <p>{{ messageBoxText }}</p>
-          <button
-            (click)="closeMessageBox()"
-            class="close-message-button"
-            aria-label="Close message"
-          >
-            &times;
-          </button>
-        </div>
-      </div>
-
-      <div *ngIf="showInnerCircleModal" class="modal-container fade-in">
-        <div class="inner-circle-modal modal-content">
-          <button
-            (click)="closeInnerCircleModal()"
-            class="close-modal-button"
-            aria-label="Close"
-          >
-            &times;
-          </button>
-          <h2>Maestro's Inner Circle</h2>
-          <p>
-            Gain exclusive access and benefits by joining the Maestro's Inner
-            Circle, or proceed with your current selection.
-          </p>
-          <div class="modal-buttons">
-            <button class="modal-button primary" (click)="proceedWithAction()">
-              Proceed
-            </button>
-            <button class="modal-button secondary" (click)="joinInnerCircle()">
-              Join Maestro's Inner Circle
-            </button>
-          </div>
-        </div>
+          class="banner-image-content"
+          [style.backgroundImage]="'url(' + show.image + ')'"
+        ></div>
       </div>
     </div>
-  </body>
-</html>
+
+    <div
+      id="desktopOverlay"
+      class="show-overlay"
+      [style.opacity]="overlayOpacity"
+      [style.transform]="overlayTransform"
+    >
+      <div
+        class="overlay-content-wrapper"
+        *ngIf="currentShow"
+        @contentFade
+        aria-live="polite"
+      >
+        <div class="overlay-content">
+          <h2 id="overlayTitle">{{ currentShow.title }}</h2>
+          <p id="overlayDateVenue">
+            {{ currentShow.date }}
+            {{ currentShow.time ? " - " + currentShow.time : "" }} |
+            {{ currentShow.venue }}
+          </p>
+          <p id="overlayDescription" class="long-description">
+            {{ currentShow.description }}
+          </p>
+          <button
+            id="overlayButton"
+            class="overlay-ticket-button"
+            (click)="handleTicketButtonClick(currentShow)"
+          >
+            {{
+              currentShow.buttonText ??
+                (currentShow.available ? "Buy Tickets" : "Unavailable")
+            }}
+          </button>
+        </div>
+      </div>
+      <div class="overlay-nav-dots vertical-right">
+        <button
+          *ngFor="let show of mainShows; let i = index"
+          class="nav-dot"
+          [class.active]="i === currentShowIndex"
+          (click)="scrollToShow(i)"
+          [attr.aria-label]="'Go to ' + show.title + ' section'"
+        ></button>
+      </div>
+    </div>
+
+    <div class="lesser-shows-section">
+      <h2>More Events</h2>
+      <app-show-list [shows]="lesserShows" mode="lesser" [mobile]="false" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
+    </div>
+
+    <div class="OCShows-section">
+      <h2>Opera Club Shows</h2>
+      <app-show-list [shows]="OCShows" mode="oc" [mobile]="false" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
+    </div>
+  </div>
+
+  <div class="mobile-view" *ngIf="isMobile">
+    <h2>Upcoming Performances</h2>
+    <app-show-list [shows]="mainShows" mode="main" [mobile]="true" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
+    
+    <h2>More Events</h2>
+    <app-show-list [shows]="filteredLesserShows" mode="lesser" [mobile]="true" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
+
+    <h2>Opera Club Shows</h2>
+    <app-show-list [shows]="OCShows" mode="oc" [mobile]="true" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
+  </div>
+
+  <div *ngIf="showMessageBox" class="message-box-container fade-in">
+    <div class="message-box-content">
+      <p>{{ messageBoxText }}</p>
+      <button
+        (click)="closeMessageBox()"
+        class="close-message-button"
+        aria-label="Close message"
+      >
+        &times;
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showInnerCircleModal" class="modal-container fade-in">
+    <div class="inner-circle-modal modal-content">
+      <button
+        (click)="closeInnerCircleModal()"
+        class="close-modal-button"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+      <h2>Maestro's Inner Circle</h2>
+      <p *ngIf="!currentTicketLink">
+        Tickets are coming soon, join Maestro's inner circle for deals and info about upcoming shows.
+      </p>
+      <p *ngIf="currentTicketLink">
+        Gain exclusive access and benefits by joining the Maestro's Inner Circle, or proceed with your current selection.
+      </p>
+      <div class="modal-buttons">
+        <button *ngIf="currentTicketLink" class="modal-button primary" (click)="proceedWithAction()">
+          Proceed
+        </button>
+        <button class="modal-button secondary" (click)="joinInnerCircle()">
+          Join Maestro's Inner Circle
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

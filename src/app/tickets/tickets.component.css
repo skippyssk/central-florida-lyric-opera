@@ -263,3 +263,53 @@ h3 {
     grid-template-columns: 1fr;
   }
 }
+
+.join-club-button:hover,
+.join-maestros-button:hover {
+  background-color: #d4b174;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 153, 95, 0.3);
+}
+
+/* Modal button styles to match home component */
+.modal-buttons {
+  display: flex; 
+  justify-content: center; 
+  gap: 15px; 
+  margin-top: 10px; 
+  flex-wrap: wrap;
+}
+
+.modal-button {
+  border: none; 
+  padding: 12px 24px; 
+  font-size: 0.95rem; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  transition: all 0.3s cubic-bezier(0.33, 1, 0.68, 1); 
+  font-weight: bold;
+}
+
+.modal-button.primary {
+  background-color: #b8995f; 
+  color: #000;
+}
+
+.modal-button.primary:hover {
+  background-color: #d4b174; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 153, 95, 0.3);
+}
+
+.modal-button.secondary {
+  background-color: transparent; 
+  color: #b8995f; 
+  border: 1px solid #b8995f;
+}
+
+.modal-button.secondary:hover {
+  background-color: rgba(184, 153, 95, 0.1); 
+  color: #d4b174; 
+  border-color: #d4b174; 
+  transform: translateY(-2px);
+}

@@ -10,7 +10,6 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Router } from '@angular/router';
 import {
   trigger,
   state,
@@ -18,6 +17,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { ShowListComponent, ShowListShow } from '../show-list.component';
 
 // --- Interfaces ---
 interface Show {
@@ -37,7 +37,7 @@ interface Show {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ShowListComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   animations: [
@@ -62,9 +62,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   // --- Component Properties ---
   isMobile: boolean = false;
   isBrowser: boolean = false;
-  private resizeTimeout: any;
-  private scrollTimeout: any;
-  private lastScrollY: number = 0;
+  private resizeObserver: ResizeObserver | null = null;
+  private scrollAnimationFrame: number | null = null;
   private readonly INNER_CIRCLE_JOIN_URL =
     'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
 
@@ -72,16 +71,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   mainShows: Show[] = [
     {
       id: 'movieMagic',
-      title: 'Movie Magic',
-      image: 'assets/images/MM.png',
+      title: 'Broadway Blockbusters',
+      image: 'assets/images/BBR.png',
       description:
-        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
-      date: 'May 22, 2025',
+        'Feel the thrill of the Great White Way! Broadway Blockbusters features show-stopping hits from the most beloved musicals of all time—soaring ballads, toe-tapping numbers, and unforgettable melodies that have lit up the stage for decades. A night of pure theatrical magic!',
+      date: 'Oct 29, 2025',
       venue: 'The Savannah Center',
-      time: '3 PM & 7 PM',
+      time: '4 PM & 7 PM',
       ticketLink:
-        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
-      available: false,
+        'https://www.thevillagesentertainment.com/buy-tickets/broadway-blockbusters/',
+      available: true,
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
     {
@@ -89,8 +88,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Catch a Rising Star (Prodigies: Stars of Tomorrow) ',
       image: 'assets/images/CRSProd.png',
       description:
-        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
-      date: 'April 4, 2025',
+        'Experience tomorrow’s legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music in an unforgettable evening of artistry. Your attendance helps shape the future of music.',
+      date: 'Oct 30, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '3 PM & 7 PM',
       ticketLink:
@@ -103,8 +102,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Christmas Spectacular',
       image: 'assets/images/CSWide.png',
       description:
-        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
-      date: 'April 4, 2025',
+        'Celebrate the joy of the season with our Christmas Spectacular! Join us for an enchanting evening of classic holiday favorites, from cherished carols to festive showstoppers—featuring the beautiful voices of the Saint Timothy’s Choir and featured soloists. A heartwarming start to your Christmas celebrations!',
+      date: 'Dec 18, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '3 PM & 7 PM',
       ticketLink:
@@ -116,14 +115,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   lesserShows: Show[] = [
     {
       id: 'movieMagic',
-      title: 'Movie Magic',
-      image: 'assets/images/movieMagic.webp',
+      title: 'Broadway Blockbusters',
+      image: 'assets/images/BBRSquare.png',
       description: '',
       date: 'Oct 09, 2025',
       venue: 'The Savannah Center',
-      ticketLink: '',
-      available: false,
-      buttonText: 'Coming Soon',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/broadway-blockbusters/',
+      available: true,
+      buttonText: 'Buy Tickets',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
 
@@ -198,9 +198,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       description: 'TBD.',
       date: 'Jan 22, 2026',
       venue: 'The Sharon Performing Arts Center',
-      ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Coming Soon',
+      ticketLink:
+        'https://www.thesharon.com/event.php?id=1133&title=Change-The-World',
+      available: true,
+      buttonText: 'Buy Tickets',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
 
@@ -329,82 +330,98 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
   ];
 
-  // --- State Properties (Unchanged) ---
+  // --- State Properties ---
   currentShow: Show | null = null;
   currentShowIndex: number = 0;
   showOverlay: boolean = false;
   overlayTransform: string = 'translateY(0)';
   overlayOpacity: number = 1;
   bannerContainerHeightVh: number = 100;
-  overlayContentVisible: boolean = true;
   showMessageBox: boolean = false;
   messageBoxText: string = '';
   showInnerCircleModal: boolean = false;
   currentTicketLink: string | null = null;
   currentJoinLink: string | null = null;
 
+  get filteredLesserShows(): Show[] {
+    return this.lesserShows.filter(
+      (ls) => !this.mainShows.some((ms) => ms.title === ls.title)
+    );
+  }
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private renderer: Renderer2,
     private el: ElementRef,
-    private router: Router,
     private cdRef: ChangeDetectorRef
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  // ngOnInit, ngOnDestroy, Event Listeners, checkScreenSize, updateBannerContainerHeight, setupInitialBannerState
-  // remain the same as v6
   ngOnInit(): void {
     if (this.isBrowser) {
       this.checkScreenSize();
       this.updateBannerContainerHeight();
+      this.setupResizeObserver();
+
       if (!this.isMobile && this.mainShows.length > 0) {
         this.setupInitialBannerState();
-        requestAnimationFrame(() => this.handleScroll());
+        this.handleScroll();
       }
-      this.lastScrollY = window.scrollY;
     }
   }
+
   ngOnDestroy(): void {
-    clearTimeout(this.resizeTimeout);
-    clearTimeout(this.scrollTimeout);
+    if (this.scrollAnimationFrame) {
+      cancelAnimationFrame(this.scrollAnimationFrame);
+    }
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   }
-  @HostListener('window:scroll', ['$event']) onWindowScroll(
-    event: Event
-  ): void {
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event): void {
     if (!this.isBrowser || this.isMobile) return;
-    clearTimeout(this.scrollTimeout);
-    this.scrollTimeout = setTimeout(() => {
-      requestAnimationFrame(() => this.handleScroll());
-    }, 0);
+
+    if (this.scrollAnimationFrame) {
+      cancelAnimationFrame(this.scrollAnimationFrame);
+    }
+
+    this.scrollAnimationFrame = requestAnimationFrame(() => {
+      this.handleScroll();
+    });
   }
-  @HostListener('window:resize', ['$event']) onWindowResize(
-    event: Event
-  ): void {
-    if (!this.isBrowser) return;
-    clearTimeout(this.resizeTimeout);
-    this.resizeTimeout = setTimeout(() => {
-      const wasMobile = this.isMobile;
-      this.checkScreenSize();
-      this.updateBannerContainerHeight();
-      if (wasMobile !== this.isMobile) {
-        if (!this.isMobile) {
-          this.setupInitialBannerState();
-          requestAnimationFrame(() => this.handleScroll());
-        } else {
-          this.showOverlay = false;
+
+  private setupResizeObserver(): void {
+    if (this.isBrowser && 'ResizeObserver' in window) {
+      this.resizeObserver = new ResizeObserver(() => {
+        const wasMobile = this.isMobile;
+        this.checkScreenSize();
+        this.updateBannerContainerHeight();
+
+        if (wasMobile !== this.isMobile) {
+          if (!this.isMobile) {
+            this.setupInitialBannerState();
+            this.handleScroll();
+          } else {
+            this.showOverlay = false;
+          }
+        } else if (!this.isMobile) {
+          this.handleScroll();
         }
-      } else if (!this.isMobile) {
-        requestAnimationFrame(() => this.handleScroll());
-      }
-    }, 200);
+      });
+
+      this.resizeObserver.observe(document.body);
+    }
   }
+
   private checkScreenSize(): void {
     if (this.isBrowser) {
       this.isMobile = window.innerWidth <= 992;
     }
   }
+
   private updateBannerContainerHeight(): void {
     if (this.isBrowser && !this.isMobile) {
       this.bannerContainerHeightVh = this.mainShows.length * 100;
@@ -412,8 +429,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.bannerContainerHeightVh = 100;
     }
   }
+
   private setupInitialBannerState(): void {
     if (!this.isBrowser || this.isMobile || this.mainShows.length === 0) return;
+
     const bannerSections =
       this.el.nativeElement.querySelectorAll('.banner-section');
     bannerSections.forEach((section: HTMLElement, index: number) => {
@@ -426,10 +445,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         `${this.mainShows.length - index}`
       );
     });
+
     this.currentShow = this.mainShows[0];
     this.currentShowIndex = 0;
     this.showOverlay = true;
-    this.overlayContentVisible = true;
     this.overlayOpacity = 1;
     this.overlayTransform = 'translateY(0)';
     this.cdRef.detectChanges();
@@ -439,37 +458,51 @@ export class HomeComponent implements OnInit, OnDestroy {
     const scrollY = window.scrollY;
     const vh = window.innerHeight;
     const numShows = this.mainShows.length;
+
     if (numShows === 0 || this.isMobile) return;
 
-    const totalBannerScrollHeight = vh * numShows; // Total scrollable height for banner area
+    const endOfBannerScroll = (numShows - 1) * vh;
 
-    let activeIndex = Math.floor(scrollY / vh);
-    activeIndex = Math.max(0, Math.min(numShows - 1, activeIndex));
+    // Calculate which section we're in and progress within that section
+    const currentSection = Math.floor(scrollY / vh);
+    const sectionProgress = (scrollY % vh) / vh;
 
-    // --- Update Banner Sections ---
-    // Logic remains the same as v6 - ensures section below is visible
+    // Text updates at 75% reveal
+    let textUpdateIndex = currentSection;
+    if (sectionProgress >= 0.75 && currentSection < numShows - 1) {
+      textUpdateIndex = currentSection + 1;
+    }
+
+    // Clamp to valid range
+    textUpdateIndex = Math.max(0, Math.min(numShows - 1, textUpdateIndex));
+
+    // Update banner sections - images fade out when they go beyond 75% up
     const bannerSections =
       this.el.nativeElement.querySelectorAll('.banner-section');
     bannerSections.forEach((section: HTMLElement, index: number) => {
       let translateY = 0;
       let zIndex = numShows - index;
       let opacity = 0;
-      const scrollStartForSection = index * vh;
-      const progress = Math.max(
-        0,
-        Math.min(1, (scrollY - scrollStartForSection) / vh)
-      );
-      if (index < activeIndex) {
+
+      if (index < currentSection) {
+        // Sections above current - moved up and hidden
         translateY = -vh;
         opacity = 0;
-      } else if (index === activeIndex) {
-        translateY = -progress * vh;
-        opacity = 1;
+      } else if (index === currentSection) {
+        // Current section - moves up based on scroll progress
+        translateY = -sectionProgress * vh;
+        // Start fading out when section goes beyond 75% up
+        if (sectionProgress > 0.75) {
+          opacity = 1 - (sectionProgress - 0.75) / 0.25; // Fade over the last 25%
+        } else {
+          opacity = 1;
+        }
         zIndex = numShows + 1;
       } else {
+        // Sections below current - stay in place and visible
         translateY = 0;
         opacity = 1;
-      } // Keep sections below visible
+      }
 
       this.renderer.setStyle(
         section,
@@ -477,104 +510,58 @@ export class HomeComponent implements OnInit, OnDestroy {
         `translateY(${translateY}px)`
       );
       this.renderer.setStyle(section, 'zIndex', `${zIndex}`);
-      // Opacity for last section handled in fade logic below
-      if (index !== numShows - 1) {
-        this.renderer.setStyle(section, 'opacity', `${opacity}`);
-      }
+      this.renderer.setStyle(section, 'opacity', `${opacity}`);
     });
 
-    // --- Update Overlay Content ---
-    // Unchanged
-    if (activeIndex !== this.currentShowIndex && !this.isMobile) {
-      this.overlayContentVisible = false;
-      this.cdRef.detectChanges();
-      this.currentShowIndex = activeIndex;
+    // Update overlay content with 75% threshold - prevent rapid changes
+    if (textUpdateIndex !== this.currentShowIndex && !this.isMobile) {
+      this.currentShowIndex = textUpdateIndex;
       this.currentShow = this.mainShows[this.currentShowIndex];
-      setTimeout(() => {
-        this.overlayContentVisible = true;
-        this.cdRef.detectChanges();
-      }, 150);
+      this.cdRef.detectChanges();
     }
 
-    // --- Handle Overlay Position and Fade ---
-    const endOfBannerScroll = (numShows - 1) * vh;
-    // *** Adjusted end fade threshold slightly earlier ***
-    const startOverlayFadeScroll = endOfBannerScroll + vh * 0.5; // Start fade halfway
-    const endOverlayFadeScroll = endOfBannerScroll + vh * 0.9; // End fade when 10% left
-
-    let currentOverlayTransformY = 0;
+    // Handle overlay fade out - improved logic to prevent spazzing
     let currentOverlayOpacity = 1;
-    let lastBannerOpacity =
-      activeIndex === numShows - 1 || activeIndex === numShows - 2 ? 1 : 0;
-    this.showOverlay = true; // Assume true, override below
 
-    // Calculate fade out first based on range
-    if (scrollY >= startOverlayFadeScroll) {
-      const fadeProgress = Math.max(
-        0,
-        Math.min(
-          1,
-          (scrollY - startOverlayFadeScroll) /
-            (endOverlayFadeScroll - startOverlayFadeScroll)
-        )
-      );
-      currentOverlayOpacity = 1 - fadeProgress;
-      lastBannerOpacity = 1 - fadeProgress;
-    }
+    // Only start fade when we're past the last section
+    if (scrollY > endOfBannerScroll) {
+      const fadeStart = endOfBannerScroll;
+      const fadeEnd = endOfBannerScroll + vh * 0.5; // Fade over 50% of viewport height
 
-    // Calculate overlay transform only when in last section
-    if (scrollY >= endOfBannerScroll) {
-      const scrollPastEndOfBanner = scrollY - endOfBannerScroll;
-      currentOverlayTransformY = -scrollPastEndOfBanner;
-    } else {
-      currentOverlayTransformY = 0;
-      // Ensure opacity is 1 before fade starts
-      currentOverlayOpacity = 1;
-      if (activeIndex === numShows - 1) {
-        // If last section is active before fade starts
-        lastBannerOpacity = 1;
+      if (scrollY <= fadeEnd) {
+        const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+        currentOverlayOpacity = Math.max(0, 1 - fadeProgress);
+      } else {
+        currentOverlayOpacity = 0;
       }
+    } else {
+      currentOverlayOpacity = 1;
     }
 
-    // *** Force hide if scrolled completely past the banner container ***
-    // This overrides the fade calculation if scrollY is beyond the banner area
-    if (scrollY >= totalBannerScrollHeight - 10) {
-      // Use a small buffer
-      currentOverlayOpacity = 0;
-      lastBannerOpacity = 0;
-    }
+    // Determine overlay visibility with smoother threshold
+    this.showOverlay = currentOverlayOpacity > 0.05;
 
-    // Determine final overlay visibility
-    this.showOverlay = currentOverlayOpacity > 0.01; // Hide if effectively transparent
-
-    // Apply overlay styles
-    this.overlayTransform = `translateY(${currentOverlayTransformY}px)`;
+    // Apply overlay styles - only opacity, no transform
     this.overlayOpacity = currentOverlayOpacity;
-
-    // Apply final opacity to the last banner section
-    const lastBannerSection = bannerSections[numShows - 1];
-    if (lastBannerSection) {
-      this.renderer.setStyle(
-        lastBannerSection,
-        'opacity',
-        `${lastBannerOpacity}`
-      );
-    }
-
-    this.lastScrollY = scrollY;
   }
 
   // --- Action Handlers ---
-  // Unchanged from v6
   scrollToShow(index: number): void {
     if (!this.isBrowser || index < 0 || index >= this.mainShows.length) return;
     const targetScrollY = index * window.innerHeight;
     window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
   }
+
+  onShowButtonClick(show: ShowListShow) {
+    this.handleTicketButtonClick(show as any);
+  }
+
   handleTicketButtonClick(show: Show | null): void {
     if (!show) return;
+
     const isTicketPurchase = show.available && show.buttonText !== 'Join Club';
     const isJoinClubAction = show.buttonText === 'Join Club' && !!show.joinLink;
+
     if (isTicketPurchase || isJoinClubAction) {
       this.currentTicketLink = show.ticketLink;
       this.currentJoinLink = show.joinLink || this.INNER_CIRCLE_JOIN_URL;
@@ -585,19 +572,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.showMessageBox = true;
       this.closeInnerCircleModal();
     } else {
-      this.messageBoxText = `Sorry, the requested action for "${show.title}" is not currently available.`;
-      if (show.buttonText === 'Coming Soon') {
-        this.messageBoxText = `"${show.title}" is coming soon! Please check back later or join our email list for updates.`;
-      }
-      this.showMessageBox = true;
-      this.closeInnerCircleModal();
+      // For unavailable shows, show the Maestro's Inner Circle modal instead of simple message
+      this.currentTicketLink = null; // No direct ticket link for unavailable shows
+      this.currentJoinLink = this.INNER_CIRCLE_JOIN_URL;
+      this.showInnerCircleModal = true;
+      this.closeMessageBox();
     }
   }
+
   closeInnerCircleModal(): void {
     this.showInnerCircleModal = false;
     this.currentTicketLink = null;
     this.currentJoinLink = null;
   }
+
   proceedWithAction(): void {
     const targetLink = this.currentTicketLink || this.currentJoinLink;
     if (this.isBrowser && targetLink) {
@@ -605,15 +593,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.closeInnerCircleModal();
   }
+
   joinInnerCircle(): void {
     if (this.isBrowser) {
       window.open(this.INNER_CIRCLE_JOIN_URL, '_blank');
     }
     this.closeInnerCircleModal();
   }
+
   closeMessageBox(): void {
     this.showMessageBox = false;
   }
+
   showEmailSignup(): void {
     if (this.isBrowser) {
       window.open(
