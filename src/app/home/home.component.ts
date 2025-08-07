@@ -1,416 +1,625 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
   OnDestroy,
-  Renderer2,
-  PLATFORM_ID,
-  Inject,
   HostListener,
+  Inject,
+  PLATFORM_ID,
+  Renderer2,
+  ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
+// --- Interfaces ---
 interface Show {
+  id: string;
   title: string;
   image: string;
   description: string;
   date: string;
   venue: string;
   time?: string;
-  ticketKey: string;
-  buttonText: string;
-  link: string;
+  ticketLink: string;
   available: boolean;
-}
-
-interface LesserShow {
-  title: string;
-  image: string;
-  description: string;
-  date: string;
-  venue: string;
-  time?: string;
-  ticketKey: string;
-  buttonText: string;
-  link: string;
-  available: boolean;
+  buttonText?: string;
+  joinLink?: string;
 }
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
   standalone: true,
   imports: [CommonModule],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+  animations: [
+    trigger('contentFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(10px)' }),
+        animate(
+          '300ms 100ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '200ms ease-in',
+          style({ opacity: 0, transform: 'translateY(-10px)' })
+        ),
+      ]),
+    ]),
+  ],
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  private cleanupFunctions: (() => void)[] = [];
-  unavailableMessage: string = '';
+export class HomeComponent implements OnInit, OnDestroy {
+  // --- Component Properties ---
   isMobile: boolean = false;
-  clubMembershipMessage: string = '';
-  showUnavailableBox: boolean = false;
-  showClubMembershipBox: boolean = false;
-  showTicketOptionsBox: boolean = false;
-  currentTicketLink: string = '';
-  currentYear: number = new Date().getFullYear();
-  showScrollBox = true;
+  isBrowser: boolean = false;
+  private resizeTimeout: any;
+  private scrollTimeout: any;
+  private lastScrollY: number = 0;
+  private readonly INNER_CIRCLE_JOIN_URL =
+    'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
 
+  // --- Show Data (Unchanged) ---
   mainShows: Show[] = [
     {
-      title: 'Broadway Stars with Grant Norman',
-      image: 'assets/images/grant.webp',
+      id: 'movieMagic',
+      title: 'Movie Magic',
+      image: 'assets/images/MM.png',
       description:
-        'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight!  Accompanied on the grand piano by Maestro Bill Doherty.',
-      date: 'March 13, 2025',
-      time: '4pm and 7pm',
-      venue: "St Timothy's Catholic Church",
-      ticketKey: 'broadwayStars',
-      buttonText: 'Get Tickets',
-      link: 'https://central-florida-lyric-opera.yapsody.com/event/index/819495?ref=ebtn',
-      available: true,
-    },
-
-    {
-      title: 'Change the World 2',
-      image: 'assets/images/Change2.webp',
-      description:
-        'The wait is over—Change The World is back!  Celebrate this uplifting event filled with music and community, featuring two extraordinary performances by the brilliant Maestro Bill Doherty and a host of talented local artists. Together, they’ll deliver songs of Inspiration, Love, and Hope, spreading a message of peace across the globe. This event is more than just a concert—it’s an opportunity to create meaningful change. A portion of the proceeds will support the National Multiple Sclerosis Society, making a positive impact through compassion and generosity. Join us for an unforgettable evening of joy, connection, and purpose. Mark your calendars and secure your tickets today! Together, we can Change The World.',
-      date: 'April 4, 2025',
-      venue: 'The Sharon Performing Arts Center',
-      time: '3 PM and 7 PM',
-      ticketKey: 'changeTheWorld',
-      buttonText: 'Get Tickets',
-      link: 'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
-      available: true,
-    },
-    {
-      title: 'Bill Doherty & Fernando Varela - Together Again!',
-      image: 'assets/images/fernando.webp',
-      description:
-        'Experience the extraordinary reunion of Maestro Bill Doherty and Fernando Varela—America’s Got Talent finalist with Forte—alongside remarkable local performers.',
-      date: 'April 21, 2025',
-      time: '4pm and 7pm',
-      venue: 'Savannah Center',
-      ticketKey: 'fernando',
-      buttonText: 'Get Tickets',
-      link: 'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
-      available: true,
-    },
-  ];
-
-  lesserShows: LesserShow[] = [
-    {
-      title: 'Three Tenors Plus One',
-      image: 'assets/images/3T1.webp',
-      description:
-        'Experience a spectacular evening of music in support of the Harold S. Schwartz Music Scholarship. ',
-      date: 'February 21, 2025',
-      venue: 'The Sharon Performing Arts Center',
-      time: '3 PM and 7 PM',
-      ticketKey: 'threeTenors',
-      buttonText: 'Get Tickets',
-      link: 'https://thevillagesentertainment.com/event/three-tenors-plus-one/',
-      available: true,
-    },
-    {
-      title: 'Love Notes from Broadway',
-      image: 'assets/images/broadway.webp',
-      description:
-        'Celebrate love with selections from favorite Broadway shows.',
-      date: 'February 27, 2025',
-      venue: 'Laurel Manor',
-      ticketKey: 'loveNotes',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Springtime in Paris',
-      image: 'assets/images/spring4.webp',
-      description:
-        'Celebrate the romance and elegance of the French repertoire in an evening of enchanting art songs and arias!',
-      date: 'March 27, 2025',
-      venue: 'Laurel Manor',
-      ticketKey: 'vivaVerdi',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-    },
-    {
-      title: 'Golden Days: Music of Operetta',
-      image: 'assets/images/operetta.webp',
-      description:
-        'Step back in time with the charming melodies of classic operettas.',
+        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
       date: 'May 22, 2025',
-      venue: 'Laurel Manor',
-      ticketKey: 'goldenDays',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
+      venue: 'The Savannah Center',
+      time: '3 PM & 7 PM',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
       available: false,
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
     {
-      title: 'Join The Opera Club',
-      image: 'assets/images/operaClub.webp',
+      id: 'rising Star',
+      title: 'Catch a Rising Star (Prodigies: Stars of Tomorrow) ',
+      image: 'assets/images/CRSProd.png',
       description:
-        'Incredible performances every month by Maestro Bill Doherty and his talented singers.',
-      date: 'Ongoing',
-      venue: 'Laurel  Manor',
-      time: '7 PM',
-      ticketKey: 'operaClub',
-      buttonText: 'Join Club',
-      link: 'https://operaclubofthevillages.com/join-us',
-      available: true,
+        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
+      date: 'April 4, 2025',
+      venue: 'St. Timothys Catholic Church',
+      time: '3 PM & 7 PM',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
+      available: false,
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'christmasTimothys',
+      title: 'Christmas Spectacular',
+      image: 'assets/images/CSWide.png',
+      description:
+        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
+      date: 'April 4, 2025',
+      venue: 'St. Timothys Catholic Church',
+      time: '3 PM & 7 PM',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
+      available: false,
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
   ];
+  lesserShows: Show[] = [
+    {
+      id: 'movieMagic',
+      title: 'Movie Magic',
+      image: 'assets/images/movieMagic.webp',
+      description: '',
+      date: 'Oct 09, 2025',
+      venue: 'The Savannah Center',
+      ticketLink: '',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+
+    {
+      id: 'risingStar',
+      title: 'Catch a Rising Star',
+      image: 'assets/images/risingSquare.png',
+      description: '',
+      date: 'Oct 30, 2025',
+      venue: 'St. Timothys Catholic Church',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+
+    {
+      id: 'christmasTimothys',
+      title: 'Christmas Spectacular',
+      image: 'assets/images/christmasSpectacular.webp',
+      description: 'TBD.',
+      date: 'Dec 18, 2025',
+      venue: 'St. Timothys Catholic Church',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'LW',
+      title: 'An Intimate Evening of Andrew LLoyd Webber',
+      image: 'assets/images/AWRRRR1Square.png',
+      description: 'TBD.',
+      date: 'Jan 09, 2026',
+      venue: 'The Savaannah Center',
+      ticketLink:
+        'https://www.thevillagesentertainment.com/buy-tickets/an-intimate-evening-of-andrew-lloyd-webber/',
+      available: true,
+      buttonText: 'Buy Tickets',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'Broadway Stars',
+      title: 'Broadway Stars with Grant Norman',
+      image: 'assets/images/grantPhantomSquare.png',
+      description: 'TBD.',
+      date: 'Jan 20, 2026',
+      venue: 'St. Timothys Catholic Church',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+
+    {
+      id: 'Carmen',
+      title: "Bizet's Carmen",
+      image: 'assets/images/Carmen ArtworkSquare.png',
+      description: 'TBD.',
+      date: 'Jan 30, 2026',
+      venue: 'The Sharon Performing Arts Center',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+
+    {
+      id: 'CTW',
+      title: 'Change The World',
+      image: 'assets/images/CW3 Square.png',
+      description: 'TBD.',
+      date: 'Jan 22, 2026',
+      venue: 'The Sharon Performing Arts Center',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+
+    {
+      id: 'Fernando',
+      title: 'Together Again',
+      image: 'assets/images/fernando.webp',
+      description: 'TBD.',
+      date: 'April 25, 2026',
+      venue: 'Savannah Center',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'America',
+      title: 'Celebrate America',
+      image: 'assets/images/CA1Square.png',
+      description: 'TBD.',
+      date: 'May 21, 2026',
+      venue: 'St. Timothys Catholic Church',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Coming Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+  ];
+  OCShows: Show[] = [
+    {
+      id: 'Curtain',
+      title: 'Raise The Curtain (Opening Season Concert)',
+      image: 'assets/images/curtain.webp',
+      description:
+        'Step back in time with the charming melodies of classic operas and operettas in a performance full of nostalgia and beautiful music presented by The Opera Club.',
+      date: 'Sep 25, 2025',
+      venue: 'Laurel Manor',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Club Members Only',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
+    },
+    {
+      id: 'popera',
+      title: 'Popera',
+      image: 'assets/images/popera.webp',
+      description: '',
+      date: 'Oct 23, 2025',
+      venue: 'Laurel Manor',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Club Members Only',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
+    },
+    {
+      id: 'christmasWorld',
+      title: 'Christmas Around the World',
+      image: 'assets/images/Christmas-World (2).webp',
+      description: 'TBD.',
+      date: 'Dec 14, 2025',
+      venue: 'Laurel Manor',
+      ticketLink: '',
+      available: false,
+      buttonText: 'Club Members Only',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'Mozart',
+      title: 'Mostly Mozart',
+      image: 'assets/images/mozart.webp',
+      description: 'TBD.',
+      date: 'Jan 22, 2026',
+      venue: 'Laurel Manor',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Club Members Only',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: '3Tenors',
+      title: '3 Tenors Plus One',
+      image: 'assets/images/soon.png',
+      description: 'TBD.',
+      date: 'Feb 20, 2026',
+      venue: 'The Sharon Performing Arts Center',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Club Members Only',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'BSR',
+      title: 'Back Stage Romance (Love Songs from Opera & Musical Theater)',
+      image: 'assets/images/Romance.webp',
+      description: 'TBD.',
+      date: 'Feb 26, 2026',
+      venue: 'Laurel Manor',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Club Members Only',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'French',
+      title: 'La Vie En Rose (French Love Songs)',
+      image: 'assets/images/soon.png',
+      description: 'TBD.',
+      date: 'Jan 30, 2026',
+      venue: 'Laurel Manor',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Club Members Only',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'Voices',
+      title: 'Voices of Spring (Music of Operetta)',
+      image: 'assets/images/soon.png',
+      description: 'TBD.',
+      date: 'May 28, 2026',
+      venue: 'Laurel Manor',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Club Members Only',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+  ];
+
+  // --- State Properties (Unchanged) ---
+  currentShow: Show | null = null;
+  currentShowIndex: number = 0;
+  showOverlay: boolean = false;
+  overlayTransform: string = 'translateY(0)';
+  overlayOpacity: number = 1;
+  bannerContainerHeightVh: number = 100;
+  overlayContentVisible: boolean = true;
+  showMessageBox: boolean = false;
+  messageBoxText: string = '';
+  showInnerCircleModal: boolean = false;
+  currentTicketLink: string | null = null;
+  currentJoinLink: string | null = null;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private renderer: Renderer2,
+    private el: ElementRef,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+    private cdRef: ChangeDetectorRef
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
+  // ngOnInit, ngOnDestroy, Event Listeners, checkScreenSize, updateBannerContainerHeight, setupInitialBannerState
+  // remain the same as v6
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.checkScreenSize();
-      this.showScrollBoxTimeout();
-    }
-  }
-
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId) && !this.isMobile) {
-      this.setupScrollEffect();
-      this.setupVideoPlayback();
-    }
-  }
-
-  private showScrollBoxTimeout(): void {
-    setTimeout(() => {
-      this.showScrollBox = false;
-    }, 10000);
-  }
-
-  @HostListener('window:scroll')
-  onScroll(): void {
-    if (window.scrollY > 2200) {
-      this.showScrollBox = false;
-    }
-  }
-
-  @HostListener('window:resize')
-  onResize() {
-    this.checkScreenSize();
-  }
-
-  private checkScreenSize(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isMobile = window.innerWidth <= 768;
-      if (!this.isMobile) {
-        this.setupScrollEffect();
+      this.updateBannerContainerHeight();
+      if (!this.isMobile && this.mainShows.length > 0) {
+        this.setupInitialBannerState();
+        requestAnimationFrame(() => this.handleScroll());
       }
+      this.lastScrollY = window.scrollY;
     }
   }
-
-  private setupVideoPlayback(): void {
-    const videoElement = document.querySelector(
-      '.slide-video'
-    ) as HTMLVideoElement;
-    if (videoElement) {
-      this.renderer.setProperty(videoElement, 'muted', true);
-      this.renderer.setProperty(videoElement, 'loop', true);
-
-      const playVideo = () => {
-        videoElement
-          .play()
-          .then(() => console.log('Video started playing'))
-          .catch((error) =>
-            console.error('Error attempting to play video:', error)
-          );
-      };
-
-      playVideo();
-      this.renderer.listen(document, 'click', playVideo);
-    } else {
-      console.error('Video element not found');
-    }
-  }
-
-  private setupScrollEffect(): void {
-    if (this.isMobile) return;
-
-    const requiemSection = document.getElementById('requiem-section');
-    const videoSection = document.getElementById('video-section');
-    const revealSection = document.querySelector(
-      '.reveal-on-scroll'
-    ) as HTMLElement;
-    const headerHeight = 60;
-
-    if (!requiemSection || !videoSection || !revealSection) {
-      console.error('Required elements not found');
-      return;
-    }
-
-    let lastScrollTop = 0;
-
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const viewportHeight = window.innerHeight;
-      const fullSectionHeight = viewportHeight - headerHeight;
-
-      const scrollingDown = scrollPosition > lastScrollTop;
-      lastScrollTop = scrollPosition;
-
-      if (scrollPosition < fullSectionHeight) {
-        const progress = scrollPosition / fullSectionHeight;
-        this.renderer.setStyle(
-          requiemSection,
-          'transform',
-          `translateY(-${progress * 100}%)`
-        );
-        this.renderer.setStyle(videoSection, 'opacity', '1');
-      } else {
-        this.renderer.setStyle(
-          requiemSection,
-          'transform',
-          'translateY(-100%)'
-        );
-        this.renderer.setStyle(videoSection, 'opacity', '1');
-      }
-
-      if (scrollPosition >= fullSectionHeight) {
-        const progress = Math.min(
-          (scrollPosition - fullSectionHeight) / fullSectionHeight,
-          1
-        );
-        this.renderer.setStyle(
-          videoSection,
-          'opacity',
-          (1 - progress).toString()
-        );
-        this.renderer.setStyle(
-          revealSection,
-          'transform',
-          `translateY(${(1 - progress) * 20}%)`
-        );
-        this.renderer.setStyle(revealSection, 'opacity', progress.toString());
-
-        if (progress > 0 && scrollingDown) {
-          this.renderer.setStyle(revealSection, 'visibility', 'visible');
-        } else if (progress === 0 && !scrollingDown) {
-          this.renderer.setStyle(revealSection, 'visibility', 'hidden');
-        }
-      } else {
-        this.renderer.setStyle(revealSection, 'visibility', 'hidden');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    this.cleanupFunctions.push(() =>
-      window.removeEventListener('scroll', handleScroll)
-    );
-
-    handleScroll();
-  }
-
-  navigateToResidentArtists(): void {
-    this.router.navigate(['/resident-artist']).then(
-      (success) => console.log('Navigation result:', success),
-      (error) => console.error('Navigation error:', error)
-    );
-  }
-
-  applyNowClicked(): void {
-    this.navigateToResidentArtists();
-  }
-
-  buyMainShowTicketsClicked(event: string, clickEvent: MouseEvent): void {
-    clickEvent.preventDefault();
-    clickEvent.stopPropagation();
-    const show = this.mainShows.find((s) => s.ticketKey === event);
-
-    if (show) {
-      if (show.buttonText === 'Join Club') {
-        this.showClubMembershipMessage();
-      } else if (show.available) {
-        this.showTicketOptions(show.link);
-      } else {
-        this.showUnavailableMessage();
-      }
-    } else {
-      console.error(`Show not found for ${event}`);
-    }
-  }
-
-  buyAdditionalShowTicketsClicked(event: string, clickEvent: MouseEvent): void {
-    clickEvent.preventDefault();
-    clickEvent.stopPropagation();
-    const show = this.lesserShows.find((s) => s.ticketKey === event);
-
-    if (show) {
-      if (show.buttonText === 'Join Club') {
-        this.showClubMembershipMessage();
-      } else if (show.available) {
-        window.open(show.link, '_blank');
-      } else {
-        this.showUnavailableMessage();
-      }
-    } else {
-      console.error(`Show not found for ${event}`);
-    }
-  }
-
-  private showTicketOptions(ticketLink: string): void {
-    this.currentTicketLink = ticketLink;
-    this.showTicketOptionsBox = true;
-  }
-
-  joinMaestrosInnerCircle(): void {
-    const constantContactUrl =
-      'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I';
-    window.open(constantContactUrl, '_blank');
-    this.closeTicketOptionsBox();
-  }
-
-  proceedToBuyTicket(): void {
-    if (this.currentTicketLink) {
-      window.open(this.currentTicketLink, '_blank');
-    }
-    this.closeTicketOptionsBox();
-  }
-
-  closeTicketOptionsBox(): void {
-    this.showTicketOptionsBox = false;
-    this.currentTicketLink = '';
-  }
-
-  private showUnavailableMessage(): void {
-    this.unavailableMessage =
-      'We apologize, tickets are not yet available for this performance.';
-    this.showUnavailableBox = true;
-    setTimeout(() => {
-      this.unavailableMessage = '';
-      this.showUnavailableBox = false;
-    }, 3000);
-  }
-
-  private showClubMembershipMessage(): void {
-    this.clubMembershipMessage =
-      'This is a Private Exclusive Show Free to Members of the Opera Club of the Villages. Click below to become a member.';
-    this.showClubMembershipBox = true;
-  }
-
-  closeClubMembershipBox(): void {
-    this.clubMembershipMessage = '';
-    this.showClubMembershipBox = false;
-  }
-
-  navigateToJoinUs(): void {
-    const joinClubUrl = 'https://operaclubofthevillages.com/join-us';
-    window.open(joinClubUrl, '_blank');
-    this.closeClubMembershipBox();
-  }
-
   ngOnDestroy(): void {
-    this.cleanupFunctions.forEach((cleanup) => cleanup());
+    clearTimeout(this.resizeTimeout);
+    clearTimeout(this.scrollTimeout);
+  }
+  @HostListener('window:scroll', ['$event']) onWindowScroll(
+    event: Event
+  ): void {
+    if (!this.isBrowser || this.isMobile) return;
+    clearTimeout(this.scrollTimeout);
+    this.scrollTimeout = setTimeout(() => {
+      requestAnimationFrame(() => this.handleScroll());
+    }, 0);
+  }
+  @HostListener('window:resize', ['$event']) onWindowResize(
+    event: Event
+  ): void {
+    if (!this.isBrowser) return;
+    clearTimeout(this.resizeTimeout);
+    this.resizeTimeout = setTimeout(() => {
+      const wasMobile = this.isMobile;
+      this.checkScreenSize();
+      this.updateBannerContainerHeight();
+      if (wasMobile !== this.isMobile) {
+        if (!this.isMobile) {
+          this.setupInitialBannerState();
+          requestAnimationFrame(() => this.handleScroll());
+        } else {
+          this.showOverlay = false;
+        }
+      } else if (!this.isMobile) {
+        requestAnimationFrame(() => this.handleScroll());
+      }
+    }, 200);
+  }
+  private checkScreenSize(): void {
+    if (this.isBrowser) {
+      this.isMobile = window.innerWidth <= 992;
+    }
+  }
+  private updateBannerContainerHeight(): void {
+    if (this.isBrowser && !this.isMobile) {
+      this.bannerContainerHeightVh = this.mainShows.length * 100;
+    } else {
+      this.bannerContainerHeightVh = 100;
+    }
+  }
+  private setupInitialBannerState(): void {
+    if (!this.isBrowser || this.isMobile || this.mainShows.length === 0) return;
+    const bannerSections =
+      this.el.nativeElement.querySelectorAll('.banner-section');
+    bannerSections.forEach((section: HTMLElement, index: number) => {
+      const initialOpacity = index === 0 ? '1' : '0';
+      this.renderer.setStyle(section, 'opacity', initialOpacity);
+      this.renderer.setStyle(section, 'transform', 'translateY(0)');
+      this.renderer.setStyle(
+        section,
+        'zIndex',
+        `${this.mainShows.length - index}`
+      );
+    });
+    this.currentShow = this.mainShows[0];
+    this.currentShowIndex = 0;
+    this.showOverlay = true;
+    this.overlayContentVisible = true;
+    this.overlayOpacity = 1;
+    this.overlayTransform = 'translateY(0)';
+    this.cdRef.detectChanges();
+  }
+
+  private handleScroll(): void {
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    const numShows = this.mainShows.length;
+    if (numShows === 0 || this.isMobile) return;
+
+    const totalBannerScrollHeight = vh * numShows; // Total scrollable height for banner area
+
+    let activeIndex = Math.floor(scrollY / vh);
+    activeIndex = Math.max(0, Math.min(numShows - 1, activeIndex));
+
+    // --- Update Banner Sections ---
+    // Logic remains the same as v6 - ensures section below is visible
+    const bannerSections =
+      this.el.nativeElement.querySelectorAll('.banner-section');
+    bannerSections.forEach((section: HTMLElement, index: number) => {
+      let translateY = 0;
+      let zIndex = numShows - index;
+      let opacity = 0;
+      const scrollStartForSection = index * vh;
+      const progress = Math.max(
+        0,
+        Math.min(1, (scrollY - scrollStartForSection) / vh)
+      );
+      if (index < activeIndex) {
+        translateY = -vh;
+        opacity = 0;
+      } else if (index === activeIndex) {
+        translateY = -progress * vh;
+        opacity = 1;
+        zIndex = numShows + 1;
+      } else {
+        translateY = 0;
+        opacity = 1;
+      } // Keep sections below visible
+
+      this.renderer.setStyle(
+        section,
+        'transform',
+        `translateY(${translateY}px)`
+      );
+      this.renderer.setStyle(section, 'zIndex', `${zIndex}`);
+      // Opacity for last section handled in fade logic below
+      if (index !== numShows - 1) {
+        this.renderer.setStyle(section, 'opacity', `${opacity}`);
+      }
+    });
+
+    // --- Update Overlay Content ---
+    // Unchanged
+    if (activeIndex !== this.currentShowIndex && !this.isMobile) {
+      this.overlayContentVisible = false;
+      this.cdRef.detectChanges();
+      this.currentShowIndex = activeIndex;
+      this.currentShow = this.mainShows[this.currentShowIndex];
+      setTimeout(() => {
+        this.overlayContentVisible = true;
+        this.cdRef.detectChanges();
+      }, 150);
+    }
+
+    // --- Handle Overlay Position and Fade ---
+    const endOfBannerScroll = (numShows - 1) * vh;
+    // *** Adjusted end fade threshold slightly earlier ***
+    const startOverlayFadeScroll = endOfBannerScroll + vh * 0.5; // Start fade halfway
+    const endOverlayFadeScroll = endOfBannerScroll + vh * 0.9; // End fade when 10% left
+
+    let currentOverlayTransformY = 0;
+    let currentOverlayOpacity = 1;
+    let lastBannerOpacity =
+      activeIndex === numShows - 1 || activeIndex === numShows - 2 ? 1 : 0;
+    this.showOverlay = true; // Assume true, override below
+
+    // Calculate fade out first based on range
+    if (scrollY >= startOverlayFadeScroll) {
+      const fadeProgress = Math.max(
+        0,
+        Math.min(
+          1,
+          (scrollY - startOverlayFadeScroll) /
+            (endOverlayFadeScroll - startOverlayFadeScroll)
+        )
+      );
+      currentOverlayOpacity = 1 - fadeProgress;
+      lastBannerOpacity = 1 - fadeProgress;
+    }
+
+    // Calculate overlay transform only when in last section
+    if (scrollY >= endOfBannerScroll) {
+      const scrollPastEndOfBanner = scrollY - endOfBannerScroll;
+      currentOverlayTransformY = -scrollPastEndOfBanner;
+    } else {
+      currentOverlayTransformY = 0;
+      // Ensure opacity is 1 before fade starts
+      currentOverlayOpacity = 1;
+      if (activeIndex === numShows - 1) {
+        // If last section is active before fade starts
+        lastBannerOpacity = 1;
+      }
+    }
+
+    // *** Force hide if scrolled completely past the banner container ***
+    // This overrides the fade calculation if scrollY is beyond the banner area
+    if (scrollY >= totalBannerScrollHeight - 10) {
+      // Use a small buffer
+      currentOverlayOpacity = 0;
+      lastBannerOpacity = 0;
+    }
+
+    // Determine final overlay visibility
+    this.showOverlay = currentOverlayOpacity > 0.01; // Hide if effectively transparent
+
+    // Apply overlay styles
+    this.overlayTransform = `translateY(${currentOverlayTransformY}px)`;
+    this.overlayOpacity = currentOverlayOpacity;
+
+    // Apply final opacity to the last banner section
+    const lastBannerSection = bannerSections[numShows - 1];
+    if (lastBannerSection) {
+      this.renderer.setStyle(
+        lastBannerSection,
+        'opacity',
+        `${lastBannerOpacity}`
+      );
+    }
+
+    this.lastScrollY = scrollY;
+  }
+
+  // --- Action Handlers ---
+  // Unchanged from v6
+  scrollToShow(index: number): void {
+    if (!this.isBrowser || index < 0 || index >= this.mainShows.length) return;
+    const targetScrollY = index * window.innerHeight;
+    window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+  }
+  handleTicketButtonClick(show: Show | null): void {
+    if (!show) return;
+    const isTicketPurchase = show.available && show.buttonText !== 'Join Club';
+    const isJoinClubAction = show.buttonText === 'Join Club' && !!show.joinLink;
+    if (isTicketPurchase || isJoinClubAction) {
+      this.currentTicketLink = show.ticketLink;
+      this.currentJoinLink = show.joinLink || this.INNER_CIRCLE_JOIN_URL;
+      this.showInnerCircleModal = true;
+      this.closeMessageBox();
+    } else if (show.buttonText === 'Club Members Only' && show.joinLink) {
+      this.messageBoxText = `Tickets for "${show.title}" are available exclusively to Opera Club members.`;
+      this.showMessageBox = true;
+      this.closeInnerCircleModal();
+    } else {
+      this.messageBoxText = `Sorry, the requested action for "${show.title}" is not currently available.`;
+      if (show.buttonText === 'Coming Soon') {
+        this.messageBoxText = `"${show.title}" is coming soon! Please check back later or join our email list for updates.`;
+      }
+      this.showMessageBox = true;
+      this.closeInnerCircleModal();
+    }
+  }
+  closeInnerCircleModal(): void {
+    this.showInnerCircleModal = false;
+    this.currentTicketLink = null;
+    this.currentJoinLink = null;
+  }
+  proceedWithAction(): void {
+    const targetLink = this.currentTicketLink || this.currentJoinLink;
+    if (this.isBrowser && targetLink) {
+      window.open(targetLink, '_blank');
+    }
+    this.closeInnerCircleModal();
+  }
+  joinInnerCircle(): void {
+    if (this.isBrowser) {
+      window.open(this.INNER_CIRCLE_JOIN_URL, '_blank');
+    }
+    this.closeInnerCircleModal();
+  }
+  closeMessageBox(): void {
+    this.showMessageBox = false;
+  }
+  showEmailSignup(): void {
+    if (this.isBrowser) {
+      window.open(
+        'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I',
+        '_blank'
+      );
+    }
   }
 }

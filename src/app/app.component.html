@@ -4,11 +4,20 @@
   <header class="header">
     <div class="header-content">
       <div class="menu-button" (click)="toggleMenu()">
-        <strong>☰ MENU</strong>
+        <strong>
+          <ng-container *ngIf="isMenuOpen; else menuText">
+            <span class="close-x">X</span> <span class="close-text">CLOSE</span>
+          </ng-container>
+          <ng-template #menuText>☰ MENU</ng-template>
+        </strong>
       </div>
+
       <div class="logo-section">
-        <div class="logo-text">CENTRAL FLORIDA LYRIC OPERA</div>
+        <div class="logo-text">
+          <a routerLink="/" class="logo-link">CENTRAL FLORIDA LYRIC OPERA</a>
+        </div>
       </div>
+
       <div class="right-section"></div>
     </div>
   </header>
@@ -94,7 +103,7 @@
         </a>
       </div>
       <p class="copyright">
-        &copy; 2025 Central Florida Lyric Opera. All rights reserved
+        &copy; 2026 Central Florida Lyric Opera. All rights reserved
       </p>
     </div>
   </footer>
