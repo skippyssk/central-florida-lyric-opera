@@ -159,13 +159,117 @@ html, body {
 .lesser-shows-grid {display: grid;grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));gap: 40px;max-width: 1300px;margin: 0 auto;}
 .lesser-show-card {background-color: #111;border-radius: 8px;overflow: hidden;border: 1px solid #222;transition: transform 0.3s ease, box-shadow 0.3s ease;display: flex;flex-direction: column;}
 .lesser-show-card:hover {transform: translateY(-5px);box-shadow: 0 8px 15px rgba(184, 153, 95, 0.1);}
-.lesser-show-card img {width: 100%;height: 220px;object-fit: cover;display: block;}
+.lesser-show-card img {width: 100%;height: auto;object-fit: cover;display: block;}
 .lesser-show-info {padding: 25px;flex-grow: 1;display: flex;flex-direction: column;}
 .lesser-show-info h3 {font-family: var(--font-headings);font-size: 1.5rem;color: var(--color-gold-light);margin: 0 0 10px;}
 .lesser-show-info p {font-size: 0.95rem;color: #ccc;margin-bottom: 10px;line-height: 1.4;}
 .lesser-show-info button {background-color: var(--color-gold-dark);color: var(--color-text);border: none;padding: 10px 18px;font-size: 0.9rem;border-radius: 4px;cursor: pointer;transition: background-color 0.3s ease;margin-top: auto;align-self: flex-start;}
 .lesser-show-info button:hover:not(:disabled) {background-color: var(--color-gold);}
 .lesser-show-info button:disabled {background-color: #444;color: #888;cursor: not-allowed;}
+
+/* ==============================================================
+   OC SHOWS  —  4 × 2 grid on desktop
+   ==============================================================*/
+
+/* ---------- Section wrapper ---------------------------------- */
+.OCShows-section {
+  padding: 120px 50px 80px;
+  background-color: #050505;
+  position: relative;
+  z-index: 5;
+}
+
+/* ---------- Heading ------------------------------------------ */
+.OCShows-section h2 {
+  font-family: var(--font-headings);
+  color: var(--color-gold);
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  font-weight: normal;
+}
+
+/* ---------- Grid container ----------------------------------- */
+.OCShows-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);   /* ⇢ 4 columns on wide screens   */
+  gap: 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* ↓↓↓  keep it responsive: 3 / 2 / 1 columns below desktop ----- */
+@media (max-width: 1199px) {
+  .OCShows-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+}
+
+/* ---------- Individual card ---------------------------------- */
+.OCshow-card {
+  background-color: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;            /* poster on top, text below        */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.OCshow-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(184, 153, 95, 0.1);
+}
+
+/* ---------- Poster image ------------------------------------- */
+.OCshow-card img {
+  width: 100%;
+  height: auto;                     /* uniform postcard crop            */
+  object-fit: cover;                 /* centre-cropped, no distortion    */
+  object-position: center;
+}
+
+/* ---------- Text + button block ------------------------------ */
+.OCshow-info {
+  padding: 18px 20px; 
+  flex-grow: 1;                      /* lets the button stick to bottom  */
+  display: flex;
+  flex-direction: column;
+}
+.OCshow-info h3 {
+  font-family: var(--font-headings);
+  font-size: 1rem;
+  color: var(--color-gold-light);
+  margin: 0 0 10px;
+}
+.OCshow-info p {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* ---------- CTA button --------------------------------------- */
+.OCshow-info button {
+  background-color: var(--color-gold-dark);
+  color: var(--color-text);
+  border: none;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: auto;                  /* push button to bottom            */
+  align-self: flex-start;
+}
+.OCshow-info button:hover:not(:disabled) { background-color: var(--color-gold); }
+.OCshow-info button:disabled               { background-color: #444; color: #888; }
+
+
+/* ---- Responsiveness ---------------------------------------- */
+/* Keep 4-col layout down to 1200 px, then flow to flexible auto-fit */
+@media (max-width: 1199px) {
+  .OCShows-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
 
 
 /* ============================

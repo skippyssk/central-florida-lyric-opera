@@ -115,6 +115,31 @@
           </div>
         </div>
       </div>
+      <div class="OCShows-section">
+        <h2>OC Shows</h2>
+
+        <div class="OCShows-grid">
+          <div *ngFor="let show of OCShows" class="OCshow-card">
+            <img [src]="show.image" [alt]="show.title + ' poster'" />
+
+            <div class="OCshow-info">
+              <h3>{{ show.title }}</h3>
+              <p>{{ show.date }} | {{ show.venue }}</p>
+
+              <button
+                (click)="handleTicketButtonClick(show)"
+                [disabled]="!show.available && !show.joinLink"
+              >
+                {{
+                  show.buttonText ??
+                    (show.available ? "Learn More" : "Unavailable")
+                }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="mobile-view" *ngIf="isMobile">
         <h2>Upcoming Performances</h2>
         <div *ngFor="let show of mainShows" class="mobile-show-card">
