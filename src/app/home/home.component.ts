@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'movieMagic',
       title: 'Broadway Blockbusters',
-      image: 'assets/images/BBR2MultraWide.png',
+      image: 'assets/images/BBRIntegrated.png',
       description:
         'Feel the thrill of the Great White Way! Broadway Blockbusters features show-stopping hits from the most beloved musicals of all time—soaring ballads, toe-tapping numbers, and unforgettable melodies that have lit up the stage for decades. A night of pure theatrical magic!',
       date: 'Oct 29, 2025',
