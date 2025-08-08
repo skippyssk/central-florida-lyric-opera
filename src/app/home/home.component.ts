@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'movieMagic',
       title: 'Broadway Blockbusters',
-      image: 'assets/images/BBRIntegrated.png',
+      image: 'assets/images/BBRIntegrated.webp',
       description:
         'Feel the thrill of the Great White Way! Broadway Blockbusters features show-stopping hits from the most beloved musicals of all time—soaring ballads, toe-tapping numbers, and unforgettable melodies that have lit up the stage for decades. A night of pure theatrical magic!',
       date: 'Oct 29, 2025',
@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'christmasTimothys',
       title: 'Christmas Spectacular',
-      image: 'assets/images/CSWide.png',
+      image: 'assets/images/CSWW.png',
       description:
         'Celebrate the joy of the season with our Christmas Spectacular! Join us for an enchanting evening of classic holiday favorites, from cherished carols to festive showstoppers—featuring the beautiful voices of the Saint Timothy’s Choir and featured soloists. A heartwarming start to your Christmas celebrations!',
       date: 'Dec 18, 2025',
@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'movieMagic',
       title: 'Broadway Blockbusters',
-      image: 'assets/images/BBRSquare.png',
+      image: 'assets/images/BBRIntegratedSquare.webp',
       description: '',
       date: 'Oct 09, 2025',
       venue: 'The Savannah Center',
@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'christmasTimothys',
       title: 'Christmas Spectacular',
-      image: 'assets/images/christmasSpectacular.webp',
+      image: 'assets/images/CSsquare.png',
       description: '',
       date: 'Dec 18, 2025',
       venue: 'St. Timothys Catholic Church',
@@ -301,7 +301,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'French',
       title: 'La Vie En Rose (French Love Songs)',
-      image: 'assets/images/soon.png',
+      image: 'assets/images/french.png',
       description: '',
       date: 'Jan 30, 2026',
       venue: 'Laurel Manor',
@@ -313,7 +313,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'Voices',
       title: 'Voices of Spring (Music of Operetta)',
-      image: 'assets/images/soon.png',
+      image: 'assets/images/voicesOfSpring.png',
       description: '',
       date: 'May 28, 2026',
       venue: 'Laurel Manor',

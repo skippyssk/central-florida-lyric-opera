@@ -68,7 +68,8 @@ export class TicketsComponent {
     risingStar: 'https://operaclubofthevillages.com/join-us',
     broadwayStars: 'https://operaclubofthevillages.com/join-us',
     carmen: 'https://operaclubofthevillages.com/join-us',
-    togetherAgain: 'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
+    togetherAgain:
+      'https://www.thevillagesentertainment.com/buy-tickets/together-again-bill-doherty-fernando-varela/',
     celebrateAmerica: 'https://operaclubofthevillages.com/join-us',
     broadwayBlockbusters:
       'https://www.thevillagesentertainment.com/buy-tickets/broadway-blockbusters/',
@@ -83,7 +84,7 @@ export class TicketsComponent {
   mainShows: Show[] = [
     {
       title: 'Broadway Blockbusters',
-      image: 'assets/images/BBR.png',
+      image: 'assets/images/BBRIntegrated.webp',
       description:
         'Feel the thrill of the Great White Way! Broadway Blockbusters features show-stopping hits from the most beloved musicals of all time—soaring ballads, toe-tapping numbers, and unforgettable melodies that have lit up the stage for decades. A night of pure theatrical magic!',
       date: 'Oct 29, 2025',
@@ -97,7 +98,7 @@ export class TicketsComponent {
       title: 'Catch a Rising Star (Prodigies: Stars of Tomorrow) ',
       image: 'assets/images/CRSProd.png',
       description:
-        'Experience tomorrow\'s legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music in an unforgettable evening of artistry. Your attendance helps shape the future of music.',
+        "Experience tomorrow's legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music in an unforgettable evening of artistry. Your attendance helps shape the future of music.",
       date: 'Oct 30, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '3 PM & 7 PM',
@@ -107,9 +108,9 @@ export class TicketsComponent {
     },
     {
       title: 'Christmas Spectacular',
-      image: 'assets/images/CSWide.png',
+      image: 'assets/images/CSWW.png',
       description:
-        'Celebrate the joy of the season with our Christmas Spectacular! Join us for an enchanting evening of classic holiday favorites, from cherished carols to festive showstoppers—featuring the beautiful voices of the Saint Timothy\'s Choir and featured soloists. A heartwarming start to your Christmas celebrations!',
+        "Celebrate the joy of the season with our Christmas Spectacular! Join us for an enchanting evening of classic holiday favorites, from cherished carols to festive showstoppers—featuring the beautiful voices of the Saint Timothy's Choir and featured soloists. A heartwarming start to your Christmas celebrations!",
       date: 'Dec 18, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '3 PM & 7 PM',

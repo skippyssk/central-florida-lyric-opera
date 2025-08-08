@@ -85,7 +85,7 @@ html, body {
 =============================== */
 .fixed-logo {
   position: fixed;
-  top: 30px;
+  top: 80px;
   left: 40px;
   z-index: 1500;
   opacity: 0.75;
@@ -167,6 +167,70 @@ html, body {
   background-position: center center;
   background-repeat: no-repeat;
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* Responsive BBR Integrated Images */
+.banner-image-content[data-image*="BBRIntegrated.webp"] {
+  background-image: url('/assets/images/BBRIntegrated.webp') !important;
+}
+
+/* Wide screens (1200px and up) */
+@media (min-width: 1200px) {
+  .banner-image-content[data-image*="BBRIntegrated.webp"] {
+    background-image: url('/assets/images/BBRIntegratedW.webp') !important;
+  }
+}
+
+/* Ultra wide screens (1600px and up) */
+@media (min-width: 1600px) {
+  .banner-image-content[data-image*="BBRIntegrated.webp"] {
+    background-image: url('/assets/images/BBRIntegratedUW2.webp') !important;
+  }
+}
+
+/* Responsive CRS Images */
+.banner-image-content[data-image*="CRSProd.png"] {
+  background-image: url('/assets/images/CRSProd.png') !important;
+}
+
+/* Wide screens (1200px and up) */
+@media (min-width: 1200px) {
+  .banner-image-content[data-image*="CRSProd.png"] {
+    background-image: url('/assets/images/CRSProdW.png') !important;
+  }
+}
+
+/* Ultra wide screens (1600px and up) */
+@media (min-width: 1600px) {
+  .banner-image-content[data-image*="CRSProd.png"] {
+    background-image: url('/assets/images/CRSProdUW.png') !important;
+  }
+}
+
+/* Responsive CS Images */
+.banner-image-content[data-image*="CSWW.png"] {
+  background-image: url('/assets/images/CSsquare.png') !important;
+}
+
+/* Medium screens (768px and up) */
+@media (min-width: 768px) {
+  .banner-image-content[data-image*="CSWW.png"] {
+    background-image: url('/assets/images/CSWW.png') !important;
+  }
+}
+
+/* Wide screens (1200px and up) */
+@media (min-width: 1200px) {
+  .banner-image-content[data-image*="CSWW.png"] {
+    background-image: url('/assets/images/CSWW.png') !important;
+  }
+}
+
+/* Ultra wide screens (1600px and up) */
+@media (min-width: 1600px) {
+  .banner-image-content[data-image*="CSWW.png"] {
+    background-image: url('/assets/images/CSUW.png') !important;
+  }
 }
 
 /* Gradients */
@@ -651,7 +715,7 @@ html, body {
 @media (min-width: 993px) { 
   .desktop-view { display: block; } 
   .mobile-view { display: none; } 
-  .fixed-logo { left: 50px; top: 40px; } 
+  .fixed-logo { left: 50px; top: 60px; } 
   .fixed-logo img { height: 120px; } 
   .fixed-email-button { right: 50px; bottom: 40px; } 
 }
@@ -659,7 +723,7 @@ html, body {
 @media (max-width: 992px) { 
   .desktop-view { display: none; } 
   .mobile-view { display: block; } 
-  .fixed-logo { left: 15px; top: 15px; opacity: 0.9; } 
+  .fixed-logo { left: 15px; top: 40px; opacity: 0.9; } 
   .fixed-logo img { height: 70px; } 
   .fixed-email-button { right: 15px; bottom: 15px; padding: 8px 15px; font-size: 0.8rem; animation: none; } 
   .show-overlay { display: none !important; } 
