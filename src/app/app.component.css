@@ -473,6 +473,33 @@ footer .signup-button:hover {
 /* ============================
    Accessibility Improvements
 =============================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Ensure icons are visible */
+.social-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-gold);
+  transition: all 0.3s var(--ease-out-cubic);
+}
+
+.social-icon:hover svg {
+  color: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

@@ -2,15 +2,15 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface ShowListShow {
-  id?: string;
   title: string;
-  image: string;
-  description: string;
   date: string;
-  venue: string;
   time?: string;
+  venue: string;
+  description: string;
+  image: string;
+  available: boolean;
   buttonText?: string;
-  available?: boolean;
+  ticketLink?: string;
 }
 
 @Component({
@@ -18,7 +18,7 @@ export interface ShowListShow {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './show-list.component.html',
-  styleUrls: ['./show-list.component.css']
+  styleUrls: ['./show-list.component.css'],
 })
 export class ShowListComponent {
   @Input() shows: ShowListShow[] = [];

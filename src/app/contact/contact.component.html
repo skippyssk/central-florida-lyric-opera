@@ -3,54 +3,99 @@
   <div class="contact-content">
     <div class="contact-info">
       <div class="info-item">
-        <i class="fas fa-phone"></i>
+        <i class="fas fa-phone" aria-hidden="true"></i>
         <p>{{ contactInfo.phone }}</p>
       </div>
       <div class="info-item">
-        <i class="fas fa-map-marker-alt"></i>
+        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
         <div>
           <p>{{ contactInfo.address }}</p>
         </div>
       </div>
       <div class="info-item">
-        <i class="fas fa-envelope"></i>
+        <i class="fas fa-envelope" aria-hidden="true"></i>
         <p>
-          <a href="mailto:{{ contactInfo.email }}">{{ contactInfo.email }}</a>
+          <a href="mailto:{{ contactInfo.email }}" [attr.aria-label]="'Send email to ' + contactInfo.email">{{ contactInfo.email }}</a>
         </p>
       </div>
     </div>
     <div class="contact-form">
       <h2>Send us a message</h2>
-      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-        <input
-          type="text"
-          formControlName="name"
-          placeholder="Your Name"
-          required
-        />
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Your Email"
-          required
-        />
-        <textarea
-          formControlName="message"
-          placeholder="Your Message"
-          required
-        ></textarea>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" aria-label="Contact form">
+        <div class="form-group">
+          <label for="name" class="sr-only">Your Name</label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            placeholder="Your Name"
+            required
+            aria-describedby="name-error"
+            [attr.aria-invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+          />
+          <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" 
+               id="name-error" class="error-text" role="alert">
+            Name is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email" class="sr-only">Your Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="Your Email"
+            required
+            aria-describedby="email-error"
+            [attr.aria-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+          />
+          <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" 
+               id="email-error" class="error-text" role="alert">
+            Please enter a valid email address
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="message" class="sr-only">Your Message</label>
+          <textarea
+            id="message"
+            formControlName="message"
+            placeholder="Your Message"
+            required
+            aria-describedby="message-error"
+            [attr.aria-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+          ></textarea>
+          <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" 
+               id="message-error" class="error-text" role="alert">
+            Message is required
+          </div>
+        </div>
+        
         <button
           type="submit"
           class="submit-button"
-          [disabled]="contactForm.invalid"
+          [disabled]="contactForm.invalid || isLoading"
+          [attr.aria-busy]="isLoading"
+          aria-describedby="submit-status"
         >
-          Send Message
+          <span *ngIf="!isLoading">Send Message</span>
+          <span *ngIf="isLoading">Sending...</span>
         </button>
+        <div id="submit-status" class="sr-only" role="status" aria-live="polite">
+          {{ isLoading ? 'Sending message...' : (submitSuccess ? 'Message sent successfully' : (submitError ? 'Error sending message' : '')) }}
+        </div>
       </form>
-      <p *ngIf="submitSuccess" class="success-message">
-        Your message has been sent successfully!
-      </p>
-      <p *ngIf="submitError" class="error-message">{{ errorMessage }}</p>
+      
+      <div *ngIf="submitSuccess" class="success-message" role="alert" aria-live="polite">
+        <i class="fas fa-check-circle" aria-hidden="true"></i>
+        <p>Your message has been sent successfully!</p>
+      </div>
+      
+      <div *ngIf="submitError" class="error-message" role="alert" aria-live="polite">
+        <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+        <p>{{ errorMessage }}</p>
+      </div>
     </div>
   </div>
 </div>

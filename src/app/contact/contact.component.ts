@@ -6,6 +6,9 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { environment } from '../../environments/environment';
+import { LoggingService } from '../services/logging.service';
+import { ContactFormData, EmailJSResponse, EmailJSError } from '../models/email.interface';
 
 declare const emailjs: any;
 
@@ -28,15 +31,19 @@ export class ContactComponent implements OnInit {
   submitSuccess = false;
   submitError = false;
   errorMessage = '';
+  isLoading = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private loggingService: LoggingService
+  ) {}
 
   ngOnInit() {
     if (typeof emailjs !== 'undefined') {
-      emailjs.init('UG2vCPOYYGaqypUxH');
-      console.log('EmailJS initialized');
+      emailjs.init(environment.emailjs.publicKey);
+      this.loggingService.log('EmailJS initialized');
     } else {
-      console.error('EmailJS is not loaded');
+      this.loggingService.error('EmailJS is not loaded');
       this.errorMessage =
         'EmailJS is not loaded. Please check your internet connection and refresh the page.';
     }
@@ -46,59 +53,66 @@ export class ContactComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       message: ['', Validators.required],
     });
-    console.log('Form initialized');
+    this.loggingService.log('Form initialized');
   }
 
   onSubmit() {
-    console.log('Submit button clicked');
+    this.loggingService.log('Submit button clicked');
     this.submitted = true;
     this.submitSuccess = false;
     this.submitError = false;
     this.errorMessage = '';
+    this.isLoading = true;
 
     if (this.contactForm.invalid) {
-      console.log('Form is invalid', this.contactForm.errors);
+      this.loggingService.log('Form is invalid', this.contactForm.errors);
       this.errorMessage = 'Please fill out all required fields correctly.';
+      this.isLoading = false;
       return;
     }
 
-    console.log('Sending email with form data:', this.contactForm.value);
+    const formData: ContactFormData = this.contactForm.value;
+    this.loggingService.log('Sending email with form data:', formData);
 
     if (typeof emailjs !== 'undefined') {
       emailjs
-        .send('service_i6vhsrl', 'template_kdkfvhi]', {
-          from_name: this.contactForm.value.name,
-          from_email: this.contactForm.value.email,
-          message: this.contactForm.value.message,
+        .send(environment.emailjs.serviceId, environment.emailjs.templateId, {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
           to_email: 'david.bradley.gehring@gmail.com',
         })
         .then(
-          (response: any) => {
-            console.log('Email sent successfully:', response);
+          (response: EmailJSResponse) => {
+            this.loggingService.log('Email sent successfully:', response);
             this.submitSuccess = true;
             this.contactForm.reset();
             this.submitted = false;
+            this.isLoading = false;
           },
-          (error: any) => {
-            console.error('Error sending email:', error);
+          (error: EmailJSError) => {
+            this.loggingService.error('Error sending email:', error);
             this.submitError = true;
             this.errorMessage = `Error sending email: ${
               error.text || 'Unknown error'
             }`;
+            this.isLoading = false;
           }
         )
-        .catch((err: any) => {
-          console.error('Caught error while sending email:', err);
+        .catch((err: EmailJSError) => {
+          this.loggingService.error('Caught error while sending email:', err);
           this.submitError = true;
           this.errorMessage = `Caught error while sending email: ${
             err.message || 'Unknown error'
           }`;
+          this.isLoading = false;
         });
     } else {
-      console.error('EmailJS is not loaded. Cannot send email.');
+      this.loggingService.error('EmailJS is not loaded. Cannot send email.');
       this.submitError = true;
       this.errorMessage =
-        'EmailJS is not loaded. Please check your internet connection and try again.';
+        'EmailJS is not loaded. Please check your internet connection and refresh the page.';
+      this.isLoading = false;
     }
   }
 }

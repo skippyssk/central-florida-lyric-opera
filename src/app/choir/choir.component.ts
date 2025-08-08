@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoggingService } from '../services/logging.service';
 
 @Component({
   selector: 'app-choir',
@@ -10,14 +11,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./choir.component.css'],
 })
 export class ChoirComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loggingService: LoggingService) {}
 
   joinEmailList() {
+    this.loggingService.log('Joining email list');
     window.open(
-      'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw5Tbaopgazml_-mv-dvlCaLG0aUE1n2KK453bS4r3UWPHeejM2ZdOEqxbd0-09VHyVON_U_l-GF5MrNYR6F-k85BkmXzZD5DP1lEXsLCbtcLbsvZiqhBtIbRlrkOEzaWSM%3D',
+      'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I',
       '_blank'
     );
-    console.log('Joining email list');
   }
 
   goToConcertPage() {
