@@ -10,7 +10,14 @@ import { environment } from '../../environments/environment';
 import { LoggingService } from '../services/logging.service';
 import { ContactFormData, EmailJSResponse, EmailJSError } from '../models/email.interface';
 
-declare const emailjs: any;
+declare const emailjs: {
+  init: (publicKey: string) => void;
+  send: (
+    serviceId: string,
+    templateId: string,
+    templateParams: Record<string, string>
+  ) => Promise<EmailJSResponse>;
+};
 
 @Component({
   selector: 'app-contact',

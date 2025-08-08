@@ -249,29 +249,61 @@ html, body {
   line-height: 1.6; 
   margin-bottom: 25px;
 }
-.overlay-ticket-button {
+.overlay-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.overlay-ticket-button,
+.overlay-email-button,
+.overlay-donate-button {
   display: inline-block;
   background-color: #b8995f;
   color: #000;
   border: none;
-  padding: 12px 25px;
-  font-size: 1rem;
+  padding: 12px 15px;
+  font-size: 0.9rem;
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s var(--ease-out-cubic);
   text-align: center;
+  flex: 1;
+  min-width: 0;
 }
-.overlay-ticket-button:hover:not(:disabled) {
+
+.overlay-ticket-button:hover:not(:disabled),
+.overlay-email-button:hover,
+.overlay-donate-button:hover {
   background-color: #d4b174;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(184, 153, 95, 0.3);
 }
+
 .overlay-ticket-button:disabled {
   background-color: #555;
   color: #aaa;
   cursor: not-allowed;
   transform: none;
+}
+
+.overlay-email-button {
+  background-color: #8a7449;
+}
+
+.overlay-email-button:hover {
+  background-color: #a08a5f;
+}
+
+.overlay-donate-button {
+  background-color: #d4b174;
+}
+
+.overlay-donate-button:hover {
+  background-color: #e6c285;
 }
 
 .overlay-nav-dots.vertical-right { 
@@ -287,7 +319,7 @@ html, body {
   height: 12px; 
   background-color: rgba(255, 255, 255, 0.3); 
   border: 1px solid rgba(255, 255, 255, 0.4); 
-  border-radius: 3px; 
+  border-radius: 50%; 
   margin: 8px 0; 
   cursor: pointer; 
   padding: 0; 
@@ -299,10 +331,10 @@ html, body {
   transform: scale(1.15); 
 }
 .nav-dot.active { 
-  background-color: var(--color-gold-light); 
-  border-color: var(--color-gold); 
+  background-color: #b8995f !important; 
+  border-color: #b8995f !important; 
   transform: scale(1.25); 
-  box-shadow: 0 0 8px rgba(212, 177, 116, 0.6); 
+  box-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 25px rgba(255, 215, 0, 0.8), 0 0 35px rgba(255, 215, 0, 0.4) !important; 
 }
 
 /* Lesser Shows Section */

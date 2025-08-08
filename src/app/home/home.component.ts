@@ -10,13 +10,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 import { ShowListComponent, ShowListShow } from '../show-list.component';
 
 // --- Interfaces ---
@@ -72,7 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'movieMagic',
       title: 'Broadway Blockbusters',
-      image: 'assets/images/BBR.png',
+      image: 'assets/images/BBR2MultraWide.png',
       description:
         'Feel the thrill of the Great White Way! Broadway Blockbusters features show-stopping hits from the most beloved musicals of all time—soaring ballads, toe-tapping numbers, and unforgettable melodies that have lit up the stage for decades. A night of pure theatrical magic!',
       date: 'Oct 29, 2025',
@@ -380,8 +374,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event): void {
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
     if (!this.isBrowser || this.isMobile) return;
 
     if (this.scrollAnimationFrame) {
@@ -553,7 +547,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onShowButtonClick(show: ShowListShow) {
-    this.handleTicketButtonClick(show as any);
+    this.handleTicketButtonClick(show as Show);
   }
 
   handleTicketButtonClick(show: Show | null): void {
@@ -611,6 +605,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         'https://visitor.r20.constantcontact.com/manage/optin?v=00125N-g8Ws2O3EoqRaks8Jbl69VTDKito0H9u-dlQ4fw4jJ8dP3WENd40BxFaEBjFeuOZb4VcB2ymo1KHOVZ_kDZCR2fydYdtyE-O3BcBcTWjNgB2WN4z5Xp_g7b3YpfYm3eA3qBYpNsWzUSZgIb7_YeYdEzQE7O4I',
         '_blank'
       );
+    }
+  }
+
+  donateViaPaypal(): void {
+    if (this.isBrowser) {
+      window.open('https://www.paypal.com/ncp/payment/4KVSTHRDKZGQA', '_blank');
     }
   }
 }

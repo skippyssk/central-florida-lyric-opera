@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShowListComponent, ShowListShow } from '../show-list.component';
+import { LoggingService } from '../services/logging.service';
 
 interface Show {
   title: string;
@@ -40,6 +41,8 @@ export class TicketsComponent {
   showClubMembershipBox: boolean = false;
   showTicketOptionsBox: boolean = false;
   currentTicketLink: string = '';
+
+  constructor(private loggingService: LoggingService) {}
   ticketLinks = {
     bestOfBroadway: 'https://tickets.thevillages.com/32397',
     laBoheme: 'https://www.thevillagesentertainment.com/buy-tickets/la-boheme/',
@@ -183,7 +186,6 @@ export class TicketsComponent {
   ];
 
   buyTickets(event: string) {
-    console.log(`Buy Tickets clicked for: ${event}`);
     const mainShow = this.mainShows.find((s) => s.ticketKey === event);
     const lesserShow = this.lesserShows.find((s) => s.ticketKey === event);
 
@@ -192,7 +194,8 @@ export class TicketsComponent {
     } else if (lesserShow) {
       this.handleLesserShow(lesserShow);
     } else {
-      console.error(`Show not found for ${event}`);
+      // Log error for debugging but don't expose to user
+      this.loggingService.error(`Show not found for ticket key: ${event}`);
     }
   }
 
@@ -249,7 +252,7 @@ export class TicketsComponent {
 
   showMaestrosInnerCircleButton: boolean = false;
 
-  private showTicketOptions(ticketLink: string, isMainShow: boolean): void {
+  private showTicketOptions(ticketLink: string, _isMainShow: boolean): void {
     this.currentTicketLink = ticketLink;
     this.showTicketOptionsBox = true;
     this.showMaestrosInnerCircleButton = true; // Always show the button
@@ -267,7 +270,7 @@ export class TicketsComponent {
       window.open(this.currentTicketLink, '_blank');
     } else {
       // For unavailable shows, just close the modal
-      console.log('No ticket link available for this show');
+      this.loggingService.log('No ticket link available for this show');
     }
     this.closeTicketOptionsBox();
   }

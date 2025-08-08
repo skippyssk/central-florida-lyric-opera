@@ -23,7 +23,20 @@ body {
     height: 100vh;
     backdrop-filter: blur(10px);
     background-color: rgba(0, 0, 0, 0.2);
-    z-index: -1;
+    z-index: 0;
+  }
+  
+  /* Ensure content is above the frosted glass */
+  app-root {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+  
+  /* Global container styles */
+  .container, [class*="-container"] {
+    position: relative;
+    z-index: 2;
   }
   
   

@@ -4,16 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Add this import
 
 import { MatExpansionModule } from '@angular/material/expansion';
-import { Meta } from '@angular/platform-browser';
 
-interface Artist {
-  name: string;
-  title: string;
-  image: string;
-  fullBiography: string;
-  galleryImages: string[];
-  facebookUrl: string;
-}
 
 @Component({
   selector: 'app-resident-artists',

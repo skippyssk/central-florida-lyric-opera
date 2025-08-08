@@ -56,16 +56,30 @@
           <p id="overlayDescription" class="long-description">
             {{ currentShow.description }}
           </p>
-          <button
-            id="overlayButton"
-            class="overlay-ticket-button"
-            (click)="handleTicketButtonClick(currentShow)"
-          >
-            {{
-              currentShow.buttonText ??
-                (currentShow.available ? "Buy Tickets" : "Unavailable")
-            }}
-          </button>
+          <div class="overlay-buttons">
+            <button
+              id="overlayButton"
+              class="overlay-ticket-button"
+              (click)="handleTicketButtonClick(currentShow)"
+            >
+              {{
+                currentShow.buttonText ??
+                  (currentShow.available ? "Buy Tickets" : "Unavailable")
+              }}
+            </button>
+            <button
+              class="overlay-email-button"
+              (click)="showEmailSignup()"
+            >
+              Join Email List
+            </button>
+            <button
+              class="overlay-donate-button"
+              (click)="donateViaPaypal()"
+            >
+              Donate Now
+            </button>
+          </div>
         </div>
       </div>
       <div class="overlay-nav-dots vertical-right">

@@ -1,5 +1,6 @@
 import { Injectable, ErrorHandler } from '@angular/core';
 import { LoggingService } from './logging.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,10 @@ export class GlobalErrorHandlerService implements ErrorHandler {
     // In production, you might want to send this to an error reporting service
     // like Sentry, LogRocket, etc.
     
-    // For now, we'll just log it
-    console.error('Global error handler caught:', error);
+    // Don't expose error details to console in production
+    if (!environment.production) {
+      console.error('Global error handler caught:', error);
+    }
   }
 }
 
