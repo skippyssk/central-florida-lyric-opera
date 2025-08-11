@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 })
 export class DonateComponent {
   donateImages = [
-    'assets/images/Carmen Artwork.png',
-    'assets/images/bill2.webp',
+    'assets/images/Extra Shows/carmen.webp',
+    'assets/images/Resident Artist Teachers/Bill Doherty/bill2.webp',
   ];
 
   paypalDonateUrl = 'https://www.paypal.com/ncp/payment/4KVSTHRDKZGQA';

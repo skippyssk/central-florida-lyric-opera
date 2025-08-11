@@ -3,7 +3,7 @@ export const environment = {
   emailjs: {
     publicKey: 'UG2vCPOYYGaqypUxH',
     serviceId: 'service_i6vhsrl',
-    templateId: 'template_kdkfvhi]'
+    templateId: 'template_kdkfvhi'
   }
 };
 

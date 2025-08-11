@@ -172,34 +172,34 @@ html, body {
 
 /* Responsive Paris Images */
 .banner-image-content[data-image*="paris.webp"] {
-  background-image: url('/assets/images/paris.webp') !important;
+  background-image: url('/assets/images/Paris/paris.webp') !important;
 }
 
 /* Mobile screens (below 768px) - use square version */
 @media (max-width: 767px) {
   .banner-image-content[data-image*="paris.webp"] {
-    background-image: url('/assets/images/parisSquare.webp') !important;
+    background-image: url('/assets/images/Paris/parisSquare.webp') !important;
   }
 }
 
 /* Tablet screens (768px to 1199px) - use regular version */
 @media (min-width: 768px) and (max-width: 1199px) {
   .banner-image-content[data-image*="paris.webp"] {
-    background-image: url('/assets/images/paris.webp') !important;
+    background-image: url('/assets/images/Paris/paris.webp') !important;
   }
 }
 
 /* Wide screens (1200px and up) */
 @media (min-width: 1200px) {
   .banner-image-content[data-image*="paris.webp"] {
-    background-image: url('/assets/images/parisW.webp') !important;
+    background-image: url('/assets/images/Paris/parisW.webp') !important;
   }
 }
 
 /* Ultra wide screens (1600px and up) */
 @media (min-width: 1600px) {
   .banner-image-content[data-image*="paris.webp"] {
-    background-image: url('/assets/images/parisUW.webp') !important;
+    background-image: url('/assets/images/Paris/parisUW.webp') !important;
   }
 }
 

@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'paris',
       title: 'Trip to France',
-      image: 'assets/images/paris.webp',
+      image: 'assets/images/Paris/paris.webp',
       description:
         'Experience the magic of Paris through music and performance. Join us for an unforgettable trip celebrating the romance, culture, and artistic spirit of the City of Light.',
       date: 'April 11, 2026- April 22, 2026',
@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'risingStar',
       title: 'Catch a Rising Star',
-      image: 'assets/images/risingSquare.png',
+      image: 'assets/images/Catch a Rising Star/risingSquare.webp',
       description:
         "Experience tomorrow's legends today! **Catch a Rising Star** showcases extraordinary young talents from **The Juilliard School of Music** and others in an unforgettable evening of artistry.\n\nYour attendance helps shape the future of music.",
       date: 'Oct 9, 2025',
@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'Broadway Blockbusters',
       title: 'Broadway Blockbusters',
-      image: 'assets/images/BBRIntegratedSquare.webp',
+      image: 'assets/images/Broadway Blockbusters/BBRIntegratedSquare.webp',
       description: `
 **You know them – you love them!**  
 Favorites from *The Phantom of the Opera*, *Cats*, *Les Misérables*, *West Side Story*, and many more.  
@@ -131,7 +131,7 @@ This intimate, elegant, and family-friendly show is **guaranteed to please** —
     {
       id: 'christmasTimothys',
       title: 'Christmas Spectacular',
-      image: 'assets/images/CSsquare.png',
+      image: 'assets/images/Christmas Spectacular/CSsquare.webp',
       description: `
 **Step into a world of holiday wonder** as the Central Florida Lyric Opera presents  
 **Christmas Spectacular** — an unforgettable evening of music, joy, and festive cheer.  
@@ -156,7 +156,7 @@ A celebration sure to leave you filled with the spirit of Christmas.
     {
       id: 'LW',
       title: 'An Intimate Evening of Andrew LLoyd Webber',
-      image: 'assets/images/AWRRRR1Square.png',
+      image: 'assets/images/Extra Shows/AWSquare.webp',
       description: `
 **Celebrate the legendary music of Andrew Lloyd Webber** with Maestro Bill Doherty  
 and the Central Florida Lyric Opera Soloists and Orchestra — **January 9th at the Savannah Center**.  
@@ -180,7 +180,7 @@ Ashley Thunder, Kayla Tassone, and others.
     {
       id: 'Broadway Stars',
       title: 'Broadway Stars with Grant Norman',
-      image: 'assets/images/grantPhantomSquare.png',
+      image: 'assets/images/Extra Shows/grantPhantomSquare.webp',
       description: `
 **Join Master of Ceremonies Grant Norman** — best known for his portrayal of *The Phantom* in  
 *The Phantom of the Opera* (Broadway) — as he takes us on a musical journey with fellow Broadway stars:  
@@ -212,7 +212,7 @@ Expect:
     {
       id: 'Carmen',
       title: "Bizet's Carmen",
-      image: 'assets/images/Carmen ArtworkSquare.png',
+      image: 'assets/images/Extra Shows/carmenSquare.webp',
       description: `
 **Passion. Danger. Seduction.**  
 
@@ -234,7 +234,7 @@ Experience the thrill of opera at its most intoxicating — where **love and fat
     {
       id: 'CTW',
       title: 'Change The World',
-      image: 'assets/images/CW3 Square.png',
+      image: 'assets/images/Extra Shows/CW3 Square.webp',
       description: `
 **Join us for the annual tradition of *Change The World*** — with two performances featuring  
 Maestro Bill Doherty and many other talented local artists, singing songs of **Inspiration, Love, and Hope** for **World Peace**.  
@@ -259,7 +259,7 @@ Don’t miss the return of the concert once called:
     {
       id: 'MovieMagic',
       title: 'Movie Magic',
-      image: 'assets/images/movieMagic.webp',
+      image: 'assets/images/Extra Shows/movieMagic.webp',
       description: `
 **Step into the spotlight of Hollywood’s golden moments!**  
 
@@ -279,7 +279,7 @@ Relive the magic of cinema through **unforgettable melodies performed live**.
     {
       id: 'America',
       title: 'Celebrate America',
-      image: 'assets/images/CA1Square.png',
+      image: 'assets/images/Extra Shows/CA1Square.webp',
       description: `
 **Celebrate America** is an evening of music and gratitude,  
 honoring the men and women who have worn our nation’s uniform.  
@@ -302,7 +302,7 @@ Join us, lift your voices, and let the **power of music** remind us all of what 
     {
       id: 'Curtain',
       title: 'Raise The Curtain (Opening Season Concert)',
-      image: 'assets/images/curtain.webp',
+      image: 'assets/images/Members Shows/curtain.webp',
       description: '',
       date: 'Sep 25, 2025',
       venue: 'Laurel Manor',
@@ -314,7 +314,7 @@ Join us, lift your voices, and let the **power of music** remind us all of what 
     {
       id: 'popera',
       title: 'Popera',
-      image: 'assets/images/popera.webp',
+      image: 'assets/images/Members Shows/popera.webp',
       description: '',
       date: 'Oct 23, 2025',
       venue: 'Laurel Manor',
@@ -326,7 +326,7 @@ Join us, lift your voices, and let the **power of music** remind us all of what 
     {
       id: 'christmasWorld',
       title: 'Christmas Around the World',
-      image: 'assets/images/Christmas-World (2).webp',
+      image: 'assets/images/Members Shows/Christmas-World (2).webp',
       description: '',
       date: 'Dec 14, 2025',
       venue: 'Laurel Manor',
@@ -338,7 +338,7 @@ Join us, lift your voices, and let the **power of music** remind us all of what 
     {
       id: 'Mozart',
       title: 'Mostly Mozart',
-      image: 'assets/images/mozart.webp',
+      image: 'assets/images/Members Shows/mozart.webp',
       description: '',
       date: 'Jan 22, 2026',
       venue: 'Laurel Manor',
@@ -350,7 +350,7 @@ Join us, lift your voices, and let the **power of music** remind us all of what 
     {
       id: '3Tenors',
       title: '3 Tenors Plus One',
-      image: 'assets/images/soon.png',
+      image: 'assets/images/soon.webp',
       description: '',
       date: 'Feb 20, 2026',
       venue: 'The Sharon Performing Arts Center',
@@ -362,7 +362,7 @@ Join us, lift your voices, and let the **power of music** remind us all of what 
     {
       id: 'BSR',
       title: 'Queens',
-      image: 'assets/images/queens.png',
+      image: 'assets/images/Members Shows/queens.webp',
       description: '',
       date: 'Feb 26, 2026',
       venue: 'Laurel Manor',
@@ -374,7 +374,7 @@ Join us, lift your voices, and let the **power of music** remind us all of what 
     {
       id: 'BSR',
       title: 'Back Stage Romance (Love Songs from Opera & Musical Theater)',
-      image: 'assets/images/Romance.webp',
+      image: 'assets/images/Members Shows/Romance.webp',
       description: '',
       date: 'Mar 26, 2026',
       venue: 'Laurel Manor',
@@ -386,7 +386,7 @@ Join us, lift your voices, and let the **power of music** remind us all of what 
     {
       id: 'Voices',
       title: 'Voices of Spring (Music of Operetta)',
-      image: 'assets/images/voicesOfSpring.png',
+      image: 'assets/images/Members Shows/voicesOfSpring.png',
       description: '',
       date: 'May 28, 2026',
       venue: 'Laurel Manor',

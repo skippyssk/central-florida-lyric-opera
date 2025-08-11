@@ -20,7 +20,7 @@ export class ResidentArtistsComponent implements OnInit {
     {
       name: 'Maestro Bill Doherty',
       title: 'President, Pianist, Voice Teacher/Coach, Composer, and Conductor',
-      image: 'assets/images/bill.webp',
+      image: 'assets/images/Resident Artist Teachers/Bill Doherty/bill.webp',
       fullBiography: `Maestro Bill Doherty has been performing as a concert pianist since the age of four and continues to delight audiences all over the world with his virtuosity at the keyboard. His musical studies included intensive training in piano, conducting, musical composition and voice, studying with such well-known teachers as Albert Bowen (Tanglewood), Barbara Marchesani, Pasquale Caputo (Mohawk Valley Opera), Solomon Mikowski and Sonia Vargas (Manhattan School of Music), Abraham Kaplan (Juilliard School of Music), Carmen Savoca and Peyton Hibbitt (Tri-Cities Opera, NY), and Rita Shane (Metropolitan Opera, Vienna StaatsOper). As an operatic tenor, he sang with the Mohawk Valley Opera and the Tri-Cities Opera, and was later mentored by the legendary soprano Licia Albanese (Metropolitan Opera, La Scala).
 
  
@@ -39,15 +39,15 @@ Year after year, Mr. Doherty has served as adjudicator for the Licia Albanese-Pu
 
 He is Founder and General Director of the Central Florida Lyric Opera, Inc. and is the Director of Music at St. Timothy’s Catholic Church (The Villages, FL).  His work with the International Opera Center of America, Central Florida Lyric Opera’s International Exchange Program, has been recognized and commended by both Florida Governor Charlie Crist and United States President George W. Bush. Among his many honors and awards, Mr. Doherty is the recipient of the New York State Council on the Arts Humanities Award and his signature has been immortalized on the “Muro di Alassio” in Alassio, Italy`,
       galleryImages: [
-        'assets/images/bill1.webp',
-        'assets/images/bill2.webp',
-        'assets/images/bill3.webp',
+        'assets/images/Resident Artist Teachers/Bill Doherty/bill1.webp',
+        'assets/images/Resident Artist Teachers/Bill Doherty/bill2.webp',
+        'assets/images/Resident Artist Teachers/Bill Doherty/bill3.webp',
       ],
     },
     {
       name: 'Molly Fillmore',
       title: 'Soprano',
-      image: 'assets/images/mollyFilmore.webp',
+      image: 'assets/images/Resident Artist Teachers/Molly Filmore/mollyFilmore.webp',
       fullBiography: `Hailed by the Neue Zürcher Zeitung as "phenomenal" in her role debut as Marietta in Die tote Stadt, Molly Fillmore made her Metropolitan Opera debut as Helmwige in the Met’s newest, Grammy-winning production of Der Ring der Nibelungen, conducted by James Levine and directed by Robert Lepage. She returned to the Met to sing a principal role in Satyagraha by Philip Glass. Both Satyagraha and Die Walküre were shown live in movie theaters around the world as part of the Met’s Live in HD series as well as on PBS stations nationwide as part of their Great Performances series. She can be heard and seen on Deutsche Grammophon’s recent releases of the CD and DVD of Die Walküre from The Metropolitan Opera under the musical direction of James Levine and Fabio Luisi, as well as the 2021 release of Satyagraha from The Metropolitan Opera on both CD, DVD, and Spotify.
 
 Her soprano debut was the title role of Salome at San Francisco Opera with music director Nicola Luisotti conducting. She covered the role of Brünnhilde and sang the role of Ortlinde in Francesca Zambello’s San Francisco Opera production of Die Walküre, conducted by Donald Runnicles. Molly Fillmore made her role debut as Marietta/Marie in Die tote Stadt with Theater St. Gallen, Switzerland in a production directed by Jan Schmidt-Garré and conducted by Otto Tausk.  She sang her first Tosca in 2016 and a year later debuted a second Puccini role, that of Turandot, opposite tenor Arnold Rawls. Also in 2017 she had role debut as Micaela in Carmen, a production for Central Florida Lyric Opera for which she also made her professional debut as a stage director.  Other American opera appearances include Seattle Opera, Arizona Opera, Spoleto Festival, and Washington National Opera.
@@ -63,15 +63,15 @@ Molly Fillmore made her solo operatic debut with the Washington National Opera a
 Alongside her singing activities, Molly Fillmore has long been an active pedagogue. While pursuing her Master's degree, she began her teaching career as a voice teacher for St. Alban's School and the National Cathedral School in Washington, D.C.  She has taught voice at the university level since 2004, first at Michigan State University, and since 2014, at the University of North Texas College of Music, where she became Division Chair in 2017.   
       `,
       galleryImages: [
-        'assets/images/molly2.webp',
-        'assets/images/molly1.webp',
-        'assets/images/molly3.webp',
+        'assets/images/Resident Artist Teachers/Molly Filmore/molly2.webp',
+        'assets/images/Resident Artist Teachers/Molly Filmore/molly1.webp',
+        'assets/images/Resident Artist Teachers/Molly Filmore/molly3.webp',
       ],
     },
     {
       name: 'Maestro Andrea Elena',
       title: 'Tenor',
-      image: 'assets/images/andreaElena.webp',
+      image: 'assets/images/Resident Artist Teachers/Andrea Elena/andreaElena.webp',
       fullBiography: `Tenor, Andrea Elena has sung over 90 leading tenor roles in virtually every opera house in the world including La Scala (Milan), Teatro Comunale (Florence), Teatro Regio (Turin), La Fenice (Venice), Teatro dell’Opera (Rome), Teatro Filarmonico and the Arena (Verona) Teatro Comunale (Bologna) Teatro Regio (Parma) Teatro Bellini (Carania) among others.  In addition, he has sung in Germany, Holland, Austria, France, Switzerland, Spain, Portugal, England, Ireland, Norway, Denmark, Czechoslovakia, Rumania, Russia, Ukraine, Greece, Turkey, United States, Japan, South Korea, Israel, Egypt, Morocco, South Africa, South America, Argentina, Venezuela, Mexico, Peru, Brazil, and China.  
 
 Maestro Elena has received acclaim from such great artists as Giuseppe di Stefano, Mario Del Monaco, Placido Domingo, Luciano Pavarotti, and Alfredo Kraus.    In addition, he has been the recipient of prestigious honors from The King Olav of Norway, The Queen Giuliana of Holland, the Premier Aznar of Spain, Henry Kissinger, The Princess of Morocco Yasmine, Nelson Mandela, President Scalfaro of Italy, the Premier Netanyao of Israel, President Mitterand of France, Helmut Kohl, Lady Diana and Prince Charles, and others too numerous to list.  
@@ -85,15 +85,15 @@ During his career, he has shared the stage on numerous occasions with such great
 Most recently, while continuing his personal opera and concert activities, he has devoted himself to the future of opera and young, gifted performers by teaching privately, stage directing opera productions throughout the world and by coaching singers in master classes, both in Italy and abroad. 
       `,
       galleryImages: [
-        'assets/images/andreaElena.webp',
-        'assets/images/andrea1.webp',
-        'assets/images/andrea2.webp',
+        'assets/images/Resident Artist Teachers/Andrea Elena/andreaElena.webp',
+        'assets/images/Resident Artist Teachers/Andrea Elena/andrea1.webp',
+        'assets/images/Resident Artist Teachers/Andrea Elena/andrea2.webp',
       ],
     },
     {
       name: 'Grant Norman',
       title: 'Broadway Star, Acting Teacher, and Stage Director',
-      image: 'assets/images/grantNorman.webp',
+      image: 'assets/images/Resident Artist Teachers/Grant Norman/grantNorman.webp',
       fullBiography: `Best known for his portrayal of the Phantom in the Broadway production of Andrew LLoyd Webber's Phantom of the Opera, Broadway star Grant Norman, himself a graduate of Central Florida Lyric Opera's Resident Artist Training Program, now returns to the company as Acting Teacher and Stage Director..
 
 Grant Norman started out in theater with the Red River Dance & Performing Company in Fargo, ND.  He was a member of their company for 4 years, during which time he worked his way through the ranks to become a principal dancer.  During his 11 original productions with the company he was fortunate enough to work with its directors, Kathy & Eddie Gasper. Their experience and generosity proved to be invaluable to Grant.  Kathy was a successful classical ballerina and Eddie was a Broadway veteran and former Assistant to Bob Fosse. Under their tutelage he learned Tap, Jazz, Ballet and Character dancing. 
@@ -110,9 +110,9 @@ Most recently, Grant Norman finished a 2 1/2 year run playing the role of Gaston
  
       `,
       galleryImages: [
-        'assets/images/grant1.webp',
-        'assets/images/grant2.webp',
-        'assets/images/grant3.webp',
+        'assets/images/Resident Artist Teachers/Grant Norman/grant1.webp',
+        'assets/images/Resident Artist Teachers/Grant Norman/grant2.webp',
+        'assets/images/Resident Artist Teachers/Grant Norman/grant3.webp',
       ],
     },
     // ... Similar updates for Andrea Elena and Grant Norman
