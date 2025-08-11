@@ -9,20 +9,6 @@ import {
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
-// ShowListShow interface moved here since we removed the show-list component
-export interface ShowListShow {
-  title: string;
-  date: string;
-  time?: string;
-  venue: string;
-  description: string;
-  image: string;
-  available: boolean;
-  buttonText?: string;
-  ticketLink?: string;
-}
-
-// --- Interfaces ---
 interface Show {
   id: string;
   title: string;
