@@ -110,7 +110,21 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.isBrowser) {
       document.body.style.overflow = '';
     }
-    this.router.navigateByUrl(route);
+    
+    // Handle tickets route - redirect to homepage and scroll to events section
+    if (route === '/tickets') {
+      this.router.navigateByUrl('/').then(() => {
+        // Scroll to events section after navigation
+        setTimeout(() => {
+          const eventsSection = document.querySelector('.lesser-shows-section');
+          if (eventsSection) {
+            eventsSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      });
+    } else {
+      this.router.navigateByUrl(route);
+    }
   }
 
   // Close menu when clicking outside

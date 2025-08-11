@@ -82,10 +82,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Catch a Rising Star (Prodigies: Stars of Tomorrow) ',
       image: 'assets/images/CRSProd.png',
       description:
-        'Experience tomorrow’s legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music in an unforgettable evening of artistry. Your attendance helps shape the future of music.',
-      date: 'Oct 30, 2025',
+        "Experience tomorrow's legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music in an unforgettable evening of artistry. Your attendance helps shape the future of music.",
+      date: 'Oct 9, 2025',
       venue: 'St. Timothys Catholic Church',
-      time: '3 PM & 7 PM',
+      time: '4 PM & 7 PM',
       ticketLink:
         'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
       available: false,
@@ -96,10 +96,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Christmas Spectacular',
       image: 'assets/images/CSWW.png',
       description:
-        'Celebrate the joy of the season with our Christmas Spectacular! Join us for an enchanting evening of classic holiday favorites, from cherished carols to festive showstoppers—featuring the beautiful voices of the Saint Timothy’s Choir and featured soloists. A heartwarming start to your Christmas celebrations!',
-      date: 'Dec 18, 2025',
+        "Celebrate the joy of the season with our Christmas Spectacular! Join us for an enchanting evening of classic holiday favorites, from cherished carols to festive showstoppers—featuring the beautiful voices of the Saint Timothy's Choir and featured soloists. A heartwarming start to your Christmas celebrations!",
+      date: 'Dec 11, 2025',
       venue: 'St. Timothys Catholic Church',
-      time: '3 PM & 7 PM',
+      time: '4 PM & 7 PM',
       ticketLink:
         'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
       available: false,
@@ -108,12 +108,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
   lesserShows: Show[] = [
     {
-      id: 'movieMagic',
+      id: 'risingStar',
+      title: 'Catch a Rising Star',
+      image: 'assets/images/risingSquare.png',
+      description:
+        "Experience tomorrow's legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music and others in an unforgettable evening of artistry. Your attendance helps shape the future of music.",
+      date: 'Oct 9, 2025',
+      venue: 'St. Timothys Catholic Church',
+      time: '4 PM & 7 PM',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Tickets Available Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
+    {
+      id: 'Broadway Blockbusters',
       title: 'Broadway Blockbusters',
       image: 'assets/images/BBRIntegratedSquare.webp',
-      description: '',
-      date: 'Oct 09, 2025',
+      description:
+        'You know them – you love them! Favorites from The Phantom of the Opera, Cats, Les Misérables, West Side Story, and many more. Starring Heather Ard, Michelle Struhar, Victoria Sexton, Andrew Struhar, Scotty Tomas, Justin Scarlat, Kaitlyn McMonigle, David Gehring, Sam Reynolds, and others perform solos and booming group numbers from everyone’s favorite Broadway Shows.  Maestro Bill Doherty accompanies magnificently on the piano. This intimate, elegant and family-friendly show is guaranteed to please ’cause everybody loves Broadway!',
+      date: 'Oct 29, 2025',
       venue: 'The Savannah Center',
+      time: '4 PM & 7 PM',
       ticketLink:
         'https://www.thevillagesentertainment.com/buy-tickets/broadway-blockbusters/',
       available: true,
@@ -122,37 +138,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
 
     {
-      id: 'risingStar',
-      title: 'Catch a Rising Star',
-      image: 'assets/images/risingSquare.png',
-      description: '',
-      date: 'Oct 30, 2025',
-      venue: 'St. Timothys Catholic Church',
-      ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Coming Soon',
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
-    },
-
-    {
       id: 'christmasTimothys',
       title: 'Christmas Spectacular',
       image: 'assets/images/CSsquare.png',
       description: '',
-      date: 'Dec 18, 2025',
+      date: 'Dec 11, 2025',
       venue: 'St. Timothys Catholic Church',
+      time: '4 PM & 7 PM',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
-      buttonText: 'Coming Soon',
+      buttonText: 'Tickets Available Soon',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
     {
       id: 'LW',
       title: 'An Intimate Evening of Andrew LLoyd Webber',
       image: 'assets/images/AWRRRR1Square.png',
-      description: '',
+      description:
+        'Celebrate the legendary music of Andrew Lloyd Webber with Maestro Bill Doherty and the Central Florida Lyric Opera soloists and Orchestra on January 9th at the Savannah Center. Relish melodies from The Phantom of the Opera, Cats, Sunset Boulevard, Jesus Christ Superstar, and more! Starring Angie Rose, Miguel Salas, Scotty Tomas, Victoria Sexton, Justin Scarlat, David Gehring, Ashley Thunder, Kayla Tassone, and others.',
       date: 'Jan 09, 2026',
-      venue: 'The Savaannah Center',
+      venue: 'The Savannah Center',
       ticketLink:
         'https://www.thevillagesentertainment.com/buy-tickets/an-intimate-evening-of-andrew-lloyd-webber/',
       available: true,
@@ -168,7 +173,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       venue: 'St. Timothys Catholic Church',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
-      buttonText: 'Coming Soon',
+      buttonText: 'Tickets Available Soon',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
 
@@ -179,9 +184,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       description: '',
       date: 'Jan 30, 2026',
       venue: 'The Sharon Performing Arts Center',
+      time: '3 PM & 7 PM',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
-      buttonText: 'Coming Soon',
+      buttonText: 'Tickets Available Soon',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
 
@@ -189,8 +195,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'CTW',
       title: 'Change The World',
       image: 'assets/images/CW3 Square.png',
-      description: '',
-      date: 'Jan 22, 2026',
+      description:
+        'Join us for the annual tradition of Change The World, with two performances featuring Maestro Bill Doherty and many other talented local artists as they sing songs of Inspiration, Love, and Hope for World Peace. Uplifting songs from this performance will include classic favorites and renditions of modern music meant to bring happiness to anyone who hears these talented musicians. Partial proceeds from this concert filled with good-will and joy will benefit the National Multiple Sclerosis Society. Don\'t miss the return of the concert that was called "A triumph of community, and a glorious example of how music can heal the soul".',
+      date: 'March 13, 2026',
+      time: '3 PM & 7 PM',
       venue: 'The Sharon Performing Arts Center',
       ticketLink:
         'https://www.thesharon.com/event.php?id=1133&title=Change-The-World',
@@ -200,15 +208,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
 
     {
-      id: 'Fernando',
-      title: 'Together Again',
-      image: 'assets/images/fernando.webp',
+      id: 'MovieMagic',
+      title: 'Movie Magic',
+      image: 'assets/images/movieMagic.webp',
       description: '',
-      date: 'April 25, 2026',
+      date: 'April 15, 2026',
       venue: 'Savannah Center',
+      time: '4 PM & 7 PM',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
-      buttonText: 'Coming Soon',
+      buttonText: 'Tickets Available Soon',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
     {
@@ -220,7 +229,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       venue: 'St. Timothys Catholic Church',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
-      buttonText: 'Coming Soon',
+      buttonText: 'Tickets Available Soon',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
   ];
@@ -234,8 +243,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Sep 25, 2025',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Club Members Only',
+      available: true,
+      buttonText: 'Join Club',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
@@ -246,8 +255,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Oct 23, 2025',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Club Members Only',
+      available: true,
+      buttonText: 'Join Club',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
@@ -257,10 +266,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       description: '',
       date: 'Dec 14, 2025',
       venue: 'Laurel Manor',
-      ticketLink: '',
-      available: false,
-      buttonText: 'Club Members Only',
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: true,
+      buttonText: 'Join Club',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
       id: 'Mozart',
@@ -270,9 +279,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Jan 22, 2026',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Club Members Only',
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
+      available: true,
+      buttonText: 'Join Club',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
       id: '3Tenors',
@@ -282,9 +291,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Feb 20, 2026',
       venue: 'The Sharon Performing Arts Center',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Club Members Only',
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
+      available: true,
+      buttonText: 'Join Club',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
       id: 'BSR',
@@ -294,9 +303,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Feb 26, 2026',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Club Members Only',
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
+      available: true,
+      buttonText: 'Join Club',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
       id: 'French',
@@ -306,9 +315,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Jan 30, 2026',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Club Members Only',
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
+      available: true,
+      buttonText: 'Join Club',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
       id: 'Voices',
@@ -318,9 +327,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'May 28, 2026',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Club Members Only',
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
+      available: true,
+      buttonText: 'Join Club',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
     },
   ];
 
@@ -553,18 +562,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   handleTicketButtonClick(show: Show | null): void {
     if (!show) return;
 
-    const isTicketPurchase = show.available && show.buttonText !== 'Join Club';
-    const isJoinClubAction = show.buttonText === 'Join Club' && !!show.joinLink;
+    // For Opera Club shows (Join Club button), go directly to the join link without popup
+    if (show.buttonText === 'Join Club' && show.joinLink) {
+      if (this.isBrowser) {
+        window.open(show.joinLink, '_blank');
+      }
+      return;
+    }
 
-    if (isTicketPurchase || isJoinClubAction) {
+    const isTicketPurchase = show.available && show.buttonText !== 'Join Club';
+
+    if (isTicketPurchase) {
       this.currentTicketLink = show.ticketLink;
       this.currentJoinLink = show.joinLink || this.INNER_CIRCLE_JOIN_URL;
       this.showInnerCircleModal = true;
       this.closeMessageBox();
-    } else if (show.buttonText === 'Club Members Only' && show.joinLink) {
-      this.messageBoxText = `Tickets for "${show.title}" are available exclusively to Opera Club members.`;
-      this.showMessageBox = true;
-      this.closeInnerCircleModal();
     } else {
       // For unavailable shows, show the Maestro's Inner Circle modal instead of simple message
       this.currentTicketLink = null; // No direct ticket link for unavailable shows

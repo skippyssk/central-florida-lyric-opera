@@ -104,6 +104,7 @@
   font-size: 1.3rem;
   color: #d4b174;
   margin: 0 0 8px;
+  pointer-events: none;
 }
 .show-list-info.oc-info h3 {
   font-size: 1rem;
@@ -114,6 +115,7 @@
   color: #ccc;
   margin-bottom: 8px;
   line-height: 1.4;
+  pointer-events: none;
 }
 .show-list-info.oc-info p {
   font-size: 0.8rem;

@@ -95,12 +95,12 @@
     </div>
 
     <div class="lesser-shows-section">
-      <h2>More Events</h2>
+      <h2>Events</h2>
       <app-show-list [shows]="lesserShows" mode="lesser" [mobile]="false" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
     </div>
 
     <div class="OCShows-section">
-      <h2>Opera Club Shows</h2>
+      <h2>Member Only Shows</h2>
       <app-show-list [shows]="OCShows" mode="oc" [mobile]="false" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
     </div>
   </div>
@@ -109,10 +109,10 @@
     <h2>Upcoming Performances</h2>
     <app-show-list [shows]="mainShows" mode="main" [mobile]="true" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
     
-    <h2>More Events</h2>
+    <h2>Events</h2>
     <app-show-list [shows]="filteredLesserShows" mode="lesser" [mobile]="true" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
 
-    <h2>Opera Club Shows</h2>
+    <h2>Member Only Shows</h2>
     <app-show-list [shows]="OCShows" mode="oc" [mobile]="true" (showButtonClick)="onShowButtonClick($event)"></app-show-list>
   </div>
 
