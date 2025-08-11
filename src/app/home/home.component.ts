@@ -163,6 +163,28 @@ Ashley Thunder, Kayla Tassone, and others.
       buttonText: 'Buy Tickets',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
+
+    {
+      id: 'Carmen',
+      title: "Bizet's Carmen",
+      image: 'assets/images/Extra Shows/carmenSquare.webp',
+      description: `
+**Passion. Danger. Seduction.**  
+
+Step into the world of *Carmen*, Bizet’s fiery masterpiece that has captivated audiences for generations.  
+
+From the irresistible **Habanera** to the electrifying **Toreador Song**, every moment bursts with drama, romance, and unforgettable melody.  
+
+Experience the thrill of opera at its most intoxicating — where **love and fate collide** in a story you’ll never forget.
+`,
+      date: 'Jan 30, 2026',
+      venue: 'The Sharon Performing Arts Center',
+      time: '3 PM & 7 PM',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Tickets Available Soon',
+      joinLink: this.INNER_CIRCLE_JOIN_URL,
+    },
     {
       id: 'Broadway Stars',
       title: 'Broadway Stars with Grant Norman',
@@ -189,28 +211,6 @@ Expect:
       date: 'Feb 12, 2026',
       time: '4 PM & 7 PM',
       venue: 'St. Timothys Catholic Church',
-      ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: false,
-      buttonText: 'Tickets Available Soon',
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
-    },
-
-    {
-      id: 'Carmen',
-      title: "Bizet's Carmen",
-      image: 'assets/images/Extra Shows/carmenSquare.webp',
-      description: `
-**Passion. Danger. Seduction.**  
-
-Step into the world of *Carmen*, Bizet’s fiery masterpiece that has captivated audiences for generations.  
-
-From the irresistible **Habanera** to the electrifying **Toreador Song**, every moment bursts with drama, romance, and unforgettable melody.  
-
-Experience the thrill of opera at its most intoxicating — where **love and fate collide** in a story you’ll never forget.
-`,
-      date: 'Jan 30, 2026',
-      venue: 'The Sharon Performing Arts Center',
-      time: '3 PM & 7 PM',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
       buttonText: 'Tickets Available Soon',
@@ -249,10 +249,16 @@ Don’t miss the return of the concert once called:
       description: `
 **Step into the spotlight of Hollywood’s golden moments!**  
 
-*Movie Magic* brings you the greatest songs from the silver screen, including beloved hits like  
+*Movie Magic* brings you the greatest songs from the silver screen, featuring beloved hits like  
 **Somewhere Over the Rainbow**, **Pure Imagination**, and timeless favorites from *Disney* and *The Sound of Music*.  
 
-Relive the magic of cinema through **unforgettable melodies performed live**.
+**Experience the magic of cinema through unforgettable melodies performed live** by our talented ensemble,  
+accompanied by the **Central Florida Lyric Opera Orchestra** under the direction of **Maestro Bill Doherty**.  
+
+From **classic musicals** to **modern blockbusters**, this spectacular evening celebrates the power of music  
+to transport us to worlds of wonder, romance, and adventure.  
+
+**Don't miss this enchanting journey through the greatest songs ever written for the silver screen!**
 `,
       date: 'April 15, 2026',
       venue: 'Savannah Center',
