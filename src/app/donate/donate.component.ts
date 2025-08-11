@@ -9,7 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./donate.component.css'],
 })
 export class DonateComponent {
-  donateImages = ['assets/images/threeTenors.webp', 'assets/images/bill2.webp'];
+  donateImages = [
+    'assets/images/Carmen Artwork.png',
+    'assets/images/bill2.webp',
+  ];
 
   paypalDonateUrl = 'https://www.paypal.com/ncp/payment/4KVSTHRDKZGQA';
 

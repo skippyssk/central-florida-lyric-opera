@@ -62,7 +62,7 @@ export class MediaComponent implements OnInit {
       title: "Maestro Bill Doherty's Requiem - Requiem Eternam",
       description:
         "Experience the profound beauty of the first movement of Maestro Bill Doherty's Requiem, a powerful and unique composition that holds the distinction of being performed at the Vatican. In this video, Maestro Doherty's masterful blend of solemnity and grace is brought to life, offering a deeply moving musical journey that resonates with both reverence and emotion. The composition reflects Maestro Doherty's exceptional talent and his ability to convey the profound themes of life, death, and redemption through music.",
-      source: 'https://www.youtube.com/embed/SKkvNbPDha0',
+      source: 'https://www.youtube.com/embed/gLzgM_2XB4I?si=n4DohO61NwgxqZdY',
     },
     {
       type: 'video',

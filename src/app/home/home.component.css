@@ -169,67 +169,22 @@ html, body {
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
 
-/* Responsive BBR Integrated Images */
-.banner-image-content[data-image*="BBRIntegrated.webp"] {
-  background-image: url('/assets/images/BBRIntegrated.webp') !important;
+/* Responsive Paris Images */
+.banner-image-content[data-image*="paris.webp"] {
+  background-image: url('/assets/images/paris.webp') !important;
 }
 
 /* Wide screens (1200px and up) */
 @media (min-width: 1200px) {
-  .banner-image-content[data-image*="BBRIntegrated.webp"] {
-    background-image: url('/assets/images/BBRIntegratedW.webp') !important;
+  .banner-image-content[data-image*="paris.webp"] {
+    background-image: url('/assets/images/parisW.webp') !important;
   }
 }
 
 /* Ultra wide screens (1600px and up) */
 @media (min-width: 1600px) {
-  .banner-image-content[data-image*="BBRIntegrated.webp"] {
-    background-image: url('/assets/images/BBRIntegratedUW2.webp') !important;
-  }
-}
-
-/* Responsive CRS Images */
-.banner-image-content[data-image*="CRSProd.png"] {
-  background-image: url('/assets/images/CRSProd.png') !important;
-}
-
-/* Wide screens (1200px and up) */
-@media (min-width: 1200px) {
-  .banner-image-content[data-image*="CRSProd.png"] {
-    background-image: url('/assets/images/CRSProdW.png') !important;
-  }
-}
-
-/* Ultra wide screens (1600px and up) */
-@media (min-width: 1600px) {
-  .banner-image-content[data-image*="CRSProd.png"] {
-    background-image: url('/assets/images/CRSProdUW.png') !important;
-  }
-}
-
-/* Responsive CS Images */
-.banner-image-content[data-image*="CSWW.png"] {
-  background-image: url('/assets/images/CSsquare.png') !important;
-}
-
-/* Medium screens (768px and up) */
-@media (min-width: 768px) {
-  .banner-image-content[data-image*="CSWW.png"] {
-    background-image: url('/assets/images/CSWW.png') !important;
-  }
-}
-
-/* Wide screens (1200px and up) */
-@media (min-width: 1200px) {
-  .banner-image-content[data-image*="CSWW.png"] {
-    background-image: url('/assets/images/CSWW.png') !important;
-  }
-}
-
-/* Ultra wide screens (1600px and up) */
-@media (min-width: 1600px) {
-  .banner-image-content[data-image*="CSWW.png"] {
-    background-image: url('/assets/images/CSUW.png') !important;
+  .banner-image-content[data-image*="paris.webp"] {
+    background-image: url('/assets/images/parisUW.webp') !important;
   }
 }
 
@@ -355,11 +310,11 @@ html, body {
 }
 
 .overlay-email-button {
-  background-color: #8a7449;
+  background-color: #b8995f;
 }
 
 .overlay-email-button:hover {
-  background-color: #a08a5f;
+  background-color: #d4b174;
 }
 
 .overlay-donate-button {

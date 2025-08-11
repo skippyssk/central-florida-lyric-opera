@@ -30,7 +30,7 @@ export class ContactComponent implements OnInit {
   contactInfo = {
     phone: '(407) 620-9629',
     address: '1425 Martinez Dr, The Villages, FL 32159',
-    email: 'admin@cflopera.com',
+    email: 'admin@cflopera.org',
   };
 
   contactForm!: FormGroup;

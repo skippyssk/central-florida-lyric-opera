@@ -5,8 +5,6 @@ import {
   HostListener,
   Inject,
   PLATFORM_ID,
-  Renderer2,
-  ElementRef,
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -64,45 +62,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   // --- Show Data (Unchanged) ---
   mainShows: Show[] = [
     {
-      id: 'movieMagic',
-      title: 'Broadway Blockbusters',
-      image: 'assets/images/BBRIntegrated.webp',
+      id: 'paris',
+      title: 'Paris',
+      image: 'assets/images/paris.webp',
       description:
-        'Feel the thrill of the Great White Way! Broadway Blockbusters features show-stopping hits from the most beloved musicals of all time—soaring ballads, toe-tapping numbers, and unforgettable melodies that have lit up the stage for decades. A night of pure theatrical magic!',
-      date: 'Oct 29, 2025',
-      venue: 'The Savannah Center',
-      time: '4 PM & 7 PM',
-      ticketLink:
-        'https://www.thevillagesentertainment.com/buy-tickets/broadway-blockbusters/',
-      available: true,
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
-    },
-    {
-      id: 'rising Star',
-      title: 'Catch a Rising Star (Prodigies: Stars of Tomorrow) ',
-      image: 'assets/images/CRSProd.png',
-      description:
-        "Experience tomorrow's legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music in an unforgettable evening of artistry. Your attendance helps shape the future of music.",
-      date: 'Oct 9, 2025',
-      venue: 'St. Timothys Catholic Church',
-      time: '4 PM & 7 PM',
-      ticketLink:
-        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
+        'Experience the magic of Paris through music and performance. Join us for an unforgettable evening celebrating the romance, culture, and artistic spirit of the City of Light.',
+      date: 'Coming Soon',
+      venue: 'TBA',
+      time: 'TBA',
+      ticketLink: '#',
       available: false,
-      joinLink: this.INNER_CIRCLE_JOIN_URL,
-    },
-    {
-      id: 'christmasTimothys',
-      title: 'Christmas Spectacular',
-      image: 'assets/images/CSWW.png',
-      description:
-        "Celebrate the joy of the season with our Christmas Spectacular! Join us for an enchanting evening of classic holiday favorites, from cherished carols to festive showstoppers—featuring the beautiful voices of the Saint Timothy's Choir and featured soloists. A heartwarming start to your Christmas celebrations!",
-      date: 'Dec 11, 2025',
-      venue: 'St. Timothys Catholic Church',
-      time: '4 PM & 7 PM',
-      ticketLink:
-        'https://www.thevillagesentertainment.com/buy-tickets/change-the-world-2/',
-      available: false,
+      buttonText: 'Get Details',
       joinLink: this.INNER_CIRCLE_JOIN_URL,
     },
   ];
@@ -141,7 +111,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'christmasTimothys',
       title: 'Christmas Spectacular',
       image: 'assets/images/CSsquare.png',
-      description: '',
+      description:
+        'Step into a world of holiday wonder as the Central Florida Lyric Opera presents Christmas Spectacular — an unforgettable evening of music, joy, and festive cheer. Featuring beloved Christmas classics, soaring carols, and heartwarming melodies, this dazzling performance brings together the powerful voices of our company, the angelic harmonies of the Saint Timothy’s Choir, and the magic of the season.',
       date: 'Dec 11, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '4 PM & 7 PM',
@@ -157,6 +128,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       description:
         'Celebrate the legendary music of Andrew Lloyd Webber with Maestro Bill Doherty and the Central Florida Lyric Opera soloists and Orchestra on January 9th at the Savannah Center. Relish melodies from The Phantom of the Opera, Cats, Sunset Boulevard, Jesus Christ Superstar, and more! Starring Angie Rose, Miguel Salas, Scotty Tomas, Victoria Sexton, Justin Scarlat, David Gehring, Ashley Thunder, Kayla Tassone, and others.',
       date: 'Jan 09, 2026',
+      time: '4 PM & 7 PM',
       venue: 'The Savannah Center',
       ticketLink:
         'https://www.thevillagesentertainment.com/buy-tickets/an-intimate-evening-of-andrew-lloyd-webber/',
@@ -168,8 +140,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'Broadway Stars',
       title: 'Broadway Stars with Grant Norman',
       image: 'assets/images/grantPhantomSquare.png',
-      description: '',
-      date: 'Jan 20, 2026',
+      description:
+        'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight!  Accompanied on the grand piano by Maestro Bill Doherty.',
+      date: 'Feb 12, 2026',
+      time: '4 PM & 7 PM',
       venue: 'St. Timothys Catholic Church',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
@@ -181,7 +155,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'Carmen',
       title: "Bizet's Carmen",
       image: 'assets/images/Carmen ArtworkSquare.png',
-      description: '',
+      description:
+        'Passion. Danger. Seduction. Step into the world of Carmen, Bizet’s fiery masterpiece that has captivated audiences for generations. From the irresistible Habanera to the electrifying Toreador Song, every moment bursts with drama, romance, and unforgettable melody. Experience the thrill of opera at its most intoxicating—where love and fate collide in a story you’ll never forget.',
       date: 'Jan 30, 2026',
       venue: 'The Sharon Performing Arts Center',
       time: '3 PM & 7 PM',
@@ -211,7 +186,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'MovieMagic',
       title: 'Movie Magic',
       image: 'assets/images/movieMagic.webp',
-      description: '',
+      description:
+        'Step into the spotlight of Hollywood’s golden moments! Movie Magic brings you the greatest songs from the silver screen, including beloved hits like Somewhere Over the Rainbow, Pure Imagination, and timeless favorites from Disney and The Sound of Music. Relive the magic of cinema through unforgettable melodies performed live.',
       date: 'April 15, 2026',
       venue: 'Savannah Center',
       time: '4 PM & 7 PM',
@@ -224,8 +200,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'America',
       title: 'Celebrate America',
       image: 'assets/images/CA1Square.png',
-      description: '',
-      date: 'May 21, 2026',
+      description:
+        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
+      date: 'July 2, 2026',
+      time: '4 PM & 7 PM',
       venue: 'St. Timothys Catholic Church',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
       available: false,
@@ -238,13 +216,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'Curtain',
       title: 'Raise The Curtain (Opening Season Concert)',
       image: 'assets/images/curtain.webp',
-      description:
-        'Step back in time with the charming melodies of classic operas and operettas in a performance full of nostalgia and beautiful music presented by The Opera Club.',
+      description: '',
       date: 'Sep 25, 2025',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: true,
-      buttonText: 'Join Club',
+      available: false,
+      buttonText: 'Tickets Available Soon',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
@@ -255,8 +232,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Oct 23, 2025',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: true,
-      buttonText: 'Join Club',
+      available: false,
+      buttonText: 'Tickets Available Soon',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
@@ -267,8 +244,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Dec 14, 2025',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: true,
-      buttonText: 'Join Club',
+      available: false,
+      buttonText: 'Tickets Available Soon',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
@@ -279,8 +256,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Jan 22, 2026',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: true,
-      buttonText: 'Join Club',
+      available: false,
+      buttonText: 'Tickets Available Soon',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
@@ -291,8 +268,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'Feb 20, 2026',
       venue: 'The Sharon Performing Arts Center',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: true,
-      buttonText: 'Join Club',
+      available: false,
+      buttonText: 'Tickets Available Soon',
+      joinLink: 'https://operaclubofthevillages.com/join-us',
+    },
+    {
+      id: 'BSR',
+      title: 'Queens',
+      image: 'assets/images/Romance.webp',
+      description: '',
+      date: 'Feb 26, 2026',
+      venue: 'Laurel Manor',
+      ticketLink: 'https://operaclubofthevillages.com/join-us',
+      available: false,
+      buttonText: 'Tickets Available Soon',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
@@ -300,23 +289,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Back Stage Romance (Love Songs from Opera & Musical Theater)',
       image: 'assets/images/Romance.webp',
       description: '',
-      date: 'Feb 26, 2026',
+      date: 'Mar 26, 2026',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: true,
-      buttonText: 'Join Club',
-      joinLink: 'https://operaclubofthevillages.com/join-us',
-    },
-    {
-      id: 'French',
-      title: 'La Vie En Rose (French Love Songs)',
-      image: 'assets/images/french.png',
-      description: '',
-      date: 'Jan 30, 2026',
-      venue: 'Laurel Manor',
-      ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: true,
-      buttonText: 'Join Club',
+      available: false,
+      buttonText: 'Tickets Available Soon',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
     {
@@ -327,8 +304,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       date: 'May 28, 2026',
       venue: 'Laurel Manor',
       ticketLink: 'https://operaclubofthevillages.com/join-us',
-      available: true,
-      buttonText: 'Join Club',
+      available: false,
+      buttonText: 'Tickets Available Soon',
       joinLink: 'https://operaclubofthevillages.com/join-us',
     },
   ];
@@ -354,8 +331,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private renderer: Renderer2,
-    private el: ElementRef,
     private cdRef: ChangeDetectorRef
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -427,7 +402,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private updateBannerContainerHeight(): void {
     if (this.isBrowser && !this.isMobile) {
-      this.bannerContainerHeightVh = this.mainShows.length * 100;
+      this.bannerContainerHeightVh = 100; // Single banner section
     } else {
       this.bannerContainerHeightVh = 100;
     }
@@ -436,19 +411,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private setupInitialBannerState(): void {
     if (!this.isBrowser || this.isMobile || this.mainShows.length === 0) return;
 
-    const bannerSections =
-      this.el.nativeElement.querySelectorAll('.banner-section');
-    bannerSections.forEach((section: HTMLElement, index: number) => {
-      const initialOpacity = index === 0 ? '1' : '0';
-      this.renderer.setStyle(section, 'opacity', initialOpacity);
-      this.renderer.setStyle(section, 'transform', 'translateY(0)');
-      this.renderer.setStyle(
-        section,
-        'zIndex',
-        `${this.mainShows.length - index}`
-      );
-    });
-
+    // For single banner, just set up the initial state
     this.currentShow = this.mainShows[0];
     this.currentShowIndex = 0;
     this.showOverlay = true;
@@ -460,73 +423,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   private handleScroll(): void {
     const scrollY = window.scrollY;
     const vh = window.innerHeight;
-    const numShows = this.mainShows.length;
 
-    if (numShows === 0 || this.isMobile) return;
+    if (this.isMobile) return;
 
-    const endOfBannerScroll = (numShows - 1) * vh;
+    // For single banner, just handle fade out when scrolling past
+    const endOfBannerScroll = vh;
 
-    // Calculate which section we're in and progress within that section
-    const currentSection = Math.floor(scrollY / vh);
-    const sectionProgress = (scrollY % vh) / vh;
-
-    // Text updates at 75% reveal
-    let textUpdateIndex = currentSection;
-    if (sectionProgress >= 0.75 && currentSection < numShows - 1) {
-      textUpdateIndex = currentSection + 1;
-    }
-
-    // Clamp to valid range
-    textUpdateIndex = Math.max(0, Math.min(numShows - 1, textUpdateIndex));
-
-    // Update banner sections - images fade out when they go beyond 75% up
-    const bannerSections =
-      this.el.nativeElement.querySelectorAll('.banner-section');
-    bannerSections.forEach((section: HTMLElement, index: number) => {
-      let translateY = 0;
-      let zIndex = numShows - index;
-      let opacity = 0;
-
-      if (index < currentSection) {
-        // Sections above current - moved up and hidden
-        translateY = -vh;
-        opacity = 0;
-      } else if (index === currentSection) {
-        // Current section - moves up based on scroll progress
-        translateY = -sectionProgress * vh;
-        // Start fading out when section goes beyond 75% up
-        if (sectionProgress > 0.75) {
-          opacity = 1 - (sectionProgress - 0.75) / 0.25; // Fade over the last 25%
-        } else {
-          opacity = 1;
-        }
-        zIndex = numShows + 1;
-      } else {
-        // Sections below current - stay in place and visible
-        translateY = 0;
-        opacity = 1;
-      }
-
-      this.renderer.setStyle(
-        section,
-        'transform',
-        `translateY(${translateY}px)`
-      );
-      this.renderer.setStyle(section, 'zIndex', `${zIndex}`);
-      this.renderer.setStyle(section, 'opacity', `${opacity}`);
-    });
-
-    // Update overlay content with 75% threshold - prevent rapid changes
-    if (textUpdateIndex !== this.currentShowIndex && !this.isMobile) {
-      this.currentShowIndex = textUpdateIndex;
-      this.currentShow = this.mainShows[this.currentShowIndex];
-      this.cdRef.detectChanges();
-    }
-
-    // Handle overlay fade out - improved logic to prevent spazzing
+    // Handle overlay fade out
     let currentOverlayOpacity = 1;
 
-    // Only start fade when we're past the last section
+    // Only start fade when we're past the banner section
     if (scrollY > endOfBannerScroll) {
       const fadeStart = endOfBannerScroll;
       const fadeEnd = endOfBannerScroll + vh * 0.5; // Fade over 50% of viewport height
