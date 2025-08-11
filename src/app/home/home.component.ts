@@ -9,7 +9,18 @@ import {
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
-import { ShowListComponent, ShowListShow } from '../show-list.component';
+// ShowListShow interface moved here since we removed the show-list component
+export interface ShowListShow {
+  title: string;
+  date: string;
+  time?: string;
+  venue: string;
+  description: string;
+  image: string;
+  available: boolean;
+  buttonText?: string;
+  ticketLink?: string;
+}
 
 // --- Interfaces ---
 interface Show {
@@ -29,7 +40,7 @@ interface Show {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ShowListComponent],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   animations: [
@@ -63,10 +74,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   mainShows: Show[] = [
     {
       id: 'paris',
-      title: 'Paris',
+      title: 'Trip to France',
       image: 'assets/images/paris.webp',
       description:
-        'Experience the magic of Paris through music and performance. Join us for an unforgettable evening celebrating the romance, culture, and artistic spirit of the City of Light.',
+        'Experience the magic of Paris through music and performance. Join us for an unforgettable trip celebrating the romance, culture, and artistic spirit of the City of Light.',
       date: 'Coming Soon',
       venue: 'TBA',
       time: 'TBA',
@@ -275,7 +286,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       id: 'BSR',
       title: 'Queens',
-      image: 'assets/images/Romance.webp',
+      image: 'assets/images/queens.png',
       description: '',
       date: 'Feb 26, 2026',
       venue: 'Laurel Manor',
@@ -417,6 +428,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.showOverlay = true;
     this.overlayOpacity = 1;
     this.overlayTransform = 'translateY(0)';
+    
+    // Make the banner section visible
+    if (this.isBrowser) {
+      const bannerSection = document.querySelector('.banner-section') as HTMLElement;
+      if (bannerSection) {
+        bannerSection.style.opacity = '1';
+      }
+    }
+    
     this.cdRef.detectChanges();
   }
 
@@ -426,17 +446,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (this.isMobile) return;
 
-    // For single banner, just handle fade out when scrolling past
+    // For single banner, handle fade out when scrolling past
     const endOfBannerScroll = vh;
 
-    // Handle overlay fade out
+    // Handle overlay fade out - make it more gradual
     let currentOverlayOpacity = 1;
 
-    // Only start fade when we're past the banner section
-    if (scrollY > endOfBannerScroll) {
-      const fadeStart = endOfBannerScroll;
-      const fadeEnd = endOfBannerScroll + vh * 0.5; // Fade over 50% of viewport height
+    // Start fade when we're 50% into the banner section (more gradual)
+    const fadeStart = endOfBannerScroll * 0.5;
+    const fadeEnd = endOfBannerScroll * 0.9; // Complete fade by 90% of banner
 
+    if (scrollY > fadeStart) {
       if (scrollY <= fadeEnd) {
         const fadeProgress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
         currentOverlayOpacity = Math.max(0, 1 - fadeProgress);
@@ -447,11 +467,37 @@ export class HomeComponent implements OnInit, OnDestroy {
       currentOverlayOpacity = 1;
     }
 
-    // Determine overlay visibility with smoother threshold
-    this.showOverlay = currentOverlayOpacity > 0.05;
+    // Determine overlay visibility with stricter threshold
+    this.showOverlay = currentOverlayOpacity > 0.1;
 
     // Apply overlay styles - only opacity, no transform
     this.overlayOpacity = currentOverlayOpacity;
+
+    // Update pointer events and visibility based on opacity
+    if (this.isBrowser) {
+      const bannerSection = document.querySelector(
+        '.banner-section'
+      ) as HTMLElement;
+      const overlayElement = document.querySelector('.show-overlay') as HTMLElement;
+      
+      if (bannerSection) {
+        bannerSection.style.pointerEvents =
+          currentOverlayOpacity > 0.1 ? 'auto' : 'none';
+        // Also fade the banner section itself, but more gradually
+        bannerSection.style.opacity = Math.max(0.3, currentOverlayOpacity).toString();
+      }
+      
+      if (overlayElement) {
+        overlayElement.style.pointerEvents =
+          currentOverlayOpacity > 0.1 ? 'auto' : 'none';
+        // Completely hide the overlay when not visible to prevent interference
+        if (currentOverlayOpacity <= 0.1) {
+          overlayElement.style.display = 'none';
+        } else {
+          overlayElement.style.display = 'flex';
+        }
+      }
+    }
   }
 
   // --- Action Handlers ---
@@ -461,9 +507,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
   }
 
-  onShowButtonClick(show: ShowListShow) {
-    this.handleTicketButtonClick(show as Show);
-  }
+
 
   handleTicketButtonClick(show: Show | null): void {
     if (!show) return;

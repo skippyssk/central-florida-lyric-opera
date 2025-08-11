@@ -79,49 +79,84 @@
 
     <div class="lesser-shows-section">
       <h2>Events</h2>
-      <app-show-list
-        [shows]="lesserShows"
-        mode="lesser"
-        [mobile]="false"
-        (showButtonClick)="onShowButtonClick($event)"
-      ></app-show-list>
+      <div class="show-list-grid">
+        <div *ngFor="let show of lesserShows" class="show-list-card">
+          <img [src]="show.image" [alt]="show.title + ' image'" />
+          <div class="show-list-info">
+            <h3>{{ show.title }}</h3>
+            <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
+            <p class="show-list-description">{{ show.description }}</p>
+            <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
+              {{ show.buttonText ?? (show.available ? 'Learn More' : 'Unavailable') }}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="OCShows-section">
       <h2>Member Only Shows</h2>
-      <app-show-list
-        [shows]="OCShows"
-        mode="oc"
-        [mobile]="false"
-        (showButtonClick)="onShowButtonClick($event)"
-      ></app-show-list>
+      <div class="show-list-oc">
+        <div *ngFor="let show of OCShows" class="show-list-card oc-card">
+          <img [src]="show.image" [alt]="show.title + ' image'" />
+          <div class="show-list-info oc-info">
+            <h3>{{ show.title }}</h3>
+            <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
+            <p class="show-list-description">{{ show.description }}</p>
+            <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
+              {{ show.buttonText ?? (show.available ? 'Learn More' : 'Unavailable') }}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="mobile-view" *ngIf="isMobile">
     <h2>Upcoming Performances</h2>
-    <app-show-list
-      [shows]="mainShows"
-      mode="main"
-      [mobile]="true"
-      (showButtonClick)="onShowButtonClick($event)"
-    ></app-show-list>
+    <div class="show-list-mobile">
+      <div *ngFor="let show of mainShows" class="show-list-card">
+        <img [src]="show.image" [alt]="show.title + ' image'" />
+        <div class="show-list-info">
+          <h3>{{ show.title }}</h3>
+          <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
+          <p class="show-list-description">{{ show.description }}</p>
+          <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
+            {{ show.buttonText ?? (show.available ? 'Buy Tickets' : 'Unavailable') }}
+          </button>
+        </div>
+      </div>
+    </div>
 
     <h2>Events</h2>
-    <app-show-list
-      [shows]="filteredLesserShows"
-      mode="lesser"
-      [mobile]="true"
-      (showButtonClick)="onShowButtonClick($event)"
-    ></app-show-list>
+    <div class="show-list-mobile">
+      <div *ngFor="let show of filteredLesserShows" class="show-list-card">
+        <img [src]="show.image" [alt]="show.title + ' image'" />
+        <div class="show-list-info">
+          <h3>{{ show.title }}</h3>
+          <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
+          <p class="show-list-description">{{ show.description }}</p>
+          <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
+            {{ show.buttonText ?? (show.available ? 'Learn More' : 'Unavailable') }}
+          </button>
+        </div>
+      </div>
+    </div>
 
     <h2>Member Only Shows</h2>
-    <app-show-list
-      [shows]="OCShows"
-      mode="oc"
-      [mobile]="true"
-      (showButtonClick)="onShowButtonClick($event)"
-    ></app-show-list>
+    <div class="show-list-mobile">
+      <div *ngFor="let show of OCShows" class="show-list-card oc-card">
+        <img [src]="show.image" [alt]="show.title + ' image'" />
+        <div class="show-list-info oc-info">
+          <h3>{{ show.title }}</h3>
+          <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
+          <p class="show-list-description">{{ show.description }}</p>
+          <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
+            {{ show.buttonText ?? (show.available ? 'Learn More' : 'Unavailable') }}
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="showMessageBox" class="message-box-container fade-in">
