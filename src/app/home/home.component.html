@@ -85,7 +85,7 @@
           <div class="show-list-info">
             <h3>{{ show.title }}</h3>
             <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
-            <p class="show-list-description">{{ show.description }}</p>
+            <div class="show-list-description" [innerHTML]="formatDescription(show.description)"></div>
             <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
               {{ show.buttonText ?? (show.available ? 'Learn More' : 'Unavailable') }}
             </button>
@@ -102,7 +102,7 @@
           <div class="show-list-info oc-info">
             <h3>{{ show.title }}</h3>
             <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
-            <p class="show-list-description">{{ show.description }}</p>
+            <div class="show-list-description" [innerHTML]="formatDescription(show.description)"></div>
             <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
               {{ show.buttonText ?? (show.available ? 'Learn More' : 'Unavailable') }}
             </button>
@@ -120,7 +120,7 @@
         <div class="show-list-info">
           <h3>{{ show.title }}</h3>
           <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
-          <p class="show-list-description">{{ show.description }}</p>
+          <div class="show-list-description" [innerHTML]="formatDescription(show.description)"></div>
           <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
             {{ show.buttonText ?? (show.available ? 'Buy Tickets' : 'Unavailable') }}
           </button>
@@ -135,7 +135,7 @@
         <div class="show-list-info">
           <h3>{{ show.title }}</h3>
           <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
-          <p class="show-list-description">{{ show.description }}</p>
+          <div class="show-list-description" [innerHTML]="formatDescription(show.description)"></div>
           <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
             {{ show.buttonText ?? (show.available ? 'Learn More' : 'Unavailable') }}
           </button>
@@ -150,7 +150,7 @@
         <div class="show-list-info oc-info">
           <h3>{{ show.title }}</h3>
           <p>{{ show.date }}<span *ngIf="show.time"> - {{ show.time }}</span> | {{ show.venue }}</p>
-          <p class="show-list-description">{{ show.description }}</p>
+          <div class="show-list-description" [innerHTML]="formatDescription(show.description)"></div>
           <button (click)="handleTicketButtonClick(show)" [disabled]="!show.available && !show.buttonText">
             {{ show.buttonText ?? (show.available ? 'Learn More' : 'Unavailable') }}
           </button>

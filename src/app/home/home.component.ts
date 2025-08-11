@@ -78,9 +78,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       image: 'assets/images/paris.webp',
       description:
         'Experience the magic of Paris through music and performance. Join us for an unforgettable trip celebrating the romance, culture, and artistic spirit of the City of Light.',
-      date: 'Coming Soon',
-      venue: 'TBA',
-      time: 'TBA',
+      date: 'April 11, 2026- April 22, 2026',
+      venue: 'Paris, France',
+      time: '',
       ticketLink: '#',
       available: false,
       buttonText: 'Get Details',
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Catch a Rising Star',
       image: 'assets/images/risingSquare.png',
       description:
-        "Experience tomorrow's legends today! Catch a Rising Star showcases extraordinary young talents from The Juilliard School of Music and others in an unforgettable evening of artistry. Your attendance helps shape the future of music.",
+        "Experience tomorrow's legends today! **Catch a Rising Star** showcases extraordinary young talents from **The Juilliard School of Music** and others in an unforgettable evening of artistry.\n\nYour attendance helps shape the future of music.",
       date: 'Oct 9, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '4 PM & 7 PM',
@@ -106,8 +106,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'Broadway Blockbusters',
       title: 'Broadway Blockbusters',
       image: 'assets/images/BBRIntegratedSquare.webp',
-      description:
-        'You know them – you love them! Favorites from The Phantom of the Opera, Cats, Les Misérables, West Side Story, and many more. Starring Heather Ard, Michelle Struhar, Victoria Sexton, Andrew Struhar, Scotty Tomas, Justin Scarlat, Kaitlyn McMonigle, David Gehring, Sam Reynolds, and others perform solos and booming group numbers from everyone’s favorite Broadway Shows.  Maestro Bill Doherty accompanies magnificently on the piano. This intimate, elegant and family-friendly show is guaranteed to please ’cause everybody loves Broadway!',
+      description: `
+**You know them – you love them!**  
+Favorites from *The Phantom of the Opera*, *Cats*, *Les Misérables*, *West Side Story*, and many more.  
+
+**Starring:**  
+Heather Ard, Michelle Struhar, Victoria Sexton, Andrew Struhar, Scotty Tomas, Justin Scarlat, Kaitlyn McMonigle, David Gehring, Sam Reynolds, and others — performing unforgettable solos and booming group numbers from everyone’s favorite Broadway shows.  
+
+**Featuring:**  
+Maestro Bill Doherty, accompanying magnificently on the piano.  
+
+This intimate, elegant, and family-friendly show is **guaranteed to please** — ’cause everybody loves Broadway!
+`,
       date: 'Oct 29, 2025',
       venue: 'The Savannah Center',
       time: '4 PM & 7 PM',
@@ -122,8 +132,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'christmasTimothys',
       title: 'Christmas Spectacular',
       image: 'assets/images/CSsquare.png',
-      description:
-        'Step into a world of holiday wonder as the Central Florida Lyric Opera presents Christmas Spectacular — an unforgettable evening of music, joy, and festive cheer. Featuring beloved Christmas classics, soaring carols, and heartwarming melodies, this dazzling performance brings together the powerful voices of our company, the angelic harmonies of the Saint Timothy’s Choir, and the magic of the season.',
+      description: `
+**Step into a world of holiday wonder** as the Central Florida Lyric Opera presents  
+**Christmas Spectacular** — an unforgettable evening of music, joy, and festive cheer.  
+
+Featuring beloved Christmas classics, soaring carols, and heartwarming melodies,  
+this dazzling performance unites:  
+
+• The **powerful voices** of our company  
+• The **angelic harmonies** of the Saint Timothy’s Choir  
+• And the **magic of the season**  
+
+A celebration sure to leave you filled with the spirit of Christmas.
+`,
       date: 'Dec 11, 2025',
       venue: 'St. Timothys Catholic Church',
       time: '4 PM & 7 PM',
@@ -136,8 +157,17 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'LW',
       title: 'An Intimate Evening of Andrew LLoyd Webber',
       image: 'assets/images/AWRRRR1Square.png',
-      description:
-        'Celebrate the legendary music of Andrew Lloyd Webber with Maestro Bill Doherty and the Central Florida Lyric Opera soloists and Orchestra on January 9th at the Savannah Center. Relish melodies from The Phantom of the Opera, Cats, Sunset Boulevard, Jesus Christ Superstar, and more! Starring Angie Rose, Miguel Salas, Scotty Tomas, Victoria Sexton, Justin Scarlat, David Gehring, Ashley Thunder, Kayla Tassone, and others.',
+      description: `
+**Celebrate the legendary music of Andrew Lloyd Webber** with Maestro Bill Doherty  
+and the Central Florida Lyric Opera Soloists and Orchestra — **January 9th at the Savannah Center**.  
+
+Relish unforgettable melodies from:  
+*The Phantom of the Opera*, *Cats*, *Sunset Boulevard*, *Jesus Christ Superstar*, and more!  
+
+**Starring:**  
+Angie Rose, Miguel Salas, Scotty Tomas, Victoria Sexton, Justin Scarlat, David Gehring,  
+Ashley Thunder, Kayla Tassone, and others.  
+`,
       date: 'Jan 09, 2026',
       time: '4 PM & 7 PM',
       venue: 'The Savannah Center',
@@ -151,8 +181,25 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'Broadway Stars',
       title: 'Broadway Stars with Grant Norman',
       image: 'assets/images/grantPhantomSquare.png',
-      description:
-        'Join Master of Ceremonies Grant Norman, (best known for his portrayal of Phantom in Phantom of the Opera (Broadway) as he takes us on a musical journey along with fellow Broadway stars Melissa Minyard (LES MIS), David Chernault (ANNIE), Christina Sivrich (GREASE), Brian Minyard (ANNIE GET YOUR GUN), Renee Lawless (WICKED on Broadway and TV Star of “The Have & Have Nots") as they talk and sing us through their famed roles in some of the greatest Broadway musicals ever written. Each of these dynamic performers will bring to life their most famous songs and characters - right before your very eyes. In addition, they will perform other famous Broadway duets, trios and ensembles along with the St Timothy Catholic Church Choir and other professional soloists from the Central Florida Lyric Opera. This powerful and charismatic show is sure to delight!  Accompanied on the grand piano by Maestro Bill Doherty.',
+      description: `
+**Join Master of Ceremonies Grant Norman** — best known for his portrayal of *The Phantom* in  
+*The Phantom of the Opera* (Broadway) — as he takes us on a musical journey with fellow Broadway stars:  
+
+• **Melissa Minyard** (*Les Misérables*)  
+• **David Chernault** (*Annie*)  
+• **Christina Sivrich** (*Grease*)  
+• **Brian Minyard** (*Annie Get Your Gun*)  
+• **Renee Lawless** (*Wicked* on Broadway, TV Star of *The Haves & the Have Nots*)  
+
+They will share stories and perform selections from their most celebrated roles in some of the greatest Broadway musicals ever written.  
+
+Expect:  
+• **Iconic solos** that made them famous  
+• **Show-stopping duets, trios, and ensembles**  
+• Performances with the **St. Timothy Catholic Church Choir** and other professional soloists from the Central Florida Lyric Opera  
+
+**Accompanied on the grand piano by Maestro Bill Doherty**, this powerful and charismatic show is sure to delight!
+`,
       date: 'Feb 12, 2026',
       time: '4 PM & 7 PM',
       venue: 'St. Timothys Catholic Church',
@@ -166,8 +213,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'Carmen',
       title: "Bizet's Carmen",
       image: 'assets/images/Carmen ArtworkSquare.png',
-      description:
-        'Passion. Danger. Seduction. Step into the world of Carmen, Bizet’s fiery masterpiece that has captivated audiences for generations. From the irresistible Habanera to the electrifying Toreador Song, every moment bursts with drama, romance, and unforgettable melody. Experience the thrill of opera at its most intoxicating—where love and fate collide in a story you’ll never forget.',
+      description: `
+**Passion. Danger. Seduction.**  
+
+Step into the world of *Carmen*, Bizet’s fiery masterpiece that has captivated audiences for generations.  
+
+From the irresistible **Habanera** to the electrifying **Toreador Song**, every moment bursts with drama, romance, and unforgettable melody.  
+
+Experience the thrill of opera at its most intoxicating — where **love and fate collide** in a story you’ll never forget.
+`,
       date: 'Jan 30, 2026',
       venue: 'The Sharon Performing Arts Center',
       time: '3 PM & 7 PM',
@@ -181,8 +235,17 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'CTW',
       title: 'Change The World',
       image: 'assets/images/CW3 Square.png',
-      description:
-        'Join us for the annual tradition of Change The World, with two performances featuring Maestro Bill Doherty and many other talented local artists as they sing songs of Inspiration, Love, and Hope for World Peace. Uplifting songs from this performance will include classic favorites and renditions of modern music meant to bring happiness to anyone who hears these talented musicians. Partial proceeds from this concert filled with good-will and joy will benefit the National Multiple Sclerosis Society. Don\'t miss the return of the concert that was called "A triumph of community, and a glorious example of how music can heal the soul".',
+      description: `
+**Join us for the annual tradition of *Change The World*** — with two performances featuring  
+Maestro Bill Doherty and many other talented local artists, singing songs of **Inspiration, Love, and Hope** for **World Peace**.  
+
+Enjoy uplifting music, from **classic favorites** to **modern renditions**, all meant to bring happiness to everyone who listens.  
+
+Partial proceeds from this concert — filled with goodwill and joy — will benefit the **National Multiple Sclerosis Society**.  
+
+Don’t miss the return of the concert once called:  
+*"A triumph of community, and a glorious example of how music can heal the soul."*
+`,
       date: 'March 13, 2026',
       time: '3 PM & 7 PM',
       venue: 'The Sharon Performing Arts Center',
@@ -197,8 +260,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'MovieMagic',
       title: 'Movie Magic',
       image: 'assets/images/movieMagic.webp',
-      description:
-        'Step into the spotlight of Hollywood’s golden moments! Movie Magic brings you the greatest songs from the silver screen, including beloved hits like Somewhere Over the Rainbow, Pure Imagination, and timeless favorites from Disney and The Sound of Music. Relive the magic of cinema through unforgettable melodies performed live.',
+      description: `
+**Step into the spotlight of Hollywood’s golden moments!**  
+
+*Movie Magic* brings you the greatest songs from the silver screen, including beloved hits like  
+**Somewhere Over the Rainbow**, **Pure Imagination**, and timeless favorites from *Disney* and *The Sound of Music*.  
+
+Relive the magic of cinema through **unforgettable melodies performed live**.
+`,
       date: 'April 15, 2026',
       venue: 'Savannah Center',
       time: '4 PM & 7 PM',
@@ -211,8 +280,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: 'America',
       title: 'Celebrate America',
       image: 'assets/images/CA1Square.png',
-      description:
-        'Celebrate America is an evening of music and gratitude honoring the men and women who have worn our nation’s uniform. Surrounded by stirring patriotic anthems and timeless hymns of freedom, we’ll salute the sacrifices of generations past while inspiring hope for the future. Join us, lift your voices, and let the power of music remind us all of what makes America worth celebrating.',
+      description: `
+**Celebrate America** is an evening of music and gratitude,  
+honoring the men and women who have worn our nation’s uniform.  
+
+Surrounded by stirring **patriotic anthems** and timeless **hymns of freedom**,  
+we’ll salute the sacrifices of generations past while inspiring hope for the future.  
+
+Join us, lift your voices, and let the **power of music** remind us all of what makes America worth celebrating.
+`,
       date: 'July 2, 2026',
       time: '4 PM & 7 PM',
       venue: 'St. Timothys Catholic Church',
@@ -428,15 +504,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.showOverlay = true;
     this.overlayOpacity = 1;
     this.overlayTransform = 'translateY(0)';
-    
+
     // Make the banner section visible
     if (this.isBrowser) {
-      const bannerSection = document.querySelector('.banner-section') as HTMLElement;
+      const bannerSection = document.querySelector(
+        '.banner-section'
+      ) as HTMLElement;
       if (bannerSection) {
         bannerSection.style.opacity = '1';
       }
     }
-    
+
     this.cdRef.detectChanges();
   }
 
@@ -478,15 +556,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       const bannerSection = document.querySelector(
         '.banner-section'
       ) as HTMLElement;
-      const overlayElement = document.querySelector('.show-overlay') as HTMLElement;
-      
+      const overlayElement = document.querySelector(
+        '.show-overlay'
+      ) as HTMLElement;
+
       if (bannerSection) {
         bannerSection.style.pointerEvents =
           currentOverlayOpacity > 0.1 ? 'auto' : 'none';
         // Also fade the banner section itself, but more gradually
-        bannerSection.style.opacity = Math.max(0.3, currentOverlayOpacity).toString();
+        bannerSection.style.opacity = Math.max(
+          0.3,
+          currentOverlayOpacity
+        ).toString();
       }
-      
+
       if (overlayElement) {
         overlayElement.style.pointerEvents =
           currentOverlayOpacity > 0.1 ? 'auto' : 'none';
@@ -506,8 +589,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     const targetScrollY = index * window.innerHeight;
     window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
   }
-
-
 
   handleTicketButtonClick(show: Show | null): void {
     if (!show) return;
@@ -574,5 +655,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.isBrowser) {
       window.open('https://www.paypal.com/ncp/payment/4KVSTHRDKZGQA', '_blank');
     }
+  }
+
+  formatDescription(description: string): string {
+    return description
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>');
   }
 }
